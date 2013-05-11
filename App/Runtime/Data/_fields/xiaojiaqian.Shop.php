@@ -1,0 +1,2 @@
+<?php
+return array ( 0 => 'id', 1 => 'shop_id', 2 => 'seller_id', 3 => 'cid', 4 => 'name', 5 => 'img', 6 => 'url', 7 => 'ord', 8 => 'is_del', 9 => 'remark1', 10 => 'remark2', 11 => 'seo_title', 12 => 'seo_keys', 13 => 'seo_desc', '_autoinc' => true, '_pk' => 'id', ); ?>

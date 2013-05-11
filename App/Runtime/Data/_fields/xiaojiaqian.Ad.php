@@ -1,0 +1,2 @@
+<?php
+return array ( 0 => 'id', 1 => 'name', 2 => 'size', 3 => 'code', 4 => 'start_time', 5 => 'end_time', 6 => 'add_time', 7 => 'ord', 8 => 'is_del', 9 => 'remark1', 10 => 'remark2', '_autoinc' => true, '_pk' => 'id', ); ?>
