@@ -4,7 +4,7 @@ return array (
   'DEFAULT_LANG' => 'zh-cn',
   'TOKEN_ON' => false,
   'uc_status' => '0',
-  'default_theme' => 'default',
+  'default_theme' => 'mogujie',
   'url_model' => '0',
   'url_rewrite' => '0',
   'url_html' => '0',
