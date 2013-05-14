@@ -204,37 +204,23 @@ $(document).ready(function(){
       <div class="demol_danpin">
         <div class="info">
 
-          <div class="pic bgload"><a class="item_url" href="{:get_url('index',$voItems['id'],'item')}" title="{$voItems.title}"><img class="item_img" alt="{$voItems.title}" <if condition="$voItems['img'] neq ''">src="{$voItems.img|get_img=###,210}"<else/>src="__TMPL__Public/img/undefined.jpg"</if> width="200"/></a><span class="au"><span class="item_price">￥{$voItems.price}</span><i></i></span>
+			<div class="whoshare">
+				<p class="item_title">{$voItems.title}</p>
+			</div>
+		
+			<div class="pic bgload">
+				<a class="item_url" href="{:get_url('index',$voItems['id'],'item')}" title="{$voItems.title}"><img class="item_img" alt="{$voItems.title}" <if condition="$voItems['img'] neq ''">src="{$voItems.img|get_img=###,210}"<else/>src="__TMPL__Public/img/undefined.jpg"</if> width="200"/></a>
 
-		  <ul class="op" style="display:none;">
-		  	<input type="hidden" name="" id="like_post_action" value="{:get_url('createlike','','user')}"><input type="hidden" name="" id="like_post_location" value="{:get_url('login','','user')}">
-		  	<li class="s1 like" item_id="{$voItems['id']}"><if condition="$likes[$voItems['id']] eq 1">已喜欢<else/>喜欢一下</if></li>
-            <li class="s2"><a class="add" href="{:get_url('addAlbum',$voItems['id'],'album')}" target="_blank" style="color:#333333;text-decoration:none">加入专辑</a></li>
-          </ul>
-		  </div>
-          <div class="meta"><span><a class="add" href="{:get_url('index',$voItems['id'],'item')}#comm" style="text-decoration:none;">{$voItems.comments} 评论</a></span> <span id="{$voItems['id']}">{$voItems.likes} 喜欢</span></div>
-          <div class="whoshare">
-            <p class="item_title">{$voItems.title}</p>
-          </div>
+				<ul class="op" style="display:none;">
+				<input type="hidden" name="" id="like_post_action" value="{:get_url('createlike','','user')}"><input type="hidden" name="" id="like_post_location" value="{:get_url('login','','user')}">
+				<li class="s1 like" item_id="{$voItems['id']}"><if condition="$likes[$voItems['id']] eq 1">已喜欢<else/>喜欢一下</if></li>
+				<li class="s2"><a class="add" href="{:get_url('addAlbum',$voItems['id'],'album')}" target="_blank" style="color:#333333;text-decoration:none">加入专辑</a></li>
+				</ul>
+			</div>
+          
+			<div class="buy_content"><span class="new_price"><span class="price_sign">￥</span>{$voItems.price}</span></div>
         </div>
-            <div class="replay">
-			<dl class="Comment">
-            <dt><a href="{:get_url('index',$voItems['uid'],'user')}"><img onerror="this.src='__PUBLIC__/statics/images/avatar-60.png'" src=<if condition="$voItems['userimg'] neq ''">"{:C('web_path')}Uploads/avatar_small/{$voItems.userimg}"<else/>"__PUBLIC__/statics/images/avatar-60.png"</if> style="width:30px;"/></a></dt>
-            <dd><a class="aur" href="{:get_url('index',$voItems['uid'],'user')}"><em>{$voItems.username}</em></a>分享于<span class="time">{$voItems.add_time|date='Y年m月d日 H:i:s',###}</span></dd>
-          </dl>
-		 <present name="voItems['ablum_info']">
-          <dl class="Comment">
-            <dt><a href="{:get_url('index',$voItems['ablum_info']['uid'],'user')}"><img onerror="this.src='__PUBLIC__/statics/images/avatar-60.png'" src=<if condition="$voItems['ablum_info']['img'] neq ''">"{:C('web_path')}Uploads/avatar_small/{$voItems.ablum_info.img}"<else/>"__PUBLIC__/statics/images/avatar-60.png"</if> style="width:30px;"/></a></dt>
-            <dd><a class="aur" href="{:get_url('index',$voItems['ablum_info']['uid'],'user')}">{$voItems.ablum_info.uname}</a> 加入<a class="aur"  href="{:get_url('albumDetail',$voItems['ablum_info']['id'],'user')}"><strong>{$voItems.ablum_info.title}</strong></a>专辑</dd>
-          </dl>
-		  </present>
-		  <present name="voItems['commnets_info']">
-          <dl class="Comment">
-            <dt><a href="{:get_url('index',$voItems['commnets_info']['uid'],'user')}"><img onerror="this.src='__PUBLIC__/statics/images/avatar-60.png'" src=<if condition="$voItems['commnets_info']['img'] neq ''">"{:C('web_path')}Uploads/avatar_small/{$voItems.commnets_info.img}"<else/>"__PUBLIC__/statics/images/avatar-60.png"</if> style="width:30px;" /></a></dt>
-            <dd><a class="aur" href="{:get_url('index',$voItems['commnets_info']['uid'],'user')}">{$voItems.commnets_info.name}：</a>{$voItems.commnets_info.info}</dd>
-          </dl>
-		  </present>
-        </div>
+            
       </div>
     </div>
 </volist>
