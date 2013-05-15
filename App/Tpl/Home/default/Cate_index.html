@@ -1,7 +1,7 @@
 <include file="Public:header" />
 
 <div class="wrap">
-  <div class="sortA clearfix">
+<!--  <div class="sortA clearfix">
     <div class="sortl">
 	  <volist name="p_cate_list" id="vop">
         <if condition="$vop['id'] eq  $id"> <img src="<php>echo C('web_path').ltrim($vop['img'],'/');</php>" width="85" alt="{$vop.name}"></if>
@@ -26,9 +26,9 @@
   </div>
   <if condition="get_ad(3) neq ''">
   <center> <div style="width:970px;height:90px;overflow:hidden;margin-bottom:15px;">{:get_ad(3)}</div></center>
-  </if>
+  </if>-->
 <div class="boxA">
-<div id="cate_name" style="display:none;">{$cate_name}</div>
+<!--<div id="cate_name" style="display:none;">{$cate_name}</div>
 <div id="tag_name" style="display:none;">{$tag_name}</div>
 <div class="imagewall_sort">
   <div class="fl t_sortby">
@@ -42,7 +42,7 @@
   	<span title="201-500元"><a name="500" href="{:get_url(ACTION_NAME,$id,'cate',$sortby,'500')}"  class=<if condition="$price eq '500'">"cur"</if>>500</a></span> | 
   	<span title="500元以上"><a name="501" href="{:get_url(ACTION_NAME,$id,'cate',$sortby,'501')}"  class=<if condition="$price eq '501'">"cur"</if>>更高</a></span>
   </div>
-</div>
+</div>-->
  <include file="Public:itemsList"/>
 </div>
  <if condition="get_ad(4) neq ''"><br>
