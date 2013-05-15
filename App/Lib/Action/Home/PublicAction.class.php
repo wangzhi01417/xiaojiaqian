@@ -42,7 +42,7 @@ class PublicAction extends BaseAction{
 			$errinfo = true;
 		}
 		if($errinfo){ //存在错误时
-			//get_404();
+			get_404();
 		}
 		$this->assign("cate_name",$cate_info['name']);//获取相应分类名称
 		$this->assign("id",$id);
@@ -51,27 +51,22 @@ class PublicAction extends BaseAction{
 		//获取分类内容
 		$items_mod=M("Items");//创建单品模型
 		import("ORG.Util.Page"); // 导入分页类
-		if($id==0)
-		   $where = "is_del = 0 and status = 1 ";
-		else
-		{
-			if($price=="0"){
-				$where = "1=1 and cid = $id and is_del = 0 and status = 1 ";
+		if($price=="0"){
+			$where = "1=1 and cid = $id and is_del = 0 and status = 1 ";
+		}else{
+			if($price=="100"){
+				$sql_price="price <= 100";
+			}elseif($price=="200"){
+				$sql_price="price between 101 and 200";
+			}elseif($price=="500"){
+				$sql_price="price between 201 and 500";
+			}elseif($price=="501"){
+				$sql_price="price >500";
 			}else{
-				if($price=="100"){
-					$sql_price="price <= 100";
-				}elseif($price=="200"){
-					$sql_price="price between 101 and 200";
-				}elseif($price=="500"){
-					$sql_price="price between 201 and 500";
-				}elseif($price=="501"){
-					$sql_price="price >500";
-				}else{
-					get_404();
-				}
-				$where = "1=1 and cid = $id and is_del = 0 and status = 1 and ".$sql_price;
+				get_404();
 			}
-	  }
+			$where = "1=1 and cid = $id and is_del = 0 and status = 1 and ".$sql_price;
+		}
 		$this->assign("sortby",$sortby);
 		$this->assign("price",$price);
 		$count=$items_mod->where($where)->count(); // 查询满足要求的总记录数
