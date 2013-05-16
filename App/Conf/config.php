@@ -21,7 +21,7 @@ return array (
   'site_title' => '简单CMS_全球最大的中国女性购物社区，分享网购乐趣，发现潮流精品。',
   'site_keyword' => '购物，交友，分享社区。',
   'site_description' => '简单CMS官方网站，全球最大的中的女性购物社区，上千万女性会员一起发现时尚至IN的扮美单品，交流最新最热的时尚穿搭，分享在各大购物网站的网购经验。',
-  'default_kw' => '宝贝...',
+  'default_kw' => '宝贝、专辑...',
   'site_icp' => '',
   'statistics_code' => '<script src="http://s13.cnzz.com/stat.php?id=4511326&web_id=4511326&show=pic" language="JavaScript"></script>',
   'record' => 'copyright ©2012 All Rights Reserved.',
