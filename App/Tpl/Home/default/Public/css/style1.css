@@ -34,10 +34,15 @@ body{background:#F2F0F0}
 .demol_danpin .whoshare .aur{color:#5FAA92}
 .demol_danpin .whoshare p{color:#666;padding:5px 0 5px;line-height:21px}
 .demol_danpin .whoshare .aupic{float:left;margin:5px 7px 0 0}
+
 .demol_danpin .replay{border-radius:0 0 10px 10px;margin-bottom:10px}
 .demol_danpin .replay .add{background:#F5F5F1;}
 .demol_danpin .replay .Comment{background:#fff}
 .demol_danpin .info{background:#fff;padding:10px 10px 0;border-radius:5px 5px 0 0;border-bottom:solid 1px #E1E1E1}
+.buy_content {padding:5px 4px;}
+.new_price{ color:#0c9539; font:800 28px "微软雅黑","arial"; }
+.price_sign{color:#0c9539; font-size:18px}
+
 .page{text-align:center;clear:both;padding:10px 0}
 .page a{height:22px;line-height:22px;padding:0 5px;display:inline-block;font-weight:bold;margin:0 3px;font-size:12px;color:#666}
 .page a:hover{background:#666;border-radius:3px;color:#fff;text-decoration:none}
