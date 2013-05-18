@@ -20,7 +20,7 @@ a.lc{color:#5FAA92}
 .rr5{border-radius:0 5px 5px 0px}
 .fl{float:left;display:inline}
 .fr{float:right;display:inline}
-body{font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:160%;background:#ffffff;}
+body{font-family:"微软雅黑","宋体",Arial, Helvetica, sans-serif;font-size:12px;line-height:160%;background:#ffffff;}
 .header{margin-bottom:15px}
 .info_bar{background:#ffffff; left bottom;height:82px}
 .info_bar .fm970{position:relative;height:92px;z-index:100}
@@ -157,10 +157,7 @@ div.au i,span.au i{background:url(../img/index_img_au_bg.png) no-repeat right to
 .brand_pp img{border:solid 1px #dbdcda;margin:0 9px 10px 0;width:49px;height:49px;display:inline;float:left}
 .brand_sc img{border:solid 1px #dbdcda;margin:0 3px 6px 0;width:114px;height:51px;display:inline;float:left}
 .brand .goto{right:10px}
-.sitemap{width:970px;margin:0 auto;overflow:hidden;zoom:1;padding:0 0 20px 120px}
-.sitemap dl{width:175px;float:left}
-.sitemap dt{font-size:14px;font-weight:bold;margin-bottom:5px}
-.sitemap a{color:#5FAA92}
+
 .whohere{overflow:hidden;zoom:1}
 .whohere .daren{float:left;margin-left:5px}
 .whohere .share_items{float:right;width:660px}

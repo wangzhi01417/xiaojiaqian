@@ -1,11 +1,7 @@
 /* CSS Document */
-body{background:#F2F0F0}
-.boxA{border-radius:10px;padding:10px 5px;overflow:hidden;zoom:1;border:solid 1px #DBDCDA}
+.boxA{}
 #container .col{width:222px;border-radius:10px;padding:0 8px;_padding:0 4px}
-.demol_danpin{padding:0px 0px 0;margin-bottom:20px;zoom:1;background:#ffffff;border-radius:5px;border:solid 1px #E1E1E1;-moz-box-shadow:2px 2px 2px #DBDEDF;/*firefox*/
-	-webkit-box-shadow:2px 2px 2px #DBDEDF;/*safari or chrome*/
-	box-shadow:2px 2px 2px #DBDEDF;/*opera or ie9*/
-}
+.demol_danpin{padding:0px 0px 0;margin-bottom:20px;zoom:1;background:#ffffff;border:solid 1px #E1E1E1;}
 .demol_danpin .pic{width:200px;height:200px;margin:0 auto 4px;position:relative;overflow:hidden}
 .demol_danpin .pic img{margin-bottom:3px}
 .demol_danpin .pic .au{position:absolute;right:10px;bottom:10px}
@@ -38,10 +34,11 @@ body{background:#F2F0F0}
 .demol_danpin .replay{border-radius:0 0 10px 10px;margin-bottom:10px}
 .demol_danpin .replay .add{background:#F5F5F1;}
 .demol_danpin .replay .Comment{background:#fff}
-.demol_danpin .info{background:#fff;padding:10px 10px 0;border-radius:5px 5px 0 0;border-bottom:solid 1px #E1E1E1}
-.buy_content {padding:5px 4px;}
-.new_price{ color:#0c9539; font:800 28px "微软雅黑","arial"; }
-.price_sign{color:#0c9539; font-size:18px}
+.demol_danpin .info{background:#fff;padding:10px 10px 0;}
+.buy_content {padding:5px 0; margin-bottom:10px; background:url("../img/goods_tag_status.png") no-repeat scroll 0 0 transparent}
+.new_price{ color:#ff7900; font:800 25px "微软雅黑","arial"; }
+.old_price{ color:#045f22; font:200 20px ; padding-left:5px;  text-decoration:line-through;}
+.price_sign{color:#ff7900; font-size:18px}
 
 .page{text-align:center;clear:both;padding:10px 0}
 .page a{height:22px;line-height:22px;padding:0 5px;display:inline-block;font-weight:bold;margin:0 3px;font-size:12px;color:#666}
@@ -539,3 +536,61 @@ span.likeit em.hc{color:#CB383B;font-weight:100}
 
 .dianpuh2{color: #666666;font-size: 16px;height: 30px;line-height: 40px; margin: 0 0 0 5px;}
 .demol_danpin dl{padding:8px 6px;border-bottom:0}
+
+.footer{ padding-top:10px;}
+.footer_Con{width:970px;margin:0 auto;}
+.footer_Nums {
+    background: url(../img/footer_banner.jpg) no-repeat scroll center center transparent;
+    border-color: #E1E1E1;
+    border-style: solid;
+    border-width: 1px 0;
+    height: 27px;
+    padding: 20px 0;
+}
+.footer_Copy {
+    background-color: #FAFAFA;
+    color: #999999;
+    padding: 30px 0 70px;
+    text-align: center;
+}
+.footer_Link {
+	border-top: 1px dotted #CCCCCC; color: #999999;
+    height: 15px;
+    padding: 10px;
+    width: 970px;
+	white-space:nowrap;
+}
+
+.footer_Link p{
+	float:left;
+}
+.footer_Link  ul {
+	float:left;
+}
+.footer_Link  ul li{
+	float:left;
+}
+
+.footer_Link  a {
+	float:right;
+	padding:0 10px;
+}
+
+.link_list{
+	overflow: hidden;
+    position: relative;
+    white-space: nowrap;
+    width: 500px;
+}
+
+.links_list_box{
+	float: left;
+    height: 15px;
+    overflow: hidden;
+    position: relative;
+    width: 500px;
+}
+.sitemap{width:970px; height:150px;margin:0 auto; padding:20px 0; text-align:center;}
+.sitemap dl{float:left;display:inline; width:194px;}
+.sitemap dt{font-size:14px;font-weight:bold;margin-bottom:5px}
+.sitemap a{color:#5FAA92}

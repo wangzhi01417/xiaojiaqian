@@ -1,37 +1,61 @@
-<div class="sitemap">
-  <dl>
-    <dt>网站地图</dt>
-    <volist name="p_cate_list" id="cval">
-	  <dd><a href="{:get_url('index',$cval['id'],'cate')}">发现{$cval.name}</a></dd>
-	  </volist>
-  </dl>
-  <dl>
-    <dt>关注我们</dt>
-    <dd><php>echo strclean(C('follow_us'));</php></dd>
-    <dd><php>echo strclean(C('follow_us2'));</php></dd>
-    <dd><php>echo strclean(C('follow_us3'));</php></dd>
-    <dd><php>echo strclean(C('follow_us4'));</php></dd>
-    <dd><php>echo strclean(C('follow_us5'));</php></dd>
-    <dd><php>echo strclean(C('follow_us6'));</php></dd>
-  </dl>
-  <dl>
-    <dt></dt>
-    <dd><a href="{:C('site_domain')}"><img src="__PUBLIC__/statics/images/logo_bot.jpg" width="120"></a></dd>
-  </dl>
-  <dl>
-    <dt>网站相关</dt>
-    <dd><a href="__PUBLIC__/statics/sitemap.html" target="_blank">网站地图</a></dd>
-    <dd><a href="__PUBLIC__/statics/sitemap.xml" target="_blank">sitemap</a></dd>
-    <dd><php>echo strclean(C('site_icp'));</php></dd>
-    <dd><php>echo strclean(C('statistics_code'));</php></dd>
-  </dl>
-  <dl>
-    <dt>友情链接</dt>
-	  <volist name="linkList" id="val">
-	  	<dd><a href="{$val.url}" target="_blank">{$val.name}</a></dd>
-	  </volist>
-  </dl>
+<div class="footer">
+	<div class="footer_Con">
+		<ul class="footer_Nums">
+			
+		</ul>
+		<div class="sitemap">
+		  <dl>
+			<dt>帮助中心</dt>
+			<volist name="p_cate_list" id="cval">
+			  <dd><a href="{:get_url('index',$cval['id'],'cate')}">发现{$cval.name}</a></dd>
+			  </volist>
+		  </dl>		  
+		  
+		  <dl>
+			<dt>商务合作</dt>
+			<dd><a href="__PUBLIC__/statics/sitemap.html" target="_blank">网站地图</a></dd>
+			<dd><a href="__PUBLIC__/statics/sitemap.xml" target="_blank">sitemap</a></dd>
+			<dd><php>echo strclean(C('site_icp'));</php></dd>
+			<dd><php>echo strclean(C('statistics_code'));</php></dd>
+		  </dl>
+		  
+		  <dl>
+			<dt></dt>
+			<dd><a href="{:C('site_domain')}"><img src="__PUBLIC__/statics/images/logo_bot.png"></a></dd>
+		  </dl>
+		  
+		  <dl>
+			<dt>关于我们</dt>
+			  <volist name="linkList" id="val">
+				<dd><a href="{$val.url}" target="_blank">{$val.name}</a></dd>
+			  </volist>
+		  </dl>
+		  
+		  <dl>
+			<dt>关注我们</dt>
+			<dd><php>echo strclean(C('follow_us'));</php></dd>
+			<dd><php>echo strclean(C('follow_us2'));</php></dd>
+			<dd><php>echo strclean(C('follow_us3'));</php></dd>
+			<dd><php>echo strclean(C('follow_us4'));</php></dd>
+			<dd><php>echo strclean(C('follow_us5'));</php></dd>
+			<dd><php>echo strclean(C('follow_us6'));</php></dd>
+		  </dl>
+		</div>
+		
+		<div class="footer_Link">
+			<p>友情链接：</p>
+			<ul class="links_list">
+				<li><a href="#">九块邮</a> <a href="#">淡辣网</a> <a href="#">一品泊</a></li>
+			</ul>
+			<a href="#">更多>></a>
+		</div>
+	</div>
+
+	<div class="footer_Copy">
+		ssssssssss
+	</div>
 </div>
+
 <div style="display:none;" id="gotopbtn" class="back2top"><a href="javascript:void(0);"></a></div>
 <script type="text/javascript">
 $(function() {
