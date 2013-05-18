@@ -35,7 +35,9 @@
 .demol_danpin .replay .add{background:#F5F5F1;}
 .demol_danpin .replay .Comment{background:#fff}
 .demol_danpin .info{background:#fff;padding:10px 10px 0;}
-.buy_content {padding:5px 0; margin-bottom:10px; background:url("../img/goods_tag_status.png") no-repeat scroll 0 0 transparent}
+.buy_content {padding:5px 0; margin-bottom:10px;  border-top: solid 1px #e1e1e1; background:url("../img/goods_tag_status.png") no-repeat scroll 0 0 transparent;}
+.buy_content .buy_action{text-decoration: none; width:200px; display: block; }
+.buy_content .btn{float: right; width: 60px; height: 32px; right: 2px; }
 .new_price{ color:#ff7900; font:800 25px "微软雅黑","arial"; }
 .old_price{ color:#045f22; font:200 20px ; padding-left:5px;  text-decoration:line-through;}
 .price_sign{color:#ff7900; font-size:18px}

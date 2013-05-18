@@ -208,7 +208,9 @@ $(document).ready(function(){
         <div class="info">
 
           <div class="whoshare">
-				<p class="item_title">{$voItems.title}</p>
+          		<a href="{:get_url('index',$voItems['id'],'item')}" title="{$voItems.title}">
+					<p class="item_title">{$voItems.title}</p>
+				</a>
 			</div>
 		
 			<div class="pic bgload">
@@ -216,7 +218,9 @@ $(document).ready(function(){
 			</div>
           
 			<div class="buy_content"> 
+				<a class="buy_action" href="{:get_url('index',$voItems['id'],'item')}" title="{$voItems.title}">
 				<span class="new_price"><span class="price_sign">￥</span>{$voItems.price}</span>
+				</a>
 			</div>
         </div>
 <!--            <div class="replay">
