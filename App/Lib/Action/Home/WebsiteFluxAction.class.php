@@ -46,7 +46,7 @@ class WebsiteFluxAction extends BaseAction {
 	}
 
 	function setCookie(){
-		if(!isset(cookie('UVcookie'))){
+		if(!isset($_COOKIE['UVcookie'])){
 			$dead_time = strtotime(date("Y-m-d",strtotime("+1 day")));
 			// if(empty($domain))
 			//  $domain = '.'.$_SERVER['HTTP_HOST'];
@@ -54,4 +54,8 @@ class WebsiteFluxAction extends BaseAction {
 		}
 	}
 }
+
+$fluxAction = new WebsiteFluxAction();
+$fluxAction->setPV();
+$fluxAction->setUV();
 ?>
