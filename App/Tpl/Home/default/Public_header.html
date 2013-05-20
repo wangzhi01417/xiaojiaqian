@@ -84,31 +84,9 @@ $(function(){
 
 </head>
 <body>
-<div id="web_path" style="display:none;">{:C('web_path')}</div>
-  <div class="nav_main" id="header_fixed">
-    <div class="fm970">
-      <ul class="fl cl">
-        <li class=<if condition="'index' eq $curpage"> cur</if>><a href="{:C('site_domain')}">首页</a></li>
-	<!--	<li class=<if condition="'album' eq $curpage"> cur</if>><a href="{:get_url('index','','album')}">专辑</a></li>-->
-		<volist name="p_cate_list" id="vop">
-        <li class=<if condition="$vop['id'] eq $id"> cur</if>><a href="{:get_url('index',$vop['id'],'cate')}">{$vop.name}</a></li>
-		</volist>
-      </ul>
-      <ul class="op">
-			<li class="out"><a href="{:get_url('register','','user')}"><b>注册</b></a>|<a href="{:get_url('login','','user')}"><b>登录</b></a></li>
-			<li class="out"><a class="t_sina" href="{:get_url('sinalogin','','user')}" target="_blank"><i>微博登录</i></a></li>
-			<li class="out"><a class="t_qz" href="{:get_url('qqlogin','','user')}" target="_blank"><i>QQ登录</i></a></li>
-			<li class="out"><a class="t_tb" href="{:get_url('taobaologin','','user')}" target="_blank"><i>淘宝登录</i></a></li>
-
-			<li class="in">欢迎您<a href="{:get_url('index','','user')}"><b id="username">{$nav_user_info.name}</b></a></li>
-			<li class="in"><a href="{:get_url('release','','user')}"><i>发布分享</i></a></li>
-	        <li class="in"><a href="{:get_url('account','','user')}">个人设置</a></li>
-			<li class="in" ><a href="{:get_url('logout','','user')}">退出</a></li>		
-      </ul>
-    </div>
-    <div class="clear"></div>
-  </div>
-
+<div id="web_path" style="display:none;">
+	{:C('web_path')}
+</div>
 <div class="head">
 	<div class="logo">
 		<h1><a href="http:www.xiaojiaqian.com" title="小价钱，大实惠">小价钱</a></h1>
@@ -118,7 +96,7 @@ $(function(){
 			<input name="m" type="hidden" value="Search">
 			<input name="g" type="hidden" value="Home">
 			<input type="text" name="keywords" class="text" id="keywd" value="" data-keyword="<present name='keywords'>{$keywords}<else/>{:C('default_kw')}</present>" placeholder="{:C('default_kw')}" autoComplete= "Off"/>
-			<input type="image" class="btn" value=""/>
+			<input type="submit" class="btn" value=""/>
 		 </form>
 		</div>
 	</div>
@@ -137,19 +115,6 @@ $(function(){
 			<li class=<if condition="$vop['id'] eq $id"> cur</if>><a href="{:get_url('index',$vop['id'],'cate')}">{$vop.name}</a></li>
 			</volist>
 		</ul>
-		<!--
-		<ul class="op">
-			<li class="out"><a href="{:get_url('register','','user')}"><b>注册</b></a>|<a href="{:get_url('login','','user')}"><b>登录</b></a></li>
-			<li class="out"><a class="t_sina" href="{:get_url('sinalogin','','user')}" target="_blank"><i>微博登录</i></a></li>
-			<li class="out"><a class="t_qz" href="{:get_url('qqlogin','','user')}" target="_blank"><i>QQ登录</i></a></li>
-			<li class="out"><a class="t_tb" href="{:get_url('taobaologin','','user')}" target="_blank"><i>淘宝登录</i></a></li>
-
-			<li class="in">欢迎您<a href="{:get_url('index','','user')}"><b id="username">{$nav_user_info.name}</b></a></li>
-			<li class="in"><a href="{:get_url('release','','user')}"><i>发布分享</i></a></li>
-		    <li class="in"><a href="{:get_url('account','','user')}">个人设置</a></li>
-			<li class="in" ><a href="{:get_url('logout','','user')}">退出</a></li>		
-		</ul>
-		-->
     </div>
     <div class="clear"></div>
 </div>
