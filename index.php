@@ -11,4 +11,4 @@ define('APP_NAME', 'App');
 define('APP_PATH', './App/');
 // 加载框架入口文件
 require( THINK_PATH.'ThinkPHP.php');
-require('./App/Lib/Action/Home/WebsiteFluxAction.class.php');
+//require('./App/Lib/Action/Home/WebsiteFluxAction.class.php');
