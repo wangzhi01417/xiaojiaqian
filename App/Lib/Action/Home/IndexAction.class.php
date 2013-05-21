@@ -95,7 +95,10 @@ class IndexAction extends BaseAction {
 		
 		//替换模板seo的值
 		$seo['title']=!empty($cate_info['seo_title']) ? $cate_info['seo_title'] : $cate_info['name'];
-		$seo['title'].="-".C("site_name");
+		if (empty($seo['title']))
+			$seo['title'].=C("site_name");
+		else
+			$seo['title'].="-".C("site_name");
 		$seo['keys']=!empty($cate_info['seo_keys']) ? $cate_info['seo_keys'] : C("site_keyword");
 		$seo['desc']=!empty($cate_info['seo_desc']) ? $cate_info['seo_desc'] : C("site_description");
 		$this->assign("seo",$seo);
