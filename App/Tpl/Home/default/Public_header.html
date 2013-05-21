@@ -17,48 +17,9 @@
 .op .out{display:none}
 </style>
 
-<script>
-$(document).ready(function(){
-	//登录
-	var id = $.cookie('id');
-	var username =$.cookie('name');
-	if(id > 0){
-		$(".op .in").show();
-		if(username != ''){
-			$('#username').text(username);
-		}
-	}else{
-		$(".op .out").show();
-	}
-	//搜索
-	var web_path=$('#web_path').text();
-	<present name="album">
-		$('.search #album').addClass('cur').siblings().removeClass('cur');
-		$(".search form").attr('action',web_path+'index.php?a=album&m=Search&g=Home');
-		$('#a').val('album');
-	</present>
-	
-	$(".search li").click(function(){
-		$(this).addClass('cur').siblings().removeClass('cur');
-		var a = $(this).attr('id');
-		$(".search form").attr('action',web_path+'index.php?a='+a+'&m=Search&g=Home');
-		$('#a').val(a);
-	})
 
-	var key = $(".btn_txt").attr('placeholder');
-	
-	$(".search_btn_txt").focus(function(){
-		if($(".search_btn_txt").val() == key){
-			$(this).val('');
-		}
-	});
-	
-	$(".search_btn_txt").blur(function(){
-		if($(".search_btn_txt").val() == ''){
-			$(this).val(key);
-		}
-	});
-});
+<script>
+
 $(function(){
 		var nav_top = $('.nav_offsetTop').offset().top; 
 		$show_nav = function() {
@@ -69,6 +30,7 @@ $(function(){
 			$("#header_fixed").hide();
 		}
 	};
+
 	$(window).bind("scroll", $show_nav);
 })
 $(function(){
@@ -81,12 +43,29 @@ $(function(){
 	}
 })
 </script>
-
 </head>
 <body>
 <div id="web_path" style="display:none;">
 	{:C('web_path')}
 </div>
+
+<div class="nav" id="header_fixed">
+    <div class="mask"></div>
+		<ul class="navigation">
+			<li class="attention">
+				<div class="bdshare">
+					<a class="sinaIcon" href="http://e.weibo.com/xiaojiaqiancom" target="_blank"></a>
+					<a class="qqwbIcon" href="http://t.qq.com/xiaojiaqiancom" target="_blank"></a>
+				</div>
+			</li>
+			<li class=<if condition="'index' eq $curpage"> cur</if>><a href="{:C('site_domain')}">首页</a></li>
+			<!--<li class=<if condition="'album' eq $curpage"> cur</if>><a href="{:get_url('index','','album')}">专辑</a></li>-->
+			<volist name="p_cate_list" id="vop">
+			<li class=<if condition="$vop['id'] eq $id"> cur</if>><a href="{:get_url('index',$vop['id'],'cate')}">{$vop.name}</a></li>
+			</volist>
+		</ul>
+ 	<div class="clear"></div>
+</div>   
 <div class="head">
 	<div class="logo">
 		<h1><a href="http:www.xiaojiaqian.com" title="小价钱，大实惠">小价钱</a></h1>
@@ -100,7 +79,7 @@ $(function(){
 		 </form>
 		</div>
 	</div>
-    <div class="nav">
+    <div class="nav nav_offsetTop">
     	<div class="mask"></div>
 		<ul class="navigation">
 			<li class="attention">
@@ -118,4 +97,3 @@ $(function(){
     </div>
     <div class="clear"></div>
 </div>
-
