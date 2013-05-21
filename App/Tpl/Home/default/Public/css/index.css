@@ -28,13 +28,145 @@ body{font-family:"微软雅黑","宋体",Arial, Helvetica, sans-serif;font-size:
 .login_info .sub{color:#fff;margin:4px 2px 4px 4px;padding:4px 10px;font-weight:bold;font-size:14px;width:55px;height:43px;background-color:#ee8f00;border:none;text-decoration:none;-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px}
 .login_info .sub:hover {background-color:#e78b00;text-decoration:none;color:#FFF}
 .logo em{display:block;color:#999}
-.nav_main{background:#29ab54;height:34px;line-height:34px;overflow:hidden}
+
 #header_fixed{position: fixed;width:100%;z-index:9999;display:none}
+.head{
+	background: url(../img/top_bg.jpg);
+	height: 114px;
+	position: relative;
+	width: 100%;
+}
+.logo{
+	height: 74px;
+	margin: 0 auto;
+	position: relative;
+	width: 970px;
+}
+.logo h1{
+	height: 55px;
+	position: absolute;
+	top: 13px;
+}
+.logo h1 a{
+	background: url(../img/logo.jpg);
+	display: block;
+	height: 55px;
+	width: 166px;
+	text-indent: -999px;
+}
+
+.search_box{
+	height: 30px;
+	line-height: 30px;
+	position: absolute;
+	right: 0;
+	top: 25px;
+}
+.search_box .text{
+	float: left;
+	background: url(../img/search_left.gif) no-repeat;
+	color: #999999;
+	border:0 none;
+	outline: 0 none;
+	height: 26px;
+	line-height: 26px;
+	padding-left: 27px;
+	width: 166px !important;
+
+}
+.search_box .btn{
+	float: left;
+	background: url(../img/search_right.gif);
+	height: 26px;
+	width: 66px;
+	border: 0 none;
+	outline: 0 none;
+}
+
+.nav{
+	position: relative;
+	height: 36px;
+	margin: 0 auto;
+}
+.mask{
+	height: 36px; margin: 0 auto;
+}
+
+.navigation {
+    height: 36px;
+    left: 50%;
+    margin-left: -485px;
+    position: absolute;
+    top: 0;
+    width: 970px;
+}
+.navigation .cur{
+    background: url(../img/nav_cur.png) repeat-x scroll right center transparent;
+}
+
+.navigation .attention {
+    float: right;
+}
+
+.navigation .attention label{
+	color: #fff;
+	float: left;
+	margin-top: 10px;
+}
+
+.navigation .attention .bdshare{
+	float: left;
+}
+
+.navigation .attention .sinaIcon{
+	background: url("../img/sina.png") no-repeat;
+	height: 23px;
+	width: 62px;
+	padding-right: 3px;
+}
+
+.navigation .attention .qqwbIcon{
+	background: url("../img/qq.png") no-repeat;
+	height: 22px;
+	width: 57px;
+}
+
+.navigation .attention a{
+	float: left;
+	text-indent: -999px;
+	margin-top: 7px;
+	padding:0;
+	display: block;
+	background: #000000;
+}
+
+.navigation li{
+    background: url(../img/nav_normal.png) no-repeat scroll right center transparent;
+    float: left;
+    height: 100%;
+    position: relative;
+}
+
+.navigation li a{
+	float: left;
+	color: #fff;
+	height: 36px;
+	line-height: 36px;
+	text-align: center;
+	font-size: 14px;
+	font-weight: bold;
+	padding: 0 24px;
+}
+.navigation li a:hover{
+	background: url(../img/nav_over.png) repeat-x scroll;
+	height: 36px;
+	text-decoration: none;
+}
 .nav_main .fl{float:left;font-size:14px;font-weight:bold}
-.nav_main .fl li{float:left;background:url(../img/vline.gif) no-repeat right center;padding:0 17px}
+.nav_main .fl li{float:left;background:url(../img/vline.gif) no-repeat right center;padding:0 17px; }
 .nav_main .fl li a{color:#fff;float:left}
-.nav_main .fl li a:hover{color:#5FAA92;text-decoration:none}
-.nav_main .fl li.cur a{background:url(../img/nav_cur.gif) no-repeat center bottom;color:#FFFFFF}
+.nav_main .fl li a:hover{color:#ffffff;text-decoration:none; background: url(../img/nav_over.png) repeat-x scroll 0 0 transparent;}
+.nav_main .fl li.cur {background:url(../img/nav_cur.gif)  no-repeat center bottom;color:#FFFFFF}
 .nav_main .f2{float:left;margin-left:20px;position:relative;z-index:100}
 .nav_main .f2 span{color:#f1f1f1;background:url(../img/ico_trag.gif) no-repeat right center;padding-right:13px}
 .nav_main .f2 ul{border:solid 1px #dbdcda;background:#fff;position:absolute;left:0;top:30px;width:109px}
