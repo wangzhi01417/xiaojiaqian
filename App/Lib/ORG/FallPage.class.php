@@ -12,7 +12,8 @@
 
 class Page {
     // 分页栏每页显示的页数
-    public $rollPage = 5;
+    //public $rollPage = 5;
+    public $rollPage = 1;
     // 页数跳转时要带的参数
     public $parameter  ;
     // 默认列表每页显示行数
@@ -50,7 +51,8 @@ class Page {
         if(!empty($listRows)) {
             $this->listRows = intval($listRows);
         }
-        $this->totalPages = ceil($this->totalRows/($this->listRows*5));     //总页数
+        //$this->totalPages = ceil($this->totalRows/($this->listRows*5));     //总页数
+        $this->totalPages = ceil($this->totalRows/($this->listRows*1));     //总页数
         $this->coolPages  = ceil($this->totalPages/$this->rollPage);
         $this->nowPage  = !empty($_GET[$this->varPage])?intval($_GET[$this->varPage]):1;
         if(!empty($this->totalPages) && $this->nowPage>$this->totalPages) {
@@ -103,7 +105,7 @@ class Page {
             $prePage = "";
         }else{
             $preRow =  $this->nowPage-$this->rollPage;
-            $prePage = "<a href='".$url."&".$p."=$preRow' >上".$this->rollPage."页</a>";
+            //$prePage = "<a href='".$url."&".$p."=$preRow' >上".$this->rollPage."页</a>";
             $theFirst = "<a href='".$url."&".$p."=1' >".$this->config['first']."</a>";
         }
         if($nowCoolPage == $this->coolPages){
@@ -112,7 +114,7 @@ class Page {
         }else{
             $nextRow = $this->nowPage+$this->rollPage;
             $theEndRow = $this->totalPages;
-            $nextPage = "<a href='".$url."&".$p."=$nextRow' >下".$this->rollPage."页</a>";
+            //$nextPage = "<a href='".$url."&".$p."=$nextRow' >下".$this->rollPage."页</a>";
             $theEnd = "<a href='".$url."&".$p."=$theEndRow' >".$this->config['last']."</a>";
         }
         // 1 2 3 4 5
@@ -133,7 +135,9 @@ class Page {
         }
         $pageStr	 =	 str_replace(
             array('%header%','%nowPage%','%totalRow%','%totalPage%','%upPage%','%downPage%','%first%','%prePage%','%linkPage%','%nextPage%','%end%'),
+            //array('%header%','%nowPage%','%totalRow%','%totalPage%','%first%','%upPage%','%linkPage%','%downPage%','%prePage%','%nextPage%','%end%'),
             array($this->config['header'],'<span class="nowPage">'.$this->nowPage.'</span>','<span class="totalRows">'.$this->totalRows.'</span>',$this->totalPages,$upPage,$downPage,$theFirst,$prePage,$linkPage,$nextPage,$theEnd),$this->config['theme']);
+            //array($this->config['header'],'<span class="nowPage">'.$this->nowPage.'</span>','<span class="totalRows">'.$this->totalRows.'</span>',$this->totalPages,$theFirst,$upPage,$linkPage,$downPage,$prePage,$nextPage,$theEnd),$this->config['theme']);
         return $pageStr;
     }
 }
