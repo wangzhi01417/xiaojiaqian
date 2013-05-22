@@ -4,7 +4,8 @@ class SearchAction extends BaseAction {
 		$this->assign("sty",array('index','style1'));//需要显示的样式
 		$url_model=C("url_model");
 		$keywords = isset($_REQUEST['keywords']) && trim($_REQUEST['keywords']) ? htmlspecialchars(trim($_REQUEST['keywords'])) :'';
-		$sortby = isset($_REQUEST['sortby']) && trim($_REQUEST['sortby']) ? trim($_REQUEST['sortby']) : '';
+		//$sortby = isset($_REQUEST['sortby']) && trim($_REQUEST['sortby']) ? trim($_REQUEST['sortby']) : '';
+        $sortby="time";
 		if(!$keywords){
 			$this->assign("nokey","1");
 			$this->display();
@@ -54,6 +55,7 @@ class SearchAction extends BaseAction {
 		$field = "id,cid,title,price,img,url,uid,sid,likes,comments,add_time";
 		$items_list=$items_mod->where("$sql_where")->field($field)->order($sql_order)->limit(($Page->firstRow*5).','.$Page->listRows)->select();
 	
+	    if($count==0) $this->assign("nokey","1");
 		//用户相关信息包括共享，评论
 		$this->items_list($items_list);
 		$this->assign('page',$show); // 赋值分页输出
