@@ -52,47 +52,58 @@ $(function(){
 <div class="nav" id="header_fixed">
     <div class="mask"></div>
 		<ul class="navigation">
-			<li class="attention">
-				<div class="bdshare">
-					<a class="sinaIcon" href="http://e.weibo.com/xiaojiaqiancom" target="_blank"></a>
-					<a class="qqwbIcon" href="http://t.qq.com/xiaojiaqiancom" target="_blank"></a>
-				</div>
-			</li>
+			
 			<li class=<if condition="'index' eq $curpage"> cur</if>><a href="{:C('site_domain')}">首页</a></li>
 			<!--<li class=<if condition="'album' eq $curpage"> cur</if>><a href="{:get_url('index','','album')}">专辑</a></li>-->
 			<volist name="p_cate_list" id="vop">
 			<li class=<if condition="$vop['id'] eq $id"> cur</if>><a href="{:get_url('index',$vop['id'],'cate')}">{$vop.name}</a></li>
 			</volist>
+			<li class="search_box">
+				<div>
+					<form action="{:get_url('index','','search')}" method="get">
+				 	<input id="a" name="a" type="hidden" value="index">
+					<input name="m" type="hidden" value="Search">
+					<input name="g" type="hidden" value="Home">
+					<input type="text" name="keywords" class="text" id="keywd" value="" data-keyword="<present name='keywords'>{$keywords}<else/>{:C('default_kw')}</present>" placeholder="{:C('default_kw')}" autoComplete= "Off"/>
+					<input type="submit" class="btn" value=""/>
+				 	</form>
+				</div>
+			</li>
 		</ul>
  	<div class="clear"></div>
 </div>   
 <div class="head">
 	<div class="logo">
 		<h1><a href="http:www.xiaojiaqian.com" title="小价钱，大实惠">小价钱</a></h1>
-		<div class="search_box">
-			<form action="{:get_url('index','','search')}" method="get">
-		 	<input id="a" name="a" type="hidden" value="index">
-			<input name="m" type="hidden" value="Search">
-			<input name="g" type="hidden" value="Home">
-			<input type="text" name="keywords" class="text" id="keywd" value="" data-keyword="<present name='keywords'>{$keywords}<else/>{:C('default_kw')}</present>" placeholder="{:C('default_kw')}" autoComplete= "Off"/>
-			<input type="submit" class="btn" value=""/>
-		 </form>
+
+		<div class="bdshare">
+			<a class="bussiness" href="#" target="_blank"></a>
+			<a class="personal" href="#" target="_blank"></a>
+			<a class="sinaIcon" href="http://e.weibo.com/xiaojiaqiancom" target="_blank"></a>
+			<a class="qqwbIcon" href="http://t.qq.com/xiaojiaqiancom" target="_blank"></a>
 		</div>
 	</div>
     <div class="nav nav_offsetTop">
     	<div class="mask"></div>
 		<ul class="navigation">
-			<li class="attention">
-				<div class="bdshare">
-					<a class="sinaIcon" href="http://e.weibo.com/xiaojiaqiancom" target="_blank"></a>
-					<a class="qqwbIcon" href="http://t.qq.com/xiaojiaqiancom" target="_blank"></a>
-				</div>
-			</li>
 			<li class=<if condition="'index' eq $curpage"> cur</if>><a href="{:C('site_domain')}">首页</a></li>
 			<!--<li class=<if condition="'album' eq $curpage"> cur</if>><a href="{:get_url('index','','album')}">专辑</a></li>-->
 			<volist name="p_cate_list" id="vop">
 			<li class=<if condition="$vop['id'] eq $id"> cur</if>><a href="{:get_url('index',$vop['id'],'cate')}">{$vop.name}</a></li>
 			</volist>
+
+			<li class="search_box">
+				<div>
+					<form action="{:get_url('index','','search')}" method="get">
+				 	<input id="a" name="a" type="hidden" value="index">
+					<input name="m" type="hidden" value="Search">
+					<input name="g" type="hidden" value="Home">
+					<input type="text" name="keywords" class="text" id="keywd" value="" data-keyword="<present name='keywords'>{$keywords}<else/>{:C('default_kw')}</present>" placeholder="{:C('default_kw')}" autoComplete= "Off"/>
+					<input type="submit" class="btn" value=""/>
+				 	</form>
+				</div>
+			</li>
+
 		</ul>
     </div>
     <div class="clear"></div>

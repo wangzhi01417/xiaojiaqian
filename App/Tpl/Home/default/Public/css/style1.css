@@ -2,6 +2,7 @@
 .boxA{}
 #container .col{width:222px;border-radius:10px;padding:0 8px;_padding:0 4px}
 .demol_danpin{padding:0px 0px 0;margin-bottom:20px;zoom:1;background:#ffffff;border:solid 1px #E1E1E1;}
+.demol_danpin:hover{border:solid 1px green;}
 .demol_danpin .pic{width:200px;height:200px;margin:0 auto 4px;position:relative;overflow:hidden}
 .demol_danpin .pic img{margin-bottom:3px}
 .demol_danpin .pic .au{position:absolute;right:10px;bottom:10px}
@@ -25,7 +26,7 @@
 .demol_danpin dd{overflow:hidden;zoom:1;color:#666}
 .demol_danpin .aur{color:#5FAA92}
 .demol_danpin .aur strong{color:#5FAA92}
-.demol_danpin .whoshare{color:#999;padding:5px 4px}
+.demol_danpin .whoshare{color:#999;padding:0 4px 5px 4px; height: 50px;}
 .demol_danpin .whoshare .time{display:block;line-height:100%;color:#999}
 .demol_danpin .whoshare .aur{color:#5FAA92}
 .demol_danpin .whoshare p{color:#666;padding:5px 0 5px;line-height:21px}
@@ -35,7 +36,9 @@
 .demol_danpin .replay .add{background:#F5F5F1;}
 .demol_danpin .replay .Comment{background:#fff}
 .demol_danpin .info{background:#fff;padding:10px 10px 0;}
+
 .buy_content {padding:5px 0; margin-bottom:10px;  border-top: solid 1px #e1e1e1; background:url("../img/goods_tag_status.png") no-repeat scroll 0 0 transparent;}
+.buy_content :hover{background:url("../img/goods_tag_status.png") no-repeat scroll 0 -52px transparent;}
 .buy_content .buy_action{text-decoration: none; width:200px; display: block; }
 .buy_content .btn{float: right; width: 60px; height: 32px; right: 2px; }
 .new_price{ color:#ff7900; font:800 25px "微软雅黑","arial"; }
@@ -552,7 +555,7 @@ span.likeit em.hc{color:#CB383B;font-weight:100}
 .footer_Copy {
     background-color: #FAFAFA;
     color: #999999;
-    padding: 30px 0 70px;
+    padding: 30px 0 30px;
     text-align: center;
 }
 .footer_Link {
@@ -563,26 +566,19 @@ span.likeit em.hc{color:#CB383B;font-weight:100}
 	white-space:nowrap;
 }
 
-.footer_Link p{
+.footer_Link span{
 	float:left;
 }
 .footer_Link  ul {
 	float:left;
+	width: 865px;
 }
 .footer_Link  ul li{
 	float:left;
 }
 
-.footer_Link  a {
-	float:right;
+.links_list  a {
 	padding:0 10px;
-}
-
-.link_list{
-	overflow: hidden;
-    position: relative;
-    white-space: nowrap;
-    width: 500px;
 }
 
 .links_list_box{

@@ -54,32 +54,45 @@ body{font-family:"微软雅黑","宋体",Arial, Helvetica, sans-serif;font-size:
 	text-indent: -999px;
 }
 
-.search_box{
-	height: 30px;
-	line-height: 30px;
-	position: absolute;
-	right: 0;
-	top: 25px;
-}
-.search_box .text{
-	float: left;
-	background: url(../img/search_left.gif) no-repeat;
-	color: #999999;
-	border:0 none;
-	outline: 0 none;
-	height: 26px;
-	line-height: 26px;
-	padding-left: 27px;
-	width: 166px !important;
 
+
+
+.bdshare{
+	float: right;
+	padding: 25px 0;
 }
-.search_box .btn{
+.bussiness{
 	float: left;
-	background: url(../img/search_right.gif);
-	height: 26px;
-	width: 66px;
-	border: 0 none;
-	outline: 0 none;
+	display: block;
+	background: url("../img/bussiness.png") no-repeat;
+	height: 23px;
+	width: 92px;
+	margin-top: 5px;
+	margin-right: 13px;
+}
+.personal{
+	float: left;
+	display: block;
+	background: url("../img/personal.png") no-repeat;
+	height: 23px;
+	width: 92px;
+	margin-top: 5px;
+	margin-right: 53px;
+}
+.sinaIcon{
+	float: left;
+	display: block;
+	background: url("../img/sina.png") no-repeat;
+	height: 23px;
+	width: 62px;
+	margin-right: 3px;
+}
+.qqwbIcon{
+	float: left;
+	display: block;
+	background: url("../img/qq.png") no-repeat;
+	height: 23px;
+	width: 57px;
 }
 
 .nav{
@@ -92,6 +105,26 @@ body{font-family:"微软雅黑","宋体",Arial, Helvetica, sans-serif;font-size:
 	height: 36px; margin: 0 auto;
 }
 
+.attention {
+    float: right;
+}
+
+
+.attention label{
+	color: #fff;
+	float: left;
+	margin-top: 10px;
+}
+
+.attention a{
+	float: left;
+	text-indent: -999px;
+	margin-top: 7px;
+	padding:0;
+	display: block;
+	background: #000000;
+}
+
 .navigation {
     height: 36px;
     left: 50%;
@@ -102,42 +135,6 @@ body{font-family:"微软雅黑","宋体",Arial, Helvetica, sans-serif;font-size:
 }
 .navigation .cur{
     background: url(../img/nav_cur.png) repeat-x scroll right center transparent;
-}
-
-.navigation .attention {
-    float: right;
-}
-
-.navigation .attention label{
-	color: #fff;
-	float: left;
-	margin-top: 10px;
-}
-
-.navigation .attention .bdshare{
-	float: left;
-}
-
-.navigation .attention .sinaIcon{
-	background: url("../img/sina.png") no-repeat;
-	height: 23px;
-	width: 62px;
-	padding-right: 3px;
-}
-
-.navigation .attention .qqwbIcon{
-	background: url("../img/qq.png") no-repeat;
-	height: 22px;
-	width: 57px;
-}
-
-.navigation .attention a{
-	float: left;
-	text-indent: -999px;
-	margin-top: 7px;
-	padding:0;
-	display: block;
-	background: #000000;
 }
 
 .navigation li{
@@ -162,6 +159,36 @@ body{font-family:"微软雅黑","宋体",Arial, Helvetica, sans-serif;font-size:
 	height: 36px;
 	text-decoration: none;
 }
+
+.navigation .search_box{
+	float: right;
+	margin-top: 5px;
+	background: none;
+}
+
+.search_box .text{
+	float: left;
+	background: url(../img/search_left.gif) no-repeat;
+	color: #999999;
+	border:0 none;
+	outline: 0 none;
+	height: 26px;
+	line-height: 26px;
+	padding-left: 27px;
+	width: 166px !important;
+
+}
+.search_box .btn{
+	cursor: pointer;
+	float: left;
+	background: url(../img/search_right.gif);
+	height: 26px;
+	width: 66px;
+	border: 0 none;
+	outline: 0 none;
+}
+
+
 .nav_main .fl{float:left;font-size:14px;font-weight:bold}
 .nav_main .fl li{float:left;background:url(../img/vline.gif) no-repeat right center;padding:0 17px; }
 .nav_main .fl li a{color:#fff;float:left}

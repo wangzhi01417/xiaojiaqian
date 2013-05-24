@@ -8,21 +8,21 @@
 <div class="wrap">
 
 <div id="search_name" style="display:none;">{$keywords}</div>
-	<div class="sortA clearfix">  
+<!-- 	<div class="sortA clearfix">  
 		<div class="sortr">
-<center>
-<present name="nokey">
-	<div><h3>暂无搜索结果！<h3></div>
-<else/>
+
 		<div class="fr">
             <a href="{:get_url('index',$keywords,'search','likes')}" <if condition="$sortby eq 'likes'">class="red"</if>>按喜欢排序</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="{:get_url('index',$keywords,'search','time')}"  <if condition="$sortby eq 'time'">class="red"</if>>按时间排序</a>
         </div>
-</center>
+
     	</div>
-	</div>
-<div class="boxA">
+	</div> -->
+<div class="boxA">	
+<present name="nokey">
+	<center><div><h3>暂无搜索结果！<h3></div></center>
+</present>	
 <include file="Public:itemsList"/>
-</present>
+
 </div>
 
 <div id='url' style="display:none;">{:C('web_path')}index.php?a=search&m=Public&g=Home&keywords={$Think.get.keywords|htmlspecialchars}&sortby={$Think.request.sortby}</div>

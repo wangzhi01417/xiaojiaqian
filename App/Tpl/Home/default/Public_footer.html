@@ -3,49 +3,15 @@
 		<ul class="footer_Nums">
 			
 		</ul>
-		<div class="sitemap">
-		  <dl>
-			<dt>发现中心</dt>
-<!-- 			  <volist name="p_cate_list" id="cval">
-			  <dd><a href="{:get_url('index',$cval['id'],'cate')}">发现{$cval.name}</a></dd>
-			  </volist> -->
-		  </dl>		  
-		  
-		  <dl>
-			<dt>商务合作</dt>
-			<dd><a href="{:C('site_domain')}index.php?a=index&m=Hezuo&g=Home">商家报名</a></dd>
-      <dd><a href="{:C('site_domain')}index.php?a=index&m=Anli&g=Home">卖家分享心得</a></dd>
-      <dd><a href="{:C('site_domain')}index.php?a=index&m=Ad&g=Home">广告合作</a></dd>
-		  </dl>
-		  
-		  <dl>
-			<dt></dt>
-			<dd><a href="{:C('site_domain')}"><img src="__PUBLIC__/statics/images/logo_bot.png"></a></dd>
-		  </dl>
-		  
-		  <dl>
-			<dt>关于我们</dt>
-      <dd><a href="{:C('site_domain')}index.php?a=index&m=Contact&g=Home">联系我们</a></dd>
-      <dd><a href="{:C('site_domain')}index.php?a=index&m=About&g=Home">关于小价钱</a></dd>
-		  </dl>
-		  
-		  <dl>
-			<dt>关注我们</dt>
-			<dd><php>echo strclean(C('follow_us'));</php></dd>
-			<dd><php>echo strclean(C('follow_us2'));</php></dd>
-			<dd><php>echo strclean(C('follow_us3'));</php></dd>
-			<dd><php>echo strclean(C('follow_us4'));</php></dd>
-			<dd><php>echo strclean(C('follow_us5'));</php></dd>
-			<dd><php>echo strclean(C('follow_us6'));</php></dd>
-		  </dl>
-		</div>
 		
 		<div class="footer_Link">
-			<p>友情链接：</p>
+			<span>友情链接：</span>			
 			<ul class="links_list">
-				<li><a href="http://www.jiukuaiyou.com/" target="_blank">九块邮</a> <a href="http://www.danla.com/" target="_blank">淡辣网</a> <a href="http://www.yipinpo.com/" target="_blank">一品泊</a></li>
+				<volist name="linkList" id="val">
+					<li><a href="{$val.url}" target="_blank">{$val.name}</a></li>
+				</volist>
 			</ul>
-			<a href="#">更多>></a>
+			<!--<a href="#">更多>></a>-->
 		</div>
 	</div>
 
@@ -78,6 +44,14 @@ $(function() {
 <script type="text/javascript">
 var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
 document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3Fdd22124b948cd8432d342cb71b57f343' type='text/javascript'%3E%3C/script%3E"));
+
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ 
+  ga('create', 'UA-41138473-1', 'xiaojiaqian.com');
+  ga('send', 'pageview');
 </script>
 
 </body>

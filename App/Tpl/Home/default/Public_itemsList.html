@@ -25,9 +25,9 @@ $(document).ready(function(){
 
 			var heightl;
 			heightl = (200/imgl.width)*imgl.height;
-			
+			heightl = 200;
 			$(this).css('height',heightl);
-			$(this).find('.item_img').attr('height',heightl);
+			$(this).find('.item_img').attr('height',imgl.height);
 		});
 		
 		//执行超时检查
@@ -72,9 +72,9 @@ $(document).ready(function(){
 
 			var heightl;
 			heightl = (200/imgl.width)*imgl.height;
-			
+			heightl = 200;
 			$(this).css('height',heightl);
-			$(this).find('.item_img').attr('height',heightl);
+			$(this).find('.item_img').attr('height',imgl.height);
 		}); 
 		//瀑布流布局
 		$container.masonry({
@@ -208,7 +208,7 @@ $(document).ready(function(){
         <div class="info">
 
           <div class="whoshare">
-          		<a href="{:get_url('index',$voItems['id'],'item')}" title="{$voItems.title}">
+          		<a href="{:get_url('buy',$voItems['id'],'item')}" title="{$voItems.title}">
 					<p class="item_title">{$voItems.title}</p>
 				</a>
 			</div>
@@ -218,7 +218,7 @@ $(document).ready(function(){
 			</div>
           
 			<div class="buy_content"> 
-				<a class="buy_action" href="{:get_url('index',$voItems['id'],'item')}" title="{$voItems.title}">
+				<a class="buy_action" href="{:get_url('buy',$voItems['id'],'item')}" title="{$voItems.title}">
 				<span class="new_price"><span class="price_sign">￥</span>{$voItems.price}</span>
 				</a>
 			</div>
