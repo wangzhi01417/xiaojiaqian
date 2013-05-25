@@ -36,10 +36,12 @@ class Taobao extends BaseAction{
 		}
 
 		//获得商品图片
-		$img=$this->match_image( $item );
+/*		$img=$this->match_image( $item );
 		$type = end(explode( '.', $img ));
 		$image = explode( '.'.$type, $img );
-		$img=$image[0].'.'.$type;
+		$img=$image[0].'.'.$type;*/
+
+		$img=$this->match_image_all( $item );
 
 		//获得商品来源
 		$domain=gain_domain( $taobao_url );
@@ -263,6 +265,29 @@ class Taobao extends BaseAction{
 	public function match_image( $content ) {
 		preg_match( '/<img alt=\"(.*?)\" src=\"(.*?)\" \/>/si', $content, $result );
 		isset( $result ) ? $image = $result[2] : $image = '';
+		return $image;
+	}
+
+	//正则获取商品图片2
+	public function match_image_all( $content ) {
+		preg_match_all('/<img src=\"(.*?)\" width=\"(.*?)\" height=\"(.*?)\" alt=\"(.*?)\" \/>/si', $content, $result );
+        $cnt = count($result[1]);
+        if($cnt>0){
+
+			for ($z = 0;$z < $cnt ;$z++)
+			{
+		         $image[$z] = $result[1][$z];
+		         $type = end(explode( '.', $image[$z]));
+		         $image2 = explode( '.'.$type, $image[$z]);
+		         //$image[$z] = str_replace($size, "b", $image[$z]);
+		         //retun $image2[0];
+		         $image[$z]=$image2[0].'.'.$type;
+			}    
+
+        }
+        else
+        	$image = '';
+
 		return $image;
 	}
 
