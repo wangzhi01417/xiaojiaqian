@@ -50,6 +50,9 @@ class Taobao extends BaseAction{
 		//获得商品价格
 		$price=$this->match_price( $item );
 
+		//获得商品价格
+		$price_origin=$this->match_price_origin( $item );
+
 		//获得标签
 		$tags=$this->get_tags( $title );
 
@@ -67,7 +70,9 @@ class Taobao extends BaseAction{
 		$data['title']=strip_tags( $title );
 		$data['url']=$url;
 		$data['tags']=implode( ' ', $tags );
+		//$data['price']=$price;
 		$data['price']=$price;
+		$data['remark1']=$price_origin;
 		$data['item_key']=$item_key;
 		$data['sid']=$site['id'];
 		$data['alias']=$site['alias'];
@@ -294,6 +299,12 @@ class Taobao extends BaseAction{
 	//正则获取商品价格
 	public function match_price( $content ) {
 		preg_match( '/<strong class=\"oran\">(.*?)<\/strong>/si', $content, $result );
+		isset( $result ) ? $price = $result[1] : $price = '';
+		return $price;
+	}
+
+	public function match_price_origin( $content ) {
+		preg_match( '/<del class=\"gray\">(.*?)<\/del>/si', $content, $result );
 		isset( $result ) ? $price = $result[1] : $price = '';
 		return $price;
 	}

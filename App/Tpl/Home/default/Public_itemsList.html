@@ -219,10 +219,29 @@ $(document).ready(function(){
           
 			<div class="buy_content"> 
 				<a class="buy_action" href="{:get_url('buy',$voItems['id'],'item')}" title="{$voItems.title}">
-				<span class="new_price"><span class="price_sign">￥</span>{$voItems.price}</span>
+				<span class="new_price"><span class="price_sign">￥</span>{$voItems.price}</span>&nbsp;
+				<if condition="$voItems['remark1'] neq ''">
+				<span class="old_price">￥{$voItems.remark1}</span>
+			    </if>
 				</a>
 			</div>
         </div>
+        <style type="text/css">
+         .new_price{
+
+             font-size: 20px;
+             margin-right: 0px;
+
+         }
+         .old_price{
+			display: inline-block;
+			font-size: 14px;
+			padding-top: 4px;
+			color: rgb(153, 153, 153);
+
+         }
+
+        </style>
 <!--            <div class="replay">
 			<dl class="Comment">
             <dt><a href="{:get_url('index',$voItems['uid'],'user')}"><img onerror="this.src='__PUBLIC__/statics/images/avatar-60.png'" src=<if condition="$voItems['userimg'] neq ''">"{:C('web_path')}Uploads/avatar_small/{$voItems.userimg}"<else/>"__PUBLIC__/statics/images/avatar-60.png"</if> style="width:30px;"/></a></dt>

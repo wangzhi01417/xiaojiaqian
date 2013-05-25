@@ -38,6 +38,7 @@ border: 1px solid rgb(0, 102, 153);
 					$("#url").val(data.data.url);
 					$("#tags").val(data.data.tags);
 					$("#price").val(data.data.price);
+          $("#remark1").val(data.data.remark1);
 					$("#item_key").val(data.data.item_key);
 					//$("#img").val(data.data.img);
           //**********add by motor start************
@@ -215,6 +216,10 @@ border: 1px solid rgb(0, 102, 153);
           <tr>
           	<th>价格 :</th>
             <td><input type="text" name="price" id="price" class="input-text" size="20" /><b style="padding-left:10px;color:red;">*</b></td>
+          </tr>
+           <tr>
+            <th>原价格 :</th>
+            <td><input type="text" name="remark1" id="remark1" class="input-text" size="20" /><b style="padding-left:10px;color:red;">*</b></td>
           </tr>
           </tbody>
         </table>
