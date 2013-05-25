@@ -9,7 +9,7 @@ public function sync_item_data($item) {
 	import("@.ORG.Taobao");
 	$taobao=new Taobao();
 
-	$firephp = get_fire_php();
+	//$firephp = get_fire_php();
 
 	$item_id = $item['id'];
 	$item_key = $item['item_key'];		// such as : taobao_16554250670
