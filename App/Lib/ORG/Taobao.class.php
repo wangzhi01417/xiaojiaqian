@@ -259,6 +259,14 @@ class Taobao extends BaseAction{
 		return $seller_id;
 	}
 
+	// 获得商品状态
+	//	1 - 在售
+	//	0 - 下架
+	public function match_status($content) {
+		$inactive = preg_match('/<span style=\"color:red;\">(.*?)商品当前不可购买(.*?)<\/span>/si', $content, $result);
+		return $inactive ? FALSE : TRUE;
+	}
+
 	//正则获取商品名称
 	public function match_title( $content ) {
 		preg_match( '/<div class=\"detail\">(.*?)<p>/si', $content, $result );
