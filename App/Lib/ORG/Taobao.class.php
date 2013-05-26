@@ -62,7 +62,7 @@ class Taobao extends BaseAction{
 		//获得淘宝客跳转链接
 		//$url = $this->gain_url( $site['alias'], $item_id );
 		//if ( !$url ) {
-			//$url='http://detail.tmall.com/item.htm?id='.$item_id;
+			$url='http://detail.tmall.com/item.htm?id='.$item_id;
 		//}
 
 		//Ajax返回数据
