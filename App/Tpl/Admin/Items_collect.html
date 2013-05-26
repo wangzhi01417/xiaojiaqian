@@ -17,12 +17,9 @@ border: 1px solid rgb(0, 102, 153);
   left:-30px;
 }
 
-
-
 }
 </style>
 <script type="text/javascript">
-
 
 	$(document).ready(function(){
 
@@ -43,8 +40,15 @@ border: 1px solid rgb(0, 102, 153);
 					//$("#img").val(data.data.img);
           //**********add by motor start************
           $("#img_list")[0].innerHTML = "";
+          var imgs="";
           for(var i=0;i<data.data.img.length;i++){
             $("#img_list")[0].innerHTML += "<img id=\"img_show\" src=\""+data.data.img[i]+"\" width=\"210px\" height=\"210px\"/>";
+/*              if(i==0)
+                 imgs += data.data.img[i];
+              else
+                 imgs += “,”data.data.img[i];
+              $("#remark2").val(imgs);*/
+
           }
           var first = $("#img_list").find("img").first();
           first.attr("style","border:2px solid red");
@@ -272,6 +276,7 @@ border: 1px solid rgb(0, 102, 153);
       <input type="hidden" name="item_key" id="item_key" value="" />
       <input type="hidden" name="img" id="img" value="" />
       <input type="hidden" name="alias" id="alias" value="" />
+    <!--   <input type="hidden" name="remark2" id="remark2" value="" /> -->
       </div>
       <div class="btn"><input type="submit" value="提交" name="submit" class="button" id="submit"></div>
     </div>

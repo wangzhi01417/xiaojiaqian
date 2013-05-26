@@ -321,6 +321,9 @@ class ItemsAction extends BaseAction{
 				$upload_info = $this->upload('./Uploads/LocalItems/focus/');
 				$data['remark1'] = C('web_path').'Uploads/LocalItems/focus/'.$upload_info['0']['savename'];
 			}
+
+			//更新商品图片 by motor
+
 				
 			//获得商品的cid
 			$edit_item = $items->field('cid')->where("id='".$id."'")->find();
@@ -395,6 +398,15 @@ class ItemsAction extends BaseAction{
 				$tags[] .=$tag['name'];
 			}
 			$items_info['tags'] = implode(' ', $tags);
+
+
+		    import("@.ORG.Taobao");
+			$taobao=new Taobao();
+			$data = $taobao->item($items_info['url']);
+			$img_list = $data['img'];
+            $this->assign('img_list', $img_list);
+
+
 			//赋值变量，输出模板
 			$this->assign('cate_list', $cate_list);
 			$this->assign('site_list', $site_list);
