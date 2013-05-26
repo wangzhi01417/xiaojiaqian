@@ -1,4 +1,56 @@
 <include file="Public:header" />
+<style type="text/css">
+#img_list img{
+border: 1px solid rgb(35, 159, 227);
+margin-right:5px;
+width: 210px;
+height: 210px;
+cursor: pointer;
+
+}
+#img_list img:hover{
+border: 1px solid rgb(0, 102, 153);
+
+}
+
+#img_list input{
+
+  position: relative;
+  top:90px;
+  left:-30px;
+}
+
+}
+</style>
+<script type="text/javascript">
+  $(document).ready(function(){
+
+     //var first = $("#img_list").find("img").first();
+          //first.attr("style","border:2px solid red");
+          //$("#img").val(first.attr("src"));
+          var curObj = $(".cur_img");
+          $("#img_list").find("img").each(function(){
+
+            $(this).bind("click",function(){  
+               
+               if($(this)!=curObj){
+                  curObj.removeAttr("style");
+                  $(this).attr("style","border:2px solid red");
+                  curObj = $(this);
+
+                  $("#img").val($(this).attr("src"));
+                }
+                else
+                  $(this).removeAttr("style");
+               
+ 
+          });
+          });
+
+
+});
+
+</script>
 <script>
 //编辑器
 KE.show({
@@ -48,7 +100,13 @@ KE.show({
       <tr>
       	<th>商品图片</th>
       	<td>
-            <img src="{$items.img|get_img=###,210}" style="width:210px;height:210px;border: 1px solid #999999;padding:1px;" />&nbsp;&nbsp;<php>if(strpos($items['img'],'http') !== false){echo '<a href='.u('Down/item',array('id'=>$items['id'])).'>下载图片到本地</a>';}</php><br /><br />
+<!--             <img src="{$items.img|get_img=###,210}" style="width:210px;height:210px;border: 1px solid #999999;padding:1px;" />&nbsp;&nbsp;<php>if(strpos($items['img'],'http') !== false){echo '<a href='.u('Down/item',array('id'=>$items['id'])).'>下载图片到本地</a>';}</php><br /><br /> -->
+       <div id="img_list">
+            <volist name="img_list" id="val">
+                <img src="{$val}" alt="" <if condition="$items['img'] eq $val">class="cur_img" style="border:2px solid red;"</if>/>&nbsp;&nbsp;
+            </volist>
+        </div>
+
             <input type="file" name="upload_img" id="upload_img" class="input-text" size=21 />
         </td>
       </tr>
@@ -131,7 +189,7 @@ KE.show({
 	      </tr>
         </table>
       </div>
-  
+  <input type="hidden" name="img" id="img" value="{$items['img']}" />
   <div class="bk15"></div>
   <div class="btn">
     <input type="submit" value="提交" name="submit" class="button" id="submit">

@@ -2,7 +2,7 @@
 .boxA{}
 #container .col{width:222px;border-radius:10px;padding:0 8px;_padding:0 4px}
 .demol_danpin{padding:0px 0px 0;margin-bottom:20px;zoom:1;background:#ffffff;border:solid 1px #E1E1E1;}
-.demol_danpin:hover{border:solid 1px green;}
+/*.demol_danpin:hover{border:solid 1px green;}*/
 .demol_danpin .pic{width:200px;height:200px;margin:0 auto 4px;position:relative;overflow:hidden}
 .demol_danpin .pic img{margin-bottom:3px}
 .demol_danpin .pic .au{position:absolute;right:10px;bottom:10px}
