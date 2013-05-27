@@ -29,7 +29,8 @@ class Page {
     // 分页的栏的总页数
     protected $coolPages   ;
     // 分页显示定制
-    protected $config  =	array('header'=>'条记录','prev'=>'上一页','next'=>'下一页','first'=>'第一页','last'=>'最后一页','theme'=>' %totalRow% %header% %nowPage%/%totalPage% 页 %upPage% %downPage% %first%  %prePage%  %linkPage%  %nextPage% %end%');
+    //protected $config  =	array('header'=>'条记录','prev'=>'上一页','next'=>'下一页','first'=>'第一页','last'=>'最后一页','theme'=>' %totalRow% %header% %nowPage%/%totalPage% 页 %upPage% %downPage% %first%  %prePage%  %linkPage%  %nextPage% %end%');
+    protected $config  =    array('header'=>'条记录','prev'=>'上一页','next'=>'下一页','first'=>'第一页','last'=>'最后一页','theme'=>' %totalRow% %header% %nowPage%/%totalPage% 页 %upPage% %first%  %linkPage%  %end% %downPage%');
     // 默认分页变量名
     protected $varPage;
 
@@ -106,7 +107,7 @@ class Page {
         }else{
             $preRow =  $this->nowPage-$this->rollPage;
             //$prePage = "<a href='".$url."&".$p."=$preRow' >上".$this->rollPage."页</a>";
-            $theFirst = "<a href='".$url."&".$p."=1' >".$this->config['first']."</a>";
+            //$theFirst = "<a href='".$url."&".$p."=1' >".$this->config['first']."</a>";
         }
         if($nowCoolPage == $this->coolPages){
             $nextPage = "";
@@ -115,10 +116,10 @@ class Page {
             $nextRow = $this->nowPage+$this->rollPage;
             $theEndRow = $this->totalPages;
             //$nextPage = "<a href='".$url."&".$p."=$nextRow' >下".$this->rollPage."页</a>";
-            $theEnd = "<a href='".$url."&".$p."=$theEndRow' >".$this->config['last']."</a>";
+            //$theEnd = "<a href='".$url."&".$p."=$theEndRow' >".$this->config['last']."</a>";
         }
         // 1 2 3 4 5
-        $linkPage = "";
+/*        $linkPage = "";
         for($i=1;$i<=$this->rollPage;$i++){
             $page=($nowCoolPage-1)*$this->rollPage+$i;
             if($page!=$this->nowPage){
@@ -132,7 +133,59 @@ class Page {
                     $linkPage .= "<a class='current'>".$page."</a>";
                 }
             }
-        }
+        }*/
+
+       // by motor
+         $pageCnt = 2;
+         $pageCnt2 = 4;
+         
+         if($this->nowPage!=1)
+           $linkPage .= "<a href='".$url."&".$p."=1'>1</a>";
+
+
+         if($this->nowPage-$pageCnt - 1 > $pageCnt2)
+             $linkPage .= "<span>...</span>";
+         else{
+             for($i=1;$i<$this->nowPage-$pageCnt - 1;$i++){
+                  $temp = 1+$i;
+                  $linkPage .= "<a href='".$url."&".$p."=$temp'>".$temp."</a>";
+             }
+           
+         }
+
+
+
+         for($i = $pageCnt ; $i >= 1; $i--){
+              $temp = $this->nowPage-$i;
+              if($temp>1) 
+              $linkPage .= "<a href='".$url."&".$p."=$temp'>".$temp."</a>";
+
+         }
+
+         $linkPage .= "<a class='current'>".$this->nowPage."</a>";
+         $last = $this->nowPage;
+  
+         for($i=1;$i<=$pageCnt;$i++){
+              $temp = $this->nowPage+$i;
+              if($temp < $this->totalPages){
+                 $linkPage .= "<a href='".$url."&".$p."=$temp'>".$temp."</a>";
+                 $last = $temp;
+              }
+
+         }
+
+         if($this->totalPages - $last > $pageCnt2)
+           $linkPage .= "<span>...</span>";
+         else{
+             for($i=1;$i<$this->totalPages - $last;$i++){
+                  $last += $i;
+                  $linkPage .= "<a href='".$url."&".$p."=$last'>".$last."</a>";
+             }
+           
+         }
+         if($this->nowPage!=$this->totalPages)
+            $linkPage .= "<a href='".$url."&".$p."=$this->totalPages'>".$this->totalPages."</a>";
+
         $pageStr	 =	 str_replace(
             array('%header%','%nowPage%','%totalRow%','%totalPage%','%upPage%','%downPage%','%first%','%prePage%','%linkPage%','%nextPage%','%end%'),
             //array('%header%','%nowPage%','%totalRow%','%totalPage%','%first%','%upPage%','%linkPage%','%downPage%','%prePage%','%nextPage%','%end%'),
