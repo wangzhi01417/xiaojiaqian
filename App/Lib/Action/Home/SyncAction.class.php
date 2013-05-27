@@ -53,6 +53,10 @@ public function sync_item_data($item) {
 	// 获取宝贝价格
 	$new_price=$taobao->match_price( $item_html );
 
+	//获得商品原价格
+	$old_price=$taobao->match_price_origin( $item_html );
+	echo "A".$old_price."A<br>";
+
 	//$firephp->log($new_price, "latest price=");
 
 	// 获取宝贝状态：在售？下架？
@@ -97,8 +101,13 @@ public function sync_item_data($item) {
 			// 更新商品价格
 			$data['price']=$new_price;
 			$items->where($where)->save($data);
+
 			return true;
 		}
+		    //更新商品原价
+            $where['id']=$item_id;
+			$data['remark1']=$old_price;
+			$items->where($where)->save($data);
 
 	}
 	else {
@@ -118,7 +127,7 @@ public function sync_item_data($item) {
 
 
 	public function index(){
-
+        $this->assign("sty",array('index','style1'));
 		ini_set("max_execution_time", 0);
 
 		//$firephp = get_fire_php();
