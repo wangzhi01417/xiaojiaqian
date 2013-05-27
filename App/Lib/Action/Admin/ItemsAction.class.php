@@ -90,6 +90,145 @@ class ItemsAction extends BaseAction{
 		$this->display();
 	}
 
+function escape($str) { 
+    preg_match_all("/[\x80-\xff].|[\x01-\x7f]+/",$str,$r); 
+    $ar = $r[0]; 
+    foreach($ar as $k=>$v) { 
+        if(ord($v[0]) < 128) 
+            $ar[$k] = rawurlencode($v); 
+        else 
+            $ar[$k] = "%u".bin2hex(iconv("GB2312","UCS-2",$v)); 
+        } 
+    return join("",$ar); 
+} 
+
+function unescape($str) { 
+    $str = rawurldecode($str); 
+    preg_match_all("/(?:%u.{4})|.+/",$str,$r); 
+    $ar = $r[0]; 
+    foreach($ar as $k=>$v) { 
+        if(substr($v,0,2) == "%u" && strlen($v) == 6) 
+        $ar[$k] = iconv("UCS-2","GB2312",pack("H4",substr($v,-4))); 
+    } 
+    return join("",$ar); 
+} 
+
+// 通过九块邮url获得九块邮淘宝客url
+//  http://ju.jiukuaiyou.com/jump/1121ep
+//      ==>
+//  http://s.click.taobao.com/t?e=m%3D2%26s%3D2S6vduMZ8V4cQipKwQzePOeEDrYVVa64yK8Cckff7TVRAdhuF14FMTKps9mP2Yfh5x%2BIUlGKNpX6KEOZrBczXtQRGlh44dSUtIeQcAzHZya4DhHU0zfJfZV%2FuXncgIhTNYaCXdjmmr10unyvB%2BGhTZjIENIzVq%2FX&spm=2014.12057478.1.0&u=108kh5101010101010T0
+function get_taobaoke_url($jiukuaiyou_url) {
+    $ch = curl_init(); 
+
+    //set url 
+    curl_setopt($ch, CURLOPT_URL, $jiukuaiyou_url); 
+
+    //return the transfer as a string 
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
+
+    $result = curl_exec($ch); 
+    $pattern = "/<a href=\'(.*?)\' display=\'none\'/si";
+    preg_match($pattern, $result, $matches);
+
+    curl_close($ch);      
+
+    return $matches[1];
+}
+
+// 通过淘宝客url获取淘宝中间形式url: tu url
+//  http://s.click.taobao.com/t?e=m%3D2%26s%3D2S6vduMZ8V4cQipKwQzePOeEDrYVVa64yK8Cckff7TVRAdhuF14FMTKps9mP2Yfh5x%2BIUlGKNpX6KEOZrBczXtQRGlh44dSUtIeQcAzHZya4DhHU0zfJfZV%2FuXncgIhTNYaCXdjmmr10unyvB%2BGhTZjIENIzVq%2FX&spm=2014.12057478.1.0&u=108kh5101010101010T0
+//      ==>
+//  http://s.click.taobao.com/t_js?tu=http%3A%2F%2Fs.click.taobao.com%2Ft%3Fe%3Dm%253D2%2526s%253D2S6vduMZ8V4cQipKwQzePOeEDrYVVa64yK8Cckff7TVRAdhuF14FMTKps9mP2Yfh5x%252BIUlGKNpX6KEOZrBczXtQRGlh44dSUtIeQcAzHZya4DhHU0zfJfZV%252FuXncgIhTNYaCXdjmmr10unyvB%252BGhTZjIENIzVq%252FX%26spm%3D2014.12057478.1.0%26u%3D108kh5101010101010T0%26ref%3D%26et%3DjFBC5nUWBRTjTg%253D%253D
+function get_taobaoke_tu_url($taobaoke_url) {
+    //var_dump($taobaoke_url);
+
+    $ch = curl_init(); 
+
+    curl_setopt($ch, CURLOPT_URL, $taobaoke_url); 
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
+
+    curl_exec($ch);
+
+    $info = curl_getinfo($ch);
+    //var_dump($info);
+
+    $tu_url = $info['redirect_url'];
+
+    curl_close($ch);      
+
+    return $tu_url;
+}
+
+// 获取淘宝宝贝真实地址
+// http://s.click.taobao.com/t_js?tu=http%3A%2F%2Fs.click.taobao.com%2Ft%3Fe%3Dm%253D2%2526s%253D2S6vduMZ8V4cQipKwQzePOeEDrYVVa64yK8Cckff7TVRAdhuF14FMTKps9mP2Yfh5x%252BIUlGKNpX6KEOZrBczXtQRGlh44dSUtIeQcAzHZya4DhHU0zfJfZV%252FuXncgIhTNYaCXdjmmr10unyvB%252BGhTZjIENIzVq%252FX%26spm%3D2014.12057478.1.0%26u%3D108kh5101010101010T0%26ref%3D%26et%3DjFBC5nUWBRTjTg%253D%253D
+//  ==>
+//  http://detail.tmall.com/item.htm?id=24278460596
+function get_taobao_item_url($taobao_tu_url) {
+    $ch = curl_init(); 
+
+    $unescaped_tu_url = unescape($taobao_tu_url);
+
+    $split_unescaped_tu_url = preg_split('/tu=/', $unescaped_tu_url);
+
+    curl_setopt($ch, CURLOPT_REFERER, $taobao_tu_url);
+    curl_setopt($ch, CURLOPT_URL, $split_unescaped_tu_url[1]); 
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
+
+    curl_exec($ch);
+
+    $info = curl_getinfo($ch);
+    //var_dump($info);
+
+    $redirect_url = $info['redirect_url'];
+
+    curl_close($ch);
+
+    $split_parts = preg_split("/&ali_trackid/", $redirect_url);
+    return $split_parts[0];
+}
+
+// 根据九块邮url获取淘宝url.
+//
+function get_jiukuaiyou_item_taobao_url($jiukuaiyou_url) {
+    $taobaoke_url = get_taobaoke_url($jiukuaiyou_url);
+    //var_dump($taobaoke_url);
+
+    $taobaoke_tu_url = get_taobaoke_tu_url($taobaoke_url);
+    //var_dump($taobaoke_tu_url);
+
+    $taobao_item_url = get_taobao_item_url($taobaoke_tu_url);
+    //var_dump($taobao_item_url);
+    return $taobao_item_url;
+}
+
+
+	// 采集九块邮当天商品
+	//		http://ju.jiukuaiyou.com/jiu/fushi/whole/new/all/1
+	public function collect_jiukuaiyou_today() {
+
+		ini_set("max_execution_time", 0);
+
+   		$url = "http://ju.jiukuaiyou.com/jiu/fushi/whole/new/all/1";
+   		
+  		$html = file_get_contents($url);
+
+   		$pattern = "/<div class=\"buy_content\"(.*?)<a target=\"_blank\" href=\"(.*?)\" class=\"buy_action clearfix\">/si";
+
+   		preg_match_all($pattern, $html, $matches);
+
+
+   		foreach($matches[2] as $match) {
+    		if (trim($match) == '')
+        	continue;
+
+        	echo "<br>".$match;
+
+        	$taobao_url = get_jiukuaiyou_item_taobao_url($match);
+
+        	echo "<br>".$taobao_url;
+   		}
+	}
+
 	//收集商品信息
 	public function collect(){
 		
