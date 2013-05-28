@@ -36,10 +36,10 @@ class Taobao extends BaseAction{
 		}
 
 		//获得商品图片
-/*		$img=$this->match_image( $item );
-		$type = end(explode( '.', $img ));
-		$image = explode( '.'.$type, $img );
-		$img=$image[0].'.'.$type;*/
+		// $img=$this->match_image( $item );
+		// $type = end(explode( '.', $img ));
+		// $image = explode( '.'.$type, $img );
+		// $img=$image[0].'.'.$type;
 
 		$img=$this->match_image_all( $item );
 
@@ -298,8 +298,17 @@ class Taobao extends BaseAction{
 			}    
 
         }
-        else
-        	$image = '';
+    else {
+    	$img=$this->match_image( $content );
+
+    	$temp = explode( '.', $img );
+		$type = end($temp);
+		
+		$image_temp = explode( '.'.$type, $img );
+		$img=$image_temp[0].'.'.$type;
+
+		$image[0] = $img;
+    }
 
 		return $image;
 	}
