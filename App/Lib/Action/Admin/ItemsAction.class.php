@@ -318,8 +318,8 @@ class ItemsAction extends BaseAction{
 
 
 		if ($item['title']=='') {
-			var_dump($item);
-
+			//var_dump($item);
+			echo "商品为空，不用惊慌。<br>";
 			var_dump($taobao_url);
 			//$this->error('标题不能为空！');
 			//return false;
