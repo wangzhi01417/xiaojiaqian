@@ -50,8 +50,14 @@ class Taobao extends BaseAction{
 		//获得商品价格
 		$price=$this->match_price( $item );
 
+		$active = $this->match_status( $item );
+
 		//获得商品价格
 		$price_origin=$this->match_price_origin( $item );
+		if (substr($price_origin, "-")) {
+			$price_strs = explode('-', $price_origin);
+			$price_origin = trim($price_strs[0]);
+		}
 
 		//获得标签
 		$tags=$this->get_tags( $title );
@@ -78,6 +84,7 @@ class Taobao extends BaseAction{
 		$data['alias']=$site['alias'];
 		$data['cid']='';
 		$data['img']=$img;
+		$data['active'] = $active;
 		return $data;
 	}
 

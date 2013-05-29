@@ -121,22 +121,22 @@ border: 1px solid rgb(0, 102, 153);
 			}
 		});	
 		//编辑器
-		KE.show({
-			id : 'info',
-			imageUploadJson : '__PUBLIC__/statics/js/kindeditor/php/upload_json.php',
-			fileManagerJson : '__PUBLIC__/statics/js/kindeditor/php/file_manager_json.php',
-			allowFileManager : true,
-			afterCreate : function(id) {
-				KE.event.ctrl(document, 13, function() {
-					KE.util.setData(id);
-					document.forms['myform'].submit();
-				});
-				KE.event.ctrl(KE.g[id].iframeDoc, 13, function() {
-					KE.util.setData(id);
-					document.forms['myform'].submit();
-				});
-			}
-		});
+		// KE.show({
+		// 	id : 'info',
+		// 	imageUploadJson : '__PUBLIC__/statics/js/kindeditor/php/upload_json.php',
+		// 	fileManagerJson : '__PUBLIC__/statics/js/kindeditor/php/file_manager_json.php',
+		// 	allowFileManager : true,
+		// 	afterCreate : function(id) {
+		// 		KE.event.ctrl(document, 13, function() {
+		// 			KE.util.setData(id);
+		// 			document.forms['myform'].submit();
+		// 		});
+		// 		KE.event.ctrl(KE.g[id].iframeDoc, 13, function() {
+		// 			KE.util.setData(id);
+		// 			document.forms['myform'].submit();
+		// 		});
+		// 	}
+		// });
 	});
 </script>
 

@@ -69,6 +69,7 @@ body{font-family:"微软雅黑","宋体",Arial, Helvetica, sans-serif;font-size:
 	width: 92px;
 	margin-top: 5px;
 	margin-right: 13px;
+	display: none;
 }
 .personal{
 	float: left;
@@ -78,6 +79,7 @@ body{font-family:"微软雅黑","宋体",Arial, Helvetica, sans-serif;font-size:
 	width: 92px;
 	margin-top: 5px;
 	margin-right: 53px;
+	display: none;
 }
 .sinaIcon{
 	float: left;
