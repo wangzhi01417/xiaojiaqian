@@ -127,7 +127,7 @@ public function sync_item_data($item) {
 
 
 	public function index(){
-        $this->assign("sty",array('index','style1'));
+		
 		ini_set("max_execution_time", 0);
 
 		//$firephp = get_fire_php();

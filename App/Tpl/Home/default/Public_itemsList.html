@@ -24,7 +24,7 @@
 
 	<ul>
 		<volist name="items_list" id="voItems">
-		<li <if condition="$voItems['status'] eq 2"> class="goods_box end buy_close"<elseif condition="$voItems['status'] eq 3"/> class="goods_box end buy_out" <else/> class="goods_box" </if> >
+		<li <if condition="$voItems['status'] eq 2"> class="goods_box end buy_out"<elseif condition="$voItems['status'] eq 3"/> class="goods_box end buy_close" <else/> class="goods_box" </if> >
 			<div class="inner_box">
 				<h3>
 					<if condition="$voItems['sid'] eq '1'">

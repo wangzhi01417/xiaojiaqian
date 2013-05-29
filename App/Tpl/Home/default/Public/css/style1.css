@@ -50,13 +50,12 @@
 
 
 /*add by motor start*/
-.buy_close .buy_action{background:url("../img/goods_tag_status.png") no-repeat scroll 0px -150px transparent;}
-.end .buy_content a:hover{background:url("../img/goods_tag_status.png") no-repeat scroll 0px -150px transparent;}
-.buy_out .buy_action{background:url("../img/goods_tag_status.png") no-repeat scroll 0px -195px transparent;}
-.end .buy_content a:hover{background:url("../img/goods_tag_status.png") no-repeat scroll 0px -195px transparent;}
-.end .new_price{ color:#c1c1c1; font:800 25px "微软雅黑","arial"; letter-spacing: -2px; line-height: 35px;}
-.end .price_sign{color:#c1c1c1; font-size:18px;}
-
+.buy_close .buy_action{background:url("../img/goods_tag_status.png") no-repeat scroll 0px -192px transparent;}
+.buy_out .buy_action{background:url("../img/goods_tag_status.png") no-repeat scroll 0px -146px transparent;}
+.buy_close .buy_content a:hover{background:url("../img/goods_tag_status.png") no-repeat scroll 0px -192px transparent;}
+.buy_out .buy_content a:hover{background:url("../img/goods_tag_status.png") no-repeat scroll 0px -146px transparent;}
+.end .new_price{ color:#fff; font:800 25px "微软雅黑","arial"; letter-spacing: -2px; line-height: 35px;}
+.end .price_sign{color:#fff; font-size:18px;}
 
 /*add by motor end*/
 
@@ -68,7 +67,7 @@
 .buy_share .qq{float:right;width: 16px; height: 16px; margin-right: 3px; vertical-align: -4px; background: url("../img/total_alert.gif") no-repeat scroll -57px -254px transparent;display: block;}
 
 .buy_content {padding:5px 0; border-top: solid 1px #e1e1e1; }
-.buy_content a{text-align:bottom; height:29px; background:url("../img/goods_tag_status.png") no-repeat scroll 6px -9px transparent;}
+.buy_content a{text-align:bottom; /*height:29px;*/ background:url("../img/goods_tag_status.png") no-repeat scroll 6px -9px transparent;}
 .buy_content a:hover{background:url("../img/goods_tag_status.png") no-repeat scroll 6px -56px transparent;}
 .buy_content .buy_action{text-decoration: none; margin-bottom: 5px; margin-top: 5px; width:200px; display: block; }
 .buy_content .btn{float: right; width: 60px; height: 32px; right: 2px; }
