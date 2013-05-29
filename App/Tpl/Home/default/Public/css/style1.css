@@ -42,6 +42,16 @@
 .container .info h3 .tmao{width: 14px; height: 14px; margin-right: 3px; vertical-align: -2px; background-position: -197px -66px;}
 .container .info .item_url{height: 200px; overflow: hidden; margin: 5px 0;}
 
+/*add by motor start*/
+.buy_close .buy_action{background:url("../img/goods_tag_status.png") no-repeat scroll 0px -150px transparent;}
+.end .buy_content a:hover{background:url("../img/goods_tag_status.png") no-repeat scroll 0px -150px transparent;}
+.buy_out .buy_action{background:url("../img/goods_tag_status.png") no-repeat scroll 0px -195px transparent;}
+.end .buy_content a:hover{background:url("../img/goods_tag_status.png") no-repeat scroll 0px -195px transparent;}
+.end .new_price{ color:#c1c1c1; font:800 25px "微软雅黑","arial"; letter-spacing: -2px; line-height: 35px;}
+.end .price_sign{color:#c1c1c1; font-size:18px;}
+
+
+/*add by motor end*/
 .buy_content {padding:5px 0; border-top: solid 1px #e1e1e1; }
 .buy_content a{text-align:bottom; height:29px; background:url("../img/goods_tag_status.png") no-repeat scroll 6px -9px transparent;}
 .buy_content a:hover{background:url("../img/goods_tag_status.png") no-repeat scroll 6px -56px transparent;}
@@ -49,7 +59,7 @@
 .buy_content .btn{float: right; width: 60px; height: 32px; right: 2px; }
 .new_price{ color:#ff7900; font:800 25px "微软雅黑","arial"; letter-spacing: -2px; line-height: 35px;}
 .old_price{ color:#c1c1c1; font:200 16px ; padding-left:5px;  text-decoration:line-through;}
-.price_sign{color:#ff7900; font-size:18px}
+.price_sign{color:#ff7900; font-size:18px;}
 
 .page{text-align:center;clear:both;padding:10px 0}
 .page a{height:22px;line-height:22px;padding:0 5px;display:inline-block;font-weight:bold;margin:0 3px;font-size:12px;color:#666}
@@ -597,3 +607,4 @@ span.likeit em.hc{color:#CB383B;font-weight:100}
 .sitemap dl{float:left;display:inline; width:194px;}
 .sitemap dt{font-size:14px;font-weight:bold;margin-bottom:5px}
 .sitemap a{color:#5FAA92}
+
