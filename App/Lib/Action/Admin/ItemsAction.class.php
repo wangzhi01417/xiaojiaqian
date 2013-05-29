@@ -527,6 +527,8 @@ class ItemsAction extends BaseAction{
         			// 采集此商品
 
         			$taobao_url = $this->get_jiukuaiyou_item_taobao_url($item_url);
+
+        			echo "准备从".$taobao_url."采集商品数据<br/>";
         			$this->collect_one_taobao_item($category_name, $taobao_url, /*collect_inactive*/true, /*collect_higher_price*/true);
         			//$finished = true;
    				} 
