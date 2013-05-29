@@ -24,31 +24,56 @@
 
 	<ul>
 		<volist name="items_list" id="voItems">
-		<li <if condition="$voItems['status'] eq 2"> class="info end buy_close"<elseif condition="$voItems['status'] eq 3"/> class="info end buy_out" <else/> class="info" </if> >
-			<h3>
-				<if condition="$voItems['sid'] eq '1'">
-					<i class="tbao"></i>
-				</if>
-				
-				<if condition="$voItems['sid'] eq '2'">
-					<i class="tmao"></i>
-				</if>
-				<a href="{:get_url('buy',$voItems['id'],'item')}" title="{$voItems.title}">
-					{$voItems.title}
-				</a>
-			</h3>
-			
-			<a class="item_url" href="{:get_url('buy',$voItems['id'],'item')}" title="{$voItems.title}">
-				<img class="item_img" alt="{$voItems.title}" <if condition="$voItems['img'] neq ''">src="{$voItems.img|get_img=###,210}"<else/>src="__TMPL__Public/img/undefined.jpg"</if> width="200"/>
-			</a>
-			<div class="buy_content"> 
+		<li <if condition="$voItems['status'] eq 2"> class="goods_box end buy_close"<elseif condition="$voItems['status'] eq 3"/> class="goods_box end buy_out" <else/> class="goods_box" </if> >
+			<div class="inner_box">
+				<h3>
+					<if condition="$voItems['sid'] eq '1'">
+						<i class="tbao"></i>
+					</if>
+					
+					<if condition="$voItems['sid'] eq '2'">
+						<i class="tmao"></i>
+					</if>
+					<a  target="_blank" href="{:get_url('buy',$voItems['id'],'item')}" title="{$voItems.title}">
+						{$voItems.title}
+					</a>
+				</h3>
 
-				<a class="buy_action" href="{:get_url('buy',$voItems['id'],'item')}" title="{$voItems.title}">
-				<span class="new_price"><span class="price_sign">￥</span>{$voItems.price}</span>&nbsp;
-				<if condition="$voItems['remark1'] neq ''">
-				<span class="old_price">￥{$voItems.remark1}</span>
-			    </if>
-				</a>
+				<div class="pic">
+					<a class="item_url" target="_blank" href="{:get_url('buy',$voItems['id'],'item')}" title="{$voItems.title}">
+						<img class="item_img" alt="{$voItems.title}" <if condition="$voItems['img'] neq ''">src="{$voItems.img|get_img=###,210}"<else/>src="__TMPL__Public/img/undefined.jpg"</if> width="200"/>
+					</a>
+					<div class="buy_mask"></div>
+					<div class="buy_share">
+						 <!--Passit BUTTON BEGIN-->
+						 	分享到 :
+							<div class="passit_def_div">
+							
+							</div>
+							<script type="text/javascript">
+							var passit_title = "【小价钱 九块九包邮 www.xiaojiaqian.com 】";//自定义分享标题，删除和留空表示使用默认
+							var passit_url = "";//自定义分享网址，删除和留空表示使用默认
+							var passit_content= "{$voItems.title}{:get_url('buy',$voItems['id'],'item')}";//自定义分享内容，删除和留空表示使用默认Meta中的描述
+							var passit_image= "{$voItems.img|get_img=###,210}";//自定义分享图片，删除和留空表示不分享图片
+							var sina_appkey= "";//sina微博appkey,删除和留空表示使用默认
+							var qq_appkey= "";//腾讯微博appkey,删除和留空表示使用默认
+							</script>
+							<script type="text/javascript">
+							bookmark_service_div="qq,kxzt,qqxy,baiduHi,bookmark,baidu,douban,sohuweibo,163weibo,more";
+							bookmark_service="sinaweibo,qqweibo,qqxy,qq,douban"</script>
+							<script type="text/javascript" src="http://www.passit.cn/js/passit_default_new.js?pub=0&simple=1" charset="UTF-8"></script>
+							<!--Passit BUTTON END-->
+					</div>
+				</div>
+				
+				<div class="buy_content"> 
+					<a  target="_blank" class="buy_action" href="{:get_url('buy',$voItems['id'],'item')}" title="{$voItems.title}">
+					<span class="new_price"><span class="price_sign">￥</span>{$voItems.price}</span>&nbsp;
+					<if condition="$voItems['remark1'] neq ''">
+					<span class="old_price">￥{$voItems.remark1}</span>
+				    </if>
+					</a>
+				</div>
 			</div>
 		</li>
 		</volist>

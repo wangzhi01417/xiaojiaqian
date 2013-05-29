@@ -90,143 +90,538 @@ class ItemsAction extends BaseAction{
 		$this->display();
 	}
 
-function escape($str) { 
-    preg_match_all("/[\x80-\xff].|[\x01-\x7f]+/",$str,$r); 
-    $ar = $r[0]; 
-    foreach($ar as $k=>$v) { 
-        if(ord($v[0]) < 128) 
-            $ar[$k] = rawurlencode($v); 
-        else 
-            $ar[$k] = "%u".bin2hex(iconv("GB2312","UCS-2",$v)); 
-        } 
-    return join("",$ar); 
-} 
+	public function escape($str) { 
+	    preg_match_all("/[\x80-\xff].|[\x01-\x7f]+/",$str,$r); 
+	    $ar = $r[0]; 
+	    foreach($ar as $k=>$v) { 
+	        if(ord($v[0]) < 128) 
+	            $ar[$k] = rawurlencode($v); 
+	        else 
+	            $ar[$k] = "%u".bin2hex(iconv("GB2312","UCS-2",$v)); 
+	        } 
+	    return join("",$ar); 
+	} 
 
-function unescape($str) { 
-    $str = rawurldecode($str); 
-    preg_match_all("/(?:%u.{4})|.+/",$str,$r); 
-    $ar = $r[0]; 
-    foreach($ar as $k=>$v) { 
-        if(substr($v,0,2) == "%u" && strlen($v) == 6) 
-        $ar[$k] = iconv("UCS-2","GB2312",pack("H4",substr($v,-4))); 
-    } 
-    return join("",$ar); 
-} 
+	public function unescape($str) { 
+	    $str = rawurldecode($str); 
+	    preg_match_all("/(?:%u.{4})|.+/",$str,$r); 
+	    $ar = $r[0]; 
+	    foreach($ar as $k=>$v) { 
+	        if(substr($v,0,2) == "%u" && strlen($v) == 6) 
+	        $ar[$k] = iconv("UCS-2","GB2312",pack("H4",substr($v,-4))); 
+	    } 
+	    return join("",$ar); 
+	} 
 
-// 通过九块邮url获得九块邮淘宝客url
-//  http://ju.jiukuaiyou.com/jump/1121ep
-//      ==>
-//  http://s.click.taobao.com/t?e=m%3D2%26s%3D2S6vduMZ8V4cQipKwQzePOeEDrYVVa64yK8Cckff7TVRAdhuF14FMTKps9mP2Yfh5x%2BIUlGKNpX6KEOZrBczXtQRGlh44dSUtIeQcAzHZya4DhHU0zfJfZV%2FuXncgIhTNYaCXdjmmr10unyvB%2BGhTZjIENIzVq%2FX&spm=2014.12057478.1.0&u=108kh5101010101010T0
-function get_taobaoke_url($jiukuaiyou_url) {
-    $ch = curl_init(); 
+	// 通过九块邮url获得九块邮淘宝客url
+	//  http://ju.jiukuaiyou.com/jump/1121ep
+	//      ==>
+	//  http://s.click.taobao.com/t?e=m%3D2%26s%3D2S6vduMZ8V4cQipKwQzePOeEDrYVVa64yK8Cckff7TVRAdhuF14FMTKps9mP2Yfh5x%2BIUlGKNpX6KEOZrBczXtQRGlh44dSUtIeQcAzHZya4DhHU0zfJfZV%2FuXncgIhTNYaCXdjmmr10unyvB%2BGhTZjIENIzVq%2FX&spm=2014.12057478.1.0&u=108kh5101010101010T0
+	public function get_taobaoke_url($jiukuaiyou_url) {
+	    $ch = curl_init(); 
 
-    //set url 
-    curl_setopt($ch, CURLOPT_URL, $jiukuaiyou_url); 
+	    //set url 
+	    curl_setopt($ch, CURLOPT_URL, $jiukuaiyou_url); 
 
-    //return the transfer as a string 
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
+	    //return the transfer as a string 
+	    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
 
-    $result = curl_exec($ch); 
-    $pattern = "/<a href=\'(.*?)\' display=\'none\'/si";
-    preg_match($pattern, $result, $matches);
+	    $result = curl_exec($ch); 
+	    //var_dump($result);
+	    $pattern = "/<a href=\'(.*?)\' display=\'none\'/si";
+	    preg_match($pattern, $result, $matches);
 
-    curl_close($ch);      
+	    //var_dump($matches[1]);
 
-    return $matches[1];
-}
+	    curl_close($ch);      
 
-// 通过淘宝客url获取淘宝中间形式url: tu url
-//  http://s.click.taobao.com/t?e=m%3D2%26s%3D2S6vduMZ8V4cQipKwQzePOeEDrYVVa64yK8Cckff7TVRAdhuF14FMTKps9mP2Yfh5x%2BIUlGKNpX6KEOZrBczXtQRGlh44dSUtIeQcAzHZya4DhHU0zfJfZV%2FuXncgIhTNYaCXdjmmr10unyvB%2BGhTZjIENIzVq%2FX&spm=2014.12057478.1.0&u=108kh5101010101010T0
-//      ==>
-//  http://s.click.taobao.com/t_js?tu=http%3A%2F%2Fs.click.taobao.com%2Ft%3Fe%3Dm%253D2%2526s%253D2S6vduMZ8V4cQipKwQzePOeEDrYVVa64yK8Cckff7TVRAdhuF14FMTKps9mP2Yfh5x%252BIUlGKNpX6KEOZrBczXtQRGlh44dSUtIeQcAzHZya4DhHU0zfJfZV%252FuXncgIhTNYaCXdjmmr10unyvB%252BGhTZjIENIzVq%252FX%26spm%3D2014.12057478.1.0%26u%3D108kh5101010101010T0%26ref%3D%26et%3DjFBC5nUWBRTjTg%253D%253D
-function get_taobaoke_tu_url($taobaoke_url) {
-    //var_dump($taobaoke_url);
+	    return $matches[1];
+	}
 
-    $ch = curl_init(); 
+	// 通过淘宝客url获取淘宝中间形式url: tu url
+	//  http://s.click.taobao.com/t?e=m%3D2%26s%3D2S6vduMZ8V4cQipKwQzePOeEDrYVVa64yK8Cckff7TVRAdhuF14FMTKps9mP2Yfh5x%2BIUlGKNpX6KEOZrBczXtQRGlh44dSUtIeQcAzHZya4DhHU0zfJfZV%2FuXncgIhTNYaCXdjmmr10unyvB%2BGhTZjIENIzVq%2FX&spm=2014.12057478.1.0&u=108kh5101010101010T0
+	//      ==>
+	//  http://s.click.taobao.com/t_js?tu=http%3A%2F%2Fs.click.taobao.com%2Ft%3Fe%3Dm%253D2%2526s%253D2S6vduMZ8V4cQipKwQzePOeEDrYVVa64yK8Cckff7TVRAdhuF14FMTKps9mP2Yfh5x%252BIUlGKNpX6KEOZrBczXtQRGlh44dSUtIeQcAzHZya4DhHU0zfJfZV%252FuXncgIhTNYaCXdjmmr10unyvB%252BGhTZjIENIzVq%252FX%26spm%3D2014.12057478.1.0%26u%3D108kh5101010101010T0%26ref%3D%26et%3DjFBC5nUWBRTjTg%253D%253D
+	public function get_taobaoke_tu_url($taobaoke_url) {
+	    //var_dump($taobaoke_url);
 
-    curl_setopt($ch, CURLOPT_URL, $taobaoke_url); 
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
+	    $ch = curl_init(); 
 
-    curl_exec($ch);
+	    curl_setopt($ch, CURLOPT_URL, $taobaoke_url); 
+	    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
 
-    $info = curl_getinfo($ch);
-    //var_dump($info);
+	    curl_exec($ch);
 
-    $tu_url = $info['redirect_url'];
+	    $info = curl_getinfo($ch);
+	    //var_dump($info);
 
-    curl_close($ch);      
+	    $tu_url = $info['redirect_url'];
 
-    return $tu_url;
-}
+	    curl_close($ch);      
 
-// 获取淘宝宝贝真实地址
-// http://s.click.taobao.com/t_js?tu=http%3A%2F%2Fs.click.taobao.com%2Ft%3Fe%3Dm%253D2%2526s%253D2S6vduMZ8V4cQipKwQzePOeEDrYVVa64yK8Cckff7TVRAdhuF14FMTKps9mP2Yfh5x%252BIUlGKNpX6KEOZrBczXtQRGlh44dSUtIeQcAzHZya4DhHU0zfJfZV%252FuXncgIhTNYaCXdjmmr10unyvB%252BGhTZjIENIzVq%252FX%26spm%3D2014.12057478.1.0%26u%3D108kh5101010101010T0%26ref%3D%26et%3DjFBC5nUWBRTjTg%253D%253D
-//  ==>
-//  http://detail.tmall.com/item.htm?id=24278460596
-function get_taobao_item_url($taobao_tu_url) {
-    $ch = curl_init(); 
+	    return $tu_url;
+	}
 
-    $unescaped_tu_url = unescape($taobao_tu_url);
+	// 获取淘宝宝贝真实地址
+	// http://s.click.taobao.com/t_js?tu=http%3A%2F%2Fs.click.taobao.com%2Ft%3Fe%3Dm%253D2%2526s%253D2S6vduMZ8V4cQipKwQzePOeEDrYVVa64yK8Cckff7TVRAdhuF14FMTKps9mP2Yfh5x%252BIUlGKNpX6KEOZrBczXtQRGlh44dSUtIeQcAzHZya4DhHU0zfJfZV%252FuXncgIhTNYaCXdjmmr10unyvB%252BGhTZjIENIzVq%252FX%26spm%3D2014.12057478.1.0%26u%3D108kh5101010101010T0%26ref%3D%26et%3DjFBC5nUWBRTjTg%253D%253D
+	//  ==>
+	//  http://detail.tmall.com/item.htm?id=24278460596
+	public function get_taobao_item_url($taobao_tu_url) {
+	    $ch = curl_init(); 
 
-    $split_unescaped_tu_url = preg_split('/tu=/', $unescaped_tu_url);
+	    $unescaped_tu_url = $this->unescape($taobao_tu_url);
 
-    curl_setopt($ch, CURLOPT_REFERER, $taobao_tu_url);
-    curl_setopt($ch, CURLOPT_URL, $split_unescaped_tu_url[1]); 
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
+	    $split_unescaped_tu_url = preg_split('/tu=/', $unescaped_tu_url);
 
-    curl_exec($ch);
+	    curl_setopt($ch, CURLOPT_REFERER, $taobao_tu_url);
+	    curl_setopt($ch, CURLOPT_URL, $split_unescaped_tu_url[1]); 
+	    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
 
-    $info = curl_getinfo($ch);
-    //var_dump($info);
+	    curl_exec($ch);
 
-    $redirect_url = $info['redirect_url'];
+	    $info = curl_getinfo($ch);
+	    //var_dump($info);
 
-    curl_close($ch);
+	    $redirect_url = $info['redirect_url'];
 
-    $split_parts = preg_split("/&ali_trackid/", $redirect_url);
-    return $split_parts[0];
-}
+	    curl_close($ch);
 
-// 根据九块邮url获取淘宝url.
-//
-function get_jiukuaiyou_item_taobao_url($jiukuaiyou_url) {
-    $taobaoke_url = get_taobaoke_url($jiukuaiyou_url);
-    //var_dump($taobaoke_url);
+	    $split_parts = preg_split("/&ali_trackid/", $redirect_url);
+	    return $split_parts[0];
+	}
 
-    $taobaoke_tu_url = get_taobaoke_tu_url($taobaoke_url);
-    //var_dump($taobaoke_tu_url);
+	// 根据九块邮url获取淘宝url.
+	//
+	public function get_jiukuaiyou_item_taobao_url($jiukuaiyou_url) {
+	    $taobaoke_url = $this->get_taobaoke_url($jiukuaiyou_url);
+	    //var_dump($taobaoke_url);
 
-    $taobao_item_url = get_taobao_item_url($taobaoke_tu_url);
-    //var_dump($taobao_item_url);
-    return $taobao_item_url;
-}
+	    // taobaoke_url可能已经是taobao/tmall宝贝地址
+	    if (preg_match('/.*item.taobao.com.*/si', $taobaoke_url) ||
+	    	preg_match('/.*detail.tmall.com.*/si', $taobaoke_url))
+	        return $taobaoke_url;
+
+	    $taobaoke_tu_url = $this->get_taobaoke_tu_url($taobaoke_url);
+	    //var_dump($taobaoke_tu_url);
+
+	    $taobao_item_url = $this->get_taobao_item_url($taobaoke_tu_url);
+	    //var_dump($taobao_item_url);
+	    return $taobao_item_url;
+	}
+
+	// 采集一个淘宝宝贝
+	//	如果宝贝已经存在系统中，则忽略。
+	//	如果宝贝已经下架，则根据输入参数处理。
+	//	如果宝贝价格>10，根据输入参数处理。
+	//
+	//	$data = array (
+	//		"seller_id" => "",
+	//		"cid" => "3",
+	//		"title" => "xxxxx",
+	//		"img" => "xxx.jpg",
+	//		"url" => "",
+	//		"item_key" => "taobao_xxxxx",
+	//		"sid" => "1",
+	//		"hits" => "",
+	//		"likes" => "",
+	//		"seo_title" => "",
+	//		"seo_desc" => "",
+	//		"is_focus" => "",
+	//		"remark1" => "39.60 - 70.00");
+	public function collect_one_taobao_item($category_name, $taobao_url, $collect_inactive, $collect_higher_price) {
+		import("@.ORG.Taobao");
+		$taobao=new Taobao();
+
+		//var_dump($taobao_url);
+
+		// 调用taobao api获取商品信息
+		$item = $taobao->item($taobao_url);
+
+
+		//var_dump($item);
+		
+		// 保存宝贝到数据库，注意我们或许已经添加了该宝物
+		$items = M('Items');
+		$items_site = M('ItemsSite');
+		$items_tags = M('ItemsTags');
+		$items_tags_item = M('ItemsTagsItem');
+		$items_cate = M('ItemsCate');
+
+		$data=$items->create();
+
+		if (!$item['active'])
+			$data['status'] = 2;
+
+		if ($item['price'] > 10)
+			$data['status'] = 3;
+
+		// 标题
+		$data['title'] = strip_tags($item['title']);
+
+		$title_temp = $data['title'];
+		if (preg_match('/【九块邮独享】(.*)/si', $title_temp, $matches) && isset($matches)) {
+			$data['title']  = $matches[1];
+		}
+
+		$title_temp = $data['title'];
+		if (preg_match('/【九快邮独享】(.*)/si', $title_temp, $matches) && isset($matches)) {
+			$data['title']  = $matches[1];
+		}
+
+		$title_temp = $data['title'];
+		if (preg_match('/【九元购独享】(.*)/si', $title_temp, $matches) && isset($matches)) {
+			$data['title']  = $matches[1];
+		}
+
+		// 添加时间
+		$data['add_time']=time();
+
+		// 暂时不管uid
+		$data['uid']=0;
+
+		//审核状态，默认为0
+		$data['status']=0;
+
+		$data['info']= "";
+
+		$data['item_key'] = $item['item_key'];
+		$data['img'] = $item['img'][0];
+		$data['url'] = $item['url'];
+		$data['remark1'] = $item['remark1'];
+
+		$data['cid'] = 34;
+		$data['sid'] = $item['sid'];
+
+		$data['price'] = $item['price'];
+
+		switch ($category_name) {
+			case 'fushi':
+				$data['cid'] = 1;
+				break;
+			case 'shixiang':
+				$data['cid'] = 2;
+				break;
+			case 'xiebao':
+				$data['cid'] = 3;
+				break;
+			case 'meishi':
+				$data['cid'] = 6;
+				break;
+			case 'jujia':
+				$data['cid'] = 32;
+			case 'qita':
+				$data['cid'] = 34;
+				break;
+		}
+
+		//var_dump($data);
+
+
+		if ($item['title']=='') {
+			var_dump($item);
+
+			var_dump($taobao_url);
+			//$this->error('标题不能为空！');
+			//return false;
+		}
+
+		// 判断数据库中是否已经存在此数据。
+		if($item['item_key'] != ''){
+			$where['item_key']  = array('eq',$item['item_key']);
+		}else {
+			$where['url']  = array('eq',$item['url']);
+		}
+
+		$where['is_del']  = array('eq',0);
+
+		//如果添加的商品存在，获得商品的id、cid
+		//	id -商品id
+		//	cid - 商品类别id
+		$existed_item = $items->field('id,cid')->where($where)->find();
+
+		//商品存在则将分类中item_nums减1，不存在则添加，新的分类item_nums加1
+		if ($existed_item){
+			$items_cate->where("id='".$existed_item['cid']."'")->setDec('item_nums');
+			$result1 = $items->where($where)->save($data);
+			$new_item_id=$existed_item['id'];
+		}else {
+			$new_item_id=$result2=$items->add($data);
+		}
+
+		$items_cate->where("id='".$data['cid']."'")->setInc('item_nums');
+
+				
+		//处理标签
+		//	我们暂时不管标签
+		// if ($existed_item){						
+		// 	//已存在商品，先将标签中item_nums减1,删除旧的标签和商品关系
+		// 	$old_tag=$items_tags_item->field('tag_id')->where("item_id='".$existed_item['id']."'")->select();
+		// 	foreach ($old_tag as $tag){
+		// 		$items_tags->where("id='".$tag['tag_id']."'")->setDec('item_nums'); 
+		// 	}							
+		// 	$items_tags_item->where("item_id='".$add_item['id']."'")->delete();//删除标签和商品关系	
+		// }
+		
+		// $tags = isset($_POST['tags']) && trim($_POST['tags']) ? trim($_POST['tags']) : '';	
+		// if ($tags) {				
+		// 	//标签不存在则添加，更新标签和商品关系
+		// 	$tags_arr = explode(' ', $tags);
+		// 	$tags_arr = array_unique($tags_arr);
+		// 	foreach ($tags_arr as $tag) {
+		// 		$isset_id = $items_tags->field('id')->where("name='".$tag."' and pid='".$data['cid']."'")->find();
+		// 		if ($isset_id) {
+		// 			$items_tags_item->add(array(
+		// 					'item_id' => $new_item_id,
+		// 					'tag_id' => $isset_id['id'],
+		// 			));
+		// 			$items_tags->where("id='".$isset_id['id']."'")->setInc('item_nums'); //标签item_nums加1
+		// 		} else {
+		// 			$tag_id = $items_tags->add(array('name' => $tag,'pid' => $data['cid'],));
+		// 			$items_tags_item->add(array(
+		// 					'item_id' => $new_item_id,
+		// 					'tag_id' => $tag_id,
+		// 			));
+		// 			$items_tags->where("id='".$tag_id."'")->setInc('item_nums'); //标签item_nums加1
+		// 		}
+		// 	}
+		// } // if($tags)
+
+
+		// 添加成功
+		return true;
+	}
+
+	public function day_less_than($first, $second) {
+		$first_day = (int)($first / 86400);
+		$second_day = (int)($second / 86400);
+
+		// var_dump($first_day);
+		// var_dump($second_day);
+
+		return $first_day < $second_day;
+	}
+
+	public function day_equal_to($first, $second) {
+		$first_day = (int)($first / 86400);
+		$second_day = (int)($second / 86400);
+
+		return $first_day == $second_day;
+	}
+
+	public function day_greater_than($first, $second) {
+		$first_day = (int)($first / 86400);
+		$second_day = (int)($second / 86400);
+
+		//var_dump($first_day);
+		//var_dump($second_day);
+
+		return $first_day > $second_day;
+	}
+
+	// 获取一个九块邮商品的时间
+	//	输入，类似 5月29日10时00分
+	public function get_jiukuaiyou_time($timestamp) {
+		if ($timestamp=='')
+			return null;
+
+		preg_match('/(\d{1,2})月(\d{1,2})日(\d{1,2})时(\d{1,2})分/', $timestamp, $matches);
+		$date = mktime($matches[3], $matches[4], 0, $matches[1], $matches[2], 2013);
+
+		return $date;
+	}
+
+    function url_exists($url){
+        $url = str_replace("http://", "", $url);
+        if (strstr($url, "/")) {
+            $url = explode("/", $url, 2);
+            $url[1] = "/".$url[1];
+        } else {
+            $url = array($url, "/");
+        }
+
+        $fh = fsockopen($url[0], 80);
+        if ($fh) {
+            fputs($fh,"GET ".$url[1]." HTTP/1.1\nHost:".$url[0]."\n\n");
+            if (fread($fh, 22) == "HTTP/1.1 404 Not Found") { return FALSE; }
+            else { return TRUE;    }
+
+        } else { return FALSE;}
+    }
+
+	// 采集九块邮数据
+	// $collect_categories - 需要采集的类别
+	// $ start_end_date - 采集的开始结束时间
+	public function collect_jiukuaiyou_items($collect_categories, $start_end_date) {
+		if ($start_end_date && isset($start_end_date)) {
+			$start_time = $start_end_date['start_time'];
+			$end_time = $start_end_date['end_time'];
+		}
+		else {
+			$start_time = time();
+			$end_time = time();
+		}
+
+		// var_dump($start_time);
+		// var_dump($end_time);
+
+		// var_dump($collect_categories);
+
+		foreach ($collect_categories as $category_name => $category_val) {
+			// var_dump("<br>name=".$category_name);
+			// var_dump("<br>val=".$category_val);
+
+			if ($category_val==false)
+				continue;	// 我们不采集几种类型的商品
+
+			// $url = "http://ju.jiukuaiyou.com/jiu/fushi/whole/new/all/1";
+			$url_template= "http://ju.jiukuaiyou.com/jiu/".$category_name."/whole/new/all/";
+
+			$finished = false;
+
+			// 我们最多找5页
+			for ($page_index = 1; $page_index < 5; $page_index ++) {
+
+				if ($finished)
+					break;
+
+				$url = $url_template.$page_index;
+
+				//var_dump($url);
+
+				// 网页不存在，完成！
+				if (!$this->url_exists($url))
+					break;
+
+				//var_dump($url);
+
+				$html = file_get_contents($url);
+
+				$pattern = "/<span class=\"begin_time\">开始：(.*?)<\/span>.*?<div class=\"buy_content\".*?<a target=\"_blank\" href=\"(.*?)\" class=\"buy_action clearfix\">/si";
+
+				preg_match_all($pattern, $html, $matches);
+
+				//var_dump($matches);
+
+				for ($index = 0; $index < count($matches[2]) && !$finished; $index++) {
+        			$item_url = $matches[2][$index];
+        			$time_stamp = $matches[1][$index];
+
+        			$date = $this->get_jiukuaiyou_time($time_stamp);
+
+        			// var_dump("<br>date=".$date);
+        			// var_dump("<br>start_time=".$start_time);
+        			// var_dump("<br>end_time=".$end_time);
+
+        			if ($this->day_less_than($date, $start_time)) {
+        				var_dump("date less than start_time, finishing...");
+        				$finished = true;
+        				break;
+        			}
+
+        			if ($this->day_greater_than($date, $end_time)) {
+        				var_dump("date greater than end_time");
+        				continue;
+        			}
+
+        			
+        			// 采集此商品
+
+        			$taobao_url = $this->get_jiukuaiyou_item_taobao_url($item_url);
+        			$this->collect_one_taobao_item($category_name, $taobao_url, /*collect_inactive*/true, /*collect_higher_price*/true);
+        			//$finished = true;
+   				} 
+
+			} 
+		} // foreach category
+	}	// collect_jiukuaiyou_items
+
+
+	public function collect_jiukuaiyou_between_specific_times() {
+		if (!isset($_POST['submit']))
+			return;
+
+		// 这个函数的执行可能需要很长时间 :)
+		set_time_limit(0);
+
+		$fushi=trim($_POST['fushi']);
+		$shishang = trim($_POST['shishang']);
+		$xiebao = trim($_POST['xiebao']);
+		$meishi = trim($_POST['meishi']);
+		$jujia = trim($_POST['jujia']);
+		$qita = trim($_POST['qita']);
+
+		if ($fushi == false && $shishang==false && $xiebao ==false && $meishi==false && $jujia==false && $qita==false)
+			$this->error("没有选中任何类别");
+
+		$collect_categories = array("fushi" => $fushi,
+			"shishang" => $shishang,
+			"xiebao" => $xiebao,
+			"meishi" => $meishi,
+			"jujia" => $jujia,
+			"qita" => $qita);
+
+		//var_dump($collect_categories);
+
+		$time_start = isset($_POST['time_start']) && trim($_POST['time_start']) ? trim($_POST['time_start']) : '';
+		$time_end = isset($_POST['time_end']) && trim($_POST['time_end']) ? trim($_POST['time_end']) : '';
+
+		if ($time_start =='' || $time_end =='') {
+			$time_start_int = time();
+			$time_end_int = time();
+		}
+		else {
+			$time_start_int = strtotime($time_start);
+			$time_end_int = strtotime($time_end);
+		}
+		// var_dump($time_start_int);
+		// var_dump($time_end_int);
+
+		 $this->collect_jiukuaiyou_items($collect_categories, array("start_time"=>$time_start_int,
+   			"end_time" => $time_end_int));
+
+   		//$this->success('采集九块邮商品成功',U('Items/collect_jiukuaiyou'));
+	}	// collect_jiukuaiyou_between_specific_times
 
 
 	// 采集九块邮当天商品
 	//		http://ju.jiukuaiyou.com/jiu/fushi/whole/new/all/1
 	public function collect_jiukuaiyou_today() {
 
-		ini_set("max_execution_time", 0);
+		// 这个函数的执行可能需要很长时间 :)
+		set_time_limit(0);
 
-   		$url = "http://ju.jiukuaiyou.com/jiu/fushi/whole/new/all/1";
-   		
-  		$html = file_get_contents($url);
+		$fushi=trim($_POST['fushi']);
+		$shishang = trim($_POST['shishang']);
+		$xiebao = trim($_POST['xiebao']);
+		$meishi = trim($_POST['meishi']);
+		$jujia = trim($_POST['jujia']);
+		$qita = trim($_POST['qita']);
 
-   		$pattern = "/<div class=\"buy_content\"(.*?)<a target=\"_blank\" href=\"(.*?)\" class=\"buy_action clearfix\">/si";
+		$collect_categories = array("fushi" => $fushi,
+			"shishang" => $shishang,
+			"xiebao" => $xiebao,
+			"meishi" => $meishi,
+			"jujia" => $jujia,
+			"qita" => $qita);
 
-   		preg_match_all($pattern, $html, $matches);
+		//var_dump($collect_categories);
 
+		$time_start = isset($_POST['time_start']) && trim($_POST['time_start']) ? trim($_POST['time_start']) : '';
+		$time_end = isset($_POST['time_end']) && trim($_POST['time_end']) ? trim($_POST['time_end']) : '';
 
-   		foreach($matches[2] as $match) {
-    		if (trim($match) == '')
-        	continue;
+		// var_dump($time_start);
+		// var_dump($time_end);
 
-        	echo "<br>".$match;
+		if ($time_start)
+			$time_start_int = strtotime($time_start);
 
-        	$taobao_url = get_jiukuaiyou_item_taobao_url($match);
+		if ($time_end)
+			$time_end_int = strtotime($time_end);
 
-        	echo "<br>".$taobao_url;
-   		}
+   		$this->collect_jiukuaiyou_items($collect_categories, array("start_time"=>$time_start_int,
+   			"end_time" => $time_end_int));
+
+   		$this->ajaxReturn($item);
 	}
 
 	//收集商品信息
@@ -330,13 +725,34 @@ function get_jiukuaiyou_item_taobao_url($jiukuaiyou_url) {
 			if (!$data){
 				$this->error($items->getError());
 			}
+
+			//var_dump($data);
+
+			//	$data = array (
+			//		"seller_id" => "",
+			//		"cid" => "3",
+			//		"title" => "xxxxx",
+			//		"img" => "xxx.jpg",
+			//		"url" => "",
+			//		"item_key" => "taobao_xxxxx",
+			//		"sid" => "1",
+			//		"hits" => "",
+			//		"likes" => "",
+			//		"seo_title" => "",
+			//		"seo_desc" => "",
+			//		"is_focus" => "",
+			//		"remark1" => "39.60 - 70.00");
 						
 			//去除标题标签
 			$data['title']=strip_tags($data['title']);		
 
 			//下载远程图片
+			//	默认的配置down_status为0
 			if (C('down_status')==1){
+				// 例子：$type = "jpg"
 				$type = end(explode( '.', $data['img'] ));
+				// 如果下载成功，则放到C:\xampp\htdocs\xiaojiaqian\Uploads\LocalItems目录：
+				//	down_item返回此图片路径
 				$data['img']=$this->down_item($data['img'], $data['item_key'].'.'.$type);
 			}
 			
@@ -353,23 +769,31 @@ function get_jiukuaiyou_item_taobao_url($jiukuaiyou_url) {
 			$data['add_time']=time();
 			
 			//添加随机uid
+			//	我们暂时不需要uid
 			$user_info=$user->field(id)->where('is_sys=1')->order('rand()')->find();
 			$data['uid']=$user_info['id'];
 			
 			//审核状态
+			//	默认配置item_status是0，故默认status为1，即已审核
 			$data['status']=(C('items_status')+1)%2;
 			
 			//分享介绍关键词过滤
 			$data['info']=$this->filter($data['info']);
 			
+			// 判断数据库中是否已经存在此数据。
 			if($data['item_key'] != ''){
 				$where['item_key']  = array('eq',$data['item_key']);
 			}else {
 				$where['url']  = array('eq',$data['url']);
 			}
+
 			$where['is_del']  = array('eq',0);
+
 			//如果添加的商品存在，获得商品的id、cid
+			//	id -商品id
+			//	cid - 商品类别id
 			$add_item = $items->field('id,cid')->where($where)->find();
+
 			//商品存在则将分类中item_nums减1，不存在则添加，新的分类item_nums加1
 			if ($add_item){
 				$items_cate->where("id='".$add_item['cid']."'")->setDec('item_nums');
@@ -378,9 +802,11 @@ function get_jiukuaiyou_item_taobao_url($jiukuaiyou_url) {
 			}else {
 				$new_item_id=$result2=$items->add($data);
 			}
+
 			$items_cate->where("id='".$data['cid']."'")->setInc('item_nums');
 			
 			//处理标签
+			//	我们暂时不管标签
 			if ($add_item){						
 				//已存在商品，先将标签中item_nums减1,删除旧的标签和商品关系
 				$old_tag=$items_tags_item->field('tag_id')->where("item_id='".$add_item['id']."'")->select();
