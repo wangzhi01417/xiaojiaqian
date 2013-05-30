@@ -45,24 +45,27 @@
 					</a>
 					<div class="buy_mask"></div>
 					<div class="buy_share">
-						 <!--Passit BUTTON BEGIN-->
-						 	分享到 :
-							<div class="passit_def_div">
-							
-							</div>
-							<script type="text/javascript">
-							var passit_title = "【小价钱 九块九包邮 www.xiaojiaqian.com 】";//自定义分享标题，删除和留空表示使用默认
-							var passit_url = "";//自定义分享网址，删除和留空表示使用默认
-							var passit_content= "{$voItems.title}, http://www.xiaojiaqian.com{:get_url('buy',$voItems['id'],'item')}";//自定义分享内容，删除和留空表示使用默认Meta中的描述
-							var passit_image= "{$voItems.img|get_img=###,210}";//自定义分享图片，删除和留空表示不分享图片
-							var sina_appkey= "";//sina微博appkey,删除和留空表示使用默认
-							var qq_appkey= "";//腾讯微博appkey,删除和留空表示使用默认
-							</script>
-							<script type="text/javascript">
-							bookmark_service_div="qq,kxzt,qqxy,baiduHi,bookmark,baidu,douban,sohuweibo,163weibo,more";
-							bookmark_service="sinaweibo,qqweibo"</script>
-							<script type="text/javascript" src="http://www.passit.cn/js/passit_default_new.js?pub=0&simple=1" charset="UTF-8"></script>
-							<!--Passit BUTTON END-->
+						<b>分享到:</b>
+						<!-- Baidu Button BEGIN -->
+						<div id="bdshare" class="bdshare_t bds_tools get-codes-bdshare" 
+						data=
+						"{
+						text:【小价钱 九块九包邮 www.xiaojiaqian.com 】 - {$voItems.title} - http://www.xiaojiaqian.com{:get_url('buy',$voItems['id'],'item')}, 
+						pic: {$voItems.img|get_img=###,210}
+						}"
+						>
+						<a class="bds_tsina"></a>
+						<a class="bds_qzone"></a>
+						<a class="bds_tqq"></a>
+						<a class="bds_renren"></a>
+						<a class="bds_t163"></a>
+						</div>
+						<script type="text/javascript" id="bdshare_js" data="type=tools&amp;mini=1&amp;uid=0" ></script>
+						<script type="text/javascript" id="bdshell_js"></script>
+						<script type="text/javascript">
+						document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + Math.ceil(new Date()/3600000)
+						</script>
+						<!-- Baidu Button END -->
 					</div>
 				</div>
 				
