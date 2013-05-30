@@ -166,7 +166,7 @@ class ItemAction extends BaseAction {
 			header("Location: ".C('site_domain')."");
 		}
 	    $items_mod= D('Items');	
-    	$res=$items_mod->where("id=$id and is_del=0 and status=1")->getfield('url');
+    	$res=$items_mod->where("id=$id and is_del=0 and status >= 1")->getfield('url');
     	if($res){
         	header("Location: $res");
     	}else{
