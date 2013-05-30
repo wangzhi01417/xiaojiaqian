@@ -5,20 +5,36 @@
 	$(document).ready(function(){
 
 		$("#sync_item").click(function(){
+
             $(this).val("正在同步...");
-		    $.post("{:u('Items/sync')}", { }, function(data){
-		    	$("#error_msg").val('同步失败！！！').hide();
-		    	if(data.data == false){
-		    		$("#error_msg").val('同步失败！！！').show();
-		    	}else{
-                    alert("同步结束！");
-                    $(this).val("开始同步");
-                    //$("#error_msg")[0].innerHTML = "<b>共更新了"+data.data.count+"件商品！</b>";
-		    		//$("#error_msg").show();
+            $("#error_msg").hide();
 
-                 }
+		    $.post("{:u('Items/sync')}", function(data){
+				    	$("#error_msg").val('同步失败！！！').hide();
+				    	if(data.data == false){
+				    		$("#error_msg").val('同步失败！！！').show();
+				    	}else{
 
-		        });
+		                    $("#error_msg")[0].innerHTML = "<b>更新完成，共更新了"+data.data.count+"件商品！</b><div>"+data.data.log+"</div>";
+				    		$("#error_msg").show();
+
+		                 }
+
+		        },"json");
+
+		    $(this).attr("disabled","disabled");
+
+		    
+		});
+
+		$("#loading").ajaxStart(function(){
+			$(this).show();
+		});
+	
+		$("#loading").ajaxStop(function(){
+			$(this).hide();
+			$("#sync_item").val("开始同步");
+			$("#sync_item").removeAttr('disabled');
 		});
 
 	});
@@ -31,7 +47,8 @@
 </head>
 <body>
 <input type="button" name="sync_item" value="开始同步" class="button" id="sync_item" />
-<br/>
-<div name="error_msg" id="error_msg" style="margin:0px 300px;color:red;display:none;"><b>同步失败！！</b></div>
+<img id="loading" src="__PUBLIC__/statics/images/ajax_loading.gif" style="display:none;"/>
+
+<span name="error_msg" id="error_msg" style="margin:0px 0px;color:red;display:none;"><b>同步失败！！</b></span>
 
 </body></html>

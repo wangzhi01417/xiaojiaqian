@@ -55,6 +55,8 @@ public function sync_item_data($item) {
 
 	//获得商品原价格
 	$old_price=$taobao->match_price_origin( $item_html );
+	if(strpos($old_price, '-'))
+	$old_price = end(explode('-', $old_price));
 	echo "A".$old_price."A<br>";
 
 	//$firephp->log($new_price, "latest price=");
