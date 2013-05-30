@@ -43,11 +43,6 @@ border: 1px solid rgb(0, 102, 153);
           var imgs="";
           for(var i=0;i<data.data.img.length;i++){
             $("#img_list")[0].innerHTML += "<img id=\"img_show\" src=\""+data.data.img[i]+"\" width=\"210px\" height=\"210px\"/>";
-/*              if(i==0)
-                 imgs += data.data.img[i];
-              else
-                 imgs += “,”data.data.img[i];
-              $("#remark2").val(imgs);*/
 
           }
           var first = $("#img_list").find("img").first();
@@ -69,7 +64,7 @@ border: 1px solid rgb(0, 102, 153);
                   $(this).removeAttr("style");
                
  
-          });
+            });
           });
 
           //**********add by motor end************

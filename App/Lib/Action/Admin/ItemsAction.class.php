@@ -90,6 +90,190 @@ class ItemsAction extends BaseAction{
 		$this->display();
 	}
 
+	//同步商品状态
+	public function update(){
+
+		$this->display();
+
+    }
+
+    public function sync(){
+
+		ini_set("max_execution_time", 0);
+
+		//$this->display();
+		header("Content-type: text/xml; charset=utf-8");
+
+		$items_mod=M("Items");
+		$items_list = $items_mod->where('status = 1')->order("add_time desc")->select();
+        $cnt = 0;
+        $loginfo = "";
+		foreach($items_list as $item) {
+
+			$result = $this->sync_item_data($item);
+			if($result!=""){
+				$cnt++;
+				$loginfo .= $result;
+			}
+		}
+		//Ajax返回数据
+        $data['count'] = $cnt;
+        $data['log'] = $loginfo;
+        $this->ajaxReturn($data);
+
+	}
+
+	// 更新一个宝贝信息。
+	//	输入：$item - 本地宝贝信息
+	//  返回：TRUE - 更新了宝贝, FALSE - 没有更新宝贝
+	public function sync_item_data($item) {
+		import("@.ORG.Taobao");
+		$taobao=new Taobao();
+
+		//$firephp = get_fire_php();
+
+		$item_id = $item['id'];
+		$item_key = $item['item_key'];		// such as : taobao_16554250670
+		$item_price = $item['price'];
+		$item_oldprice = $item['remark1'];
+		$item_status = $item['status'];
+
+		$updated = false;
+		$log = "";
+
+		//echo "Sync data for item with id=$item_id<br>";
+
+		list($site_alias, $taobao_item_id) = split('[_]', $item_key);
+
+		if ($site_alias == "taobao")
+			$domain = "taobao.com";
+		else if ($site_alias == "tmall")
+			$domain = "tmall.com";
+		else
+			return false;
+
+		$m_url = 'http://a.m.'.$domain.'/i'.$taobao_item_id.'.htm';
+
+		//$firephp->log($url, "url=");
+
+		// $firephp->log(array(
+		// 	"site_alias" => $site_alias,
+		// 	"item_id" => $item_id,
+		// 	"url" => $url));
+
+		// 获取淘宝宝贝网页html.
+		$item_html = file_get_contents( $m_url );
+
+		//$firephp->log($item_html, "item_html=");
+
+		// 获取宝贝标题
+		$new_title=$taobao->match_title( $item_html );
+
+		//$firephp->log($title, "title=");
+
+		// 获取宝贝图片地址
+		$new_img=$taobao->match_image( $item_html );
+
+		//$firephp->log($img, "img=");
+
+		// 获取宝贝价格
+		$new_price=$taobao->match_price( $item_html );
+
+		//获得商品原价格
+		$old_price=$taobao->match_price_origin( $item_html );
+		if(strpos($old_price, '-'))
+			$old_price = end(explode('-', $old_price));
+
+		//$firephp->log($new_price, "latest price=");
+
+		// 获取宝贝状态：在售？下架？
+		$active = $taobao->match_status( $item_html );
+
+		//if (!$active)
+			//$firephp->log($active ? "##ACTIVE##" : "##INACTIVE##", "item with id='$item_id' status=");
+			//echo "Item with id=$item_id status=INACTIVE<br>";
+        $items = M('items');
+
+		if ($active) {
+
+			//$firephp->log($item_price, "our price=");
+
+			// $new_price maybe like '8.91-9.90'.
+			if (strpos($new_price, '-')){
+				//$firephp->log($item_price, "item_price=");
+
+				$min_max_prices = explode("-", $new_price);
+				$min_price = $min_max_prices[0];
+				$max_price = $min_max_prices[1];
+
+				//$firephp->log("min=$min_price, max=$max_price", "");
+				//echo "min=$min_price, max=$max_price<br>";
+
+				$new_price = $min_price;
+			}
+
+			//$firephp->log($item_price, "our price=");
+
+			if ($new_price != $item_price) {
+				// 如果商品的最新价格>9.9，下架！
+				if ($new_price > 10) {
+					if($item_status != 3){
+						$data['status']=3;
+						$where['id']=$item_id;
+						$items->where($where)->save($data);
+						//$firephp->log("Item with id='$item_id' price is too high (cur=$new_price, prev=$item_price), make it as inactive", "");
+						//echo "Item with id='$item_id' price is too high (cur=$new_price, prev=$item_price), change its status to 3<br>";
+						$updated = true;
+						$log .= "Item with id=".$item_id."价格为".$new_price.",大于10块，活动结束<br>";
+					}
+
+				}
+				else{
+
+				    // 更新商品价格
+					$data['price']=$new_price;
+					$where['id']=$item_id;
+					$items->where($where)->save($data);
+					$updated = true;
+					$log .= "Item with id=".$item_id." 价格调为".$new_price."<br>";
+				}
+
+			}
+
+           if ($old_price != $item_oldprice) {
+				    //更新商品原价
+		        $where['id']=$item_id;
+				$data['remark1']=$old_price;
+				$items->where($where)->save($data);
+				$updated = true;
+				$log .= "Item with id=".$item_id." 原价格调为".$old_price."<br>";
+
+		    }
+
+		}
+		else {
+			// Inactive, update the item status to "inactive".
+			//$items = M('items');
+			if($item_status != 2){
+
+				$where['id']=$item_id;
+				$data['status']=2;
+				$items->where($where)->save($data);
+				$updated = true;
+				$log .= "Item with id=".$item_id." 该商品已经下架<br>";
+
+			}
+	
+			//$firephp->log(array(
+			//	"Update item to inactive with id=" => $item_id));
+			//echo "Item with id=$item_id has been sold out on taobao.com, update item's status to 2 <br>";
+		}
+
+
+		return $log;
+	}
+
+
 	public function escape($str) { 
 	    preg_match_all("/[\x80-\xff].|[\x01-\x7f]+/",$str,$r); 
 	    $ar = $r[0]; 
