@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" >
+<html xmlns="http://www.w3.org/1999/xhtml"	>
 <head>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
 <title>{$seo.title}</title>
@@ -44,12 +44,48 @@ $(function(){
 	}
 })
 </script>
+
+<script>
+function addfavorite()
+{
+	var sURL = "http://www.xiaojiaqian.com";
+	var sTitle = "小价钱";
+	try
+	{
+		window.external.addFavorite(sURL,sTitle);
+	}
+	catch(e)
+	{
+		try
+		{
+			window.sidebar.addPanel(sTitle,sURL,"");
+		}
+		catch(e)
+		{
+			alert("加入收藏失败，请使用Ctrl+D进行添加");
+		}
+	}
+} 
+</script>
+
 </head>
 <body>
 <div id="web_path" style="display:none;">
 	{:C('web_path')}
 </div>
 
+<div class="toolbar">
+	<div class="toolbar_content">
+		<ul class="toolbar_menu">
+			<li class="menu"><a href="#" class="white_link">关于我们</a></li>
+			<li class="menu collect">
+				<div class="menu_hd collect_to">
+					<a href="#"  onclick='addfavorite()' class="white_link">收藏小价钱</a>
+				</div>
+			</li>
+		</ul>
+	</div>
+</div>
 <div class="nav" id="header_fixed">
     <div class="mask"></div>
 		<ul class="navigation">
