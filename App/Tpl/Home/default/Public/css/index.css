@@ -31,6 +31,7 @@ body{font-family:"微软雅黑","宋体",Arial, Helvetica, sans-serif;font-size:
 
 #header_fixed{position: fixed;width:100%;z-index:9999;display:none}
 .head{
+	margin-top: 10px;
 	height: 114px;
 	position: relative;
 	width: 100%;
@@ -55,8 +56,42 @@ body{font-family:"微软雅黑","宋体",Arial, Helvetica, sans-serif;font-size:
 }
 
 
+.toolbar{
+	background: none repeat scroll 0 0 #d4d4d4;
+    color: #4F4F4F;
+    height: 30px;
+    line-height: 30px;
+    position: relative;
+    width: 100%;
+    z-index: 10001;
+}
 
+.toolbar_content{
+	width: 970px;
+	margin:0 auto;
+}
 
+.toolbar_content:after{
+	clear: both;
+    content: ".";
+    display: block;
+    height: 0;
+    visibility: hidden;
+}
+
+.toolbar_menu{
+	float: right;
+}
+
+.toolbar_menu li{
+	float: left;
+	padding: 0 20px;
+}
+
+.white_link{
+	color: #5e5e5e;
+	text-decoration: none;
+}
 .bdshare{
 	float: right;
 	padding: 25px 0;

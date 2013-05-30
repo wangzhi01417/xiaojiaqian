@@ -35,7 +35,7 @@
 .demol_danpin .replay .Comment{background:#fff}
 
 .container {padding-top: 10px;}
-.goods_box .inner_box {float:left; width:200px; border:solid 1px #e1e1e1; padding:5px 10px 0; margin: 10px 10px; }
+.goods_box {float:left; width:200px; border:solid 1px #e1e1e1; padding:5px 10px 0; margin: 10px 10px; }
 .goods_box .inner_box h3{height: 40px; line-height: 20px; overflow: hidden; margin: 5px 0; cursor: pointer; font-weight: normal; }
 .goods_box .inner_box h3 i{display: inline-block; background: url("../img/total_alert.gif") no-repeat scroll 0 -66px transparent;}
 .goods_box .inner_box h3 .tbao{width: 16px; height: 16px; margin-right: 3px; vertical-align: -4px; background-position: 0 -66px}
@@ -59,12 +59,11 @@
 
 /*add by motor end*/
 
-.buy_mask{ background: #000; opacity: 0.3; height: 18px; width: 200px; position: absolute; top: 182px; filter:alpha(opacity=00); -moz-opacity:0.00; opacity:0.00; z-index:0;
+.buy_mask{ background: #000; opacity: 0.3; height: 28px; width: 200px; position: absolute; top: 172px; filter:alpha(opacity=00); -moz-opacity:0.00; opacity:0.00; z-index:0;
      -moz-transition: all 0.3s ease 0.000001s; -webkit-transition: all 0.3s ease 0.000001s; -o-transition: all 0.3s ease 0.000001s; transition: all 0.3s ease 0.000001s;}
-.buy_share{height:18px; width:200px; position: absolute; top: 183px;filter:alpha(opacity=00); -moz-opacity:0.00; opacity:0.00; color: #fff; }
-.passit_def_div{float: right;}
-.buy_share .sina{float:right;width: 16px; height: 16px; margin-right: 3px; vertical-align: -4px; background: url("../img/total_alert.gif") no-repeat scroll 0 -254px transparent; display: block;}
-.buy_share .qq{float:right;width: 16px; height: 16px; margin-right: 3px; vertical-align: -4px; background: url("../img/total_alert.gif") no-repeat scroll -57px -254px transparent;display: block;}
+.buy_share{height:28px; width:200px; position: absolute; top: 174px;filter:alpha(opacity=00); -moz-opacity:0.00; opacity:0.00; color: #fff; }
+.buy_share b{float: left; padding-left: 20px; color: #fff; line-height: 28px; font-weight: normal;}
+
 
 .buy_content {padding:5px 0; border-top: solid 1px #e1e1e1; }
 .buy_content a{text-align:bottom; /*height:29px;*/ background:url("../img/goods_tag_status.png") no-repeat scroll 6px -9px transparent;}
@@ -624,3 +623,25 @@ span.likeit em.hc{color:#CB383B;font-weight:100}
 .sitemap dt{font-size:14px;font-weight:bold;margin-bottom:5px}
 .sitemap a{color:#5FAA92}
 
+.error_box{
+	display: block;
+	font-size: 14px;
+	font-weight: bold;
+	margin: 70px auto;
+	text-align: center;
+}
+
+.error_sign{
+	background: url(../img/error_sign.png);
+	width: 80px;
+	height: 90px;
+	margin-right: 40px;
+	vertical-align: middle;
+	display: inline-block;
+}
+.item_not_found{
+	display: inline-block;
+	vertical-align: middle;
+	text-align: left;
+	line-height: 30px;
+}
