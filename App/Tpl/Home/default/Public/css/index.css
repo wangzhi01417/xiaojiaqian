@@ -57,7 +57,7 @@ body{font-family:"微软雅黑","宋体",Arial, Helvetica, sans-serif;font-size:
 
 
 .toolbar{
-	background: none repeat scroll 0 0 #d4d4d4;
+	background: none repeat scroll 0 0 #f7f7f7;
     color: #4F4F4F;
     height: 30px;
     line-height: 30px;
@@ -79,13 +79,19 @@ body{font-family:"微软雅黑","宋体",Arial, Helvetica, sans-serif;font-size:
     visibility: hidden;
 }
 
+.collect_to{
+	background: url(../img/collect.png) no-repeat scroll 0 8px;
+	float: left;
+	padding-left: 15px;
+}
+
 .toolbar_menu{
 	float: right;
 }
 
 .toolbar_menu li{
 	float: left;
-	padding: 0 20px;
+	padding: 0 10px;
 }
 
 .white_link{
@@ -119,17 +125,19 @@ body{font-family:"微软雅黑","宋体",Arial, Helvetica, sans-serif;font-size:
 .sinaIcon{
 	float: left;
 	display: block;
-	background: url("../img/sina.png") no-repeat;
-	height: 23px;
-	width: 62px;
-	margin-right: 3px;
+	background: url("../img/t_sina.png") no-repeat;
+	height: 16px;
+	width: 16px;
+	margin-right: 5px;
+	margin-top: 7px;
 }
 .qqwbIcon{
 	float: left;
 	display: block;
-	background: url("../img/qq.png") no-repeat;
-	height: 23px;
-	width: 57px;
+	background: url("../img/icon_qq.png") no-repeat;
+	height: 16px;
+	width: 16px;
+	margin-top: 7px;
 }
 
 .nav{
