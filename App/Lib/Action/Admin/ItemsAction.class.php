@@ -439,6 +439,10 @@ class ItemsAction extends BaseAction{
 		// 调用taobao api获取商品信息
 		$item = $taobao->item($taobao_url);
 
+		if (!$item['active']) {
+			var_dump("商品已下架！<br>");
+			return false;
+		}
 
 		//var_dump($item);
 		
