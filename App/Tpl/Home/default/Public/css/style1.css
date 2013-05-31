@@ -629,9 +629,12 @@ span.likeit em.hc{color:#CB383B;font-weight:100}
 	font-weight: bold;
 	margin: 70px auto;
 	text-align: center;
+	vertical-align: middle;
+	width: 250px;
 }
 
 .error_sign{
+	float: left;
 	background: url(../img/error_sign.png);
 	width: 80px;
 	height: 90px;
@@ -640,8 +643,10 @@ span.likeit em.hc{color:#CB383B;font-weight:100}
 	display: inline-block;
 }
 .item_not_found{
+	float: left;
 	display: inline-block;
 	vertical-align: middle;
 	text-align: left;
-	line-height: 30px;
+	line-height: 90px;
 }
+

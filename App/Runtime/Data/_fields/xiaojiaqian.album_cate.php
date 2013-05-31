@@ -1,2 +1,0 @@
-<?php
-return array ( 0 => 'id', 1 => 'title', 2 => 'add_time', 3 => 'ord', 4 => 'seo_title', 5 => 'seo_keys', 6 => 'seo_desc', 7 => 'is_del', 8 => 'remark1', 9 => 'remark2', '_autoinc' => true, '_pk' => 'id', ); ?>

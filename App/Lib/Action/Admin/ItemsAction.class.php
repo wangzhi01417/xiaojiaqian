@@ -322,6 +322,20 @@ class ItemsAction extends BaseAction{
 	    return $matches[1];
 	}
 
+	// Apparently 'redirect_url' is not available on all curl-versions
+	// so we fetch the location header ourselves
+	function get_redirect_url($url) {
+    	$headers = @get_headers($url);
+    	$pattern = '/Location\s*:\s*(https?:[^;\s\n\r]+)/i';
+    	if ($locations = preg_grep($pattern, $headers))
+    	{
+        	preg_match($pattern, end($locations), $redirect);
+        	return $redirect[1];
+    	}
+    	return $url;
+	}
+
+	// 不要用我！！！早期curl版本不支持‘redirect_url’！！！
 	// 通过淘宝客url获取淘宝中间形式url: tu url
 	//  http://s.click.taobao.com/t?e=m%3D2%26s%3D2S6vduMZ8V4cQipKwQzePOeEDrYVVa64yK8Cckff7TVRAdhuF14FMTKps9mP2Yfh5x%2BIUlGKNpX6KEOZrBczXtQRGlh44dSUtIeQcAzHZya4DhHU0zfJfZV%2FuXncgIhTNYaCXdjmmr10unyvB%2BGhTZjIENIzVq%2FX&spm=2014.12057478.1.0&u=108kh5101010101010T0
 	//      ==>
@@ -359,14 +373,16 @@ class ItemsAction extends BaseAction{
 
 	    curl_setopt($ch, CURLOPT_REFERER, $taobao_tu_url);
 	    curl_setopt($ch, CURLOPT_URL, $split_unescaped_tu_url[1]); 
+	    curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
 	    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
 
 	    curl_exec($ch);
 
 	    $info = curl_getinfo($ch);
-	    //var_dump($info);
+	    // var_dump($info);
 
-	    $redirect_url = $info['redirect_url'];
+	    //$redirect_url = $info['redirect_url'];
+	    $redirect_url = $info['url'];
 
 	    curl_close($ch);
 
@@ -378,18 +394,20 @@ class ItemsAction extends BaseAction{
 	//
 	public function get_jiukuaiyou_item_taobao_url($jiukuaiyou_url) {
 	    $taobaoke_url = $this->get_taobaoke_url($jiukuaiyou_url);
-	    //var_dump($taobaoke_url);
+	    //var_dump("<br>taobaoke_url=".$taobaoke_url);
 
 	    // taobaoke_url可能已经是taobao/tmall宝贝地址
 	    if (preg_match('/.*item.taobao.com.*/si', $taobaoke_url) ||
-	    	preg_match('/.*detail.tmall.com.*/si', $taobaoke_url))
+	    	preg_match('/.*detail.tmall.com.*/si', $taobaoke_url)) {
+	    	//var_dump("<br>taobaoke_url可能已经是taobao/tmall宝贝地址".$taobaoke_url);
 	        return $taobaoke_url;
+		}
 
-	    $taobaoke_tu_url = $this->get_taobaoke_tu_url($taobaoke_url);
-	    //var_dump($taobaoke_tu_url);
+	    $taobaoke_tu_url = $this->get_redirect_url($taobaoke_url);
+	    //var_dump("<br>taobaoke_tu_url=".$taobaoke_tu_url);
 
 	    $taobao_item_url = $this->get_taobao_item_url($taobaoke_tu_url);
-	    //var_dump($taobao_item_url);
+	    //var_dump("<br>taobao_item_url=".$taobao_item_url);
 	    return $taobao_item_url;
 	}
 
@@ -655,7 +673,7 @@ class ItemsAction extends BaseAction{
 			// var_dump("<br>val=".$category_val);
 
 			if ($category_val==false)
-				continue;	// 我们不采集几种类型的商品
+				continue;	// 我们不采集此种类型的商品
 
 			// $url = "http://ju.jiukuaiyou.com/jiu/fushi/whole/new/all/1";
 			$url_template= "http://ju.jiukuaiyou.com/jiu/".$category_name."/whole/new/all/";
@@ -673,8 +691,10 @@ class ItemsAction extends BaseAction{
 				//var_dump($url);
 
 				// 网页不存在，完成！
-				if (!$this->url_exists($url))
+				if (!$this->url_exists($url)){
+					echo "网页".$url."不存在<br>";
 					break;
+				}
 
 				//var_dump($url);
 
@@ -699,11 +719,18 @@ class ItemsAction extends BaseAction{
         			if ($this->day_less_than($date, $start_time)) {
         				var_dump("date less than start_time, finishing...");
         				$finished = true;
+
+        				var_dump("<br>date=".$date);
+        				var_dump("<br>start_time=".$start_time);
+        				var_dump("<br>end_time=".$end_time);
         				break;
         			}
 
         			if ($this->day_greater_than($date, $end_time)) {
         				var_dump("date greater than end_time");
+        				var_dump("<br>date=".$date);
+        				var_dump("<br>start_time=".$start_time);
+        				var_dump("<br>end_time=".$end_time);
         				continue;
         			}
 
@@ -711,6 +738,13 @@ class ItemsAction extends BaseAction{
         			// 采集此商品
 
         			$taobao_url = $this->get_jiukuaiyou_item_taobao_url($item_url);
+
+        			if ($taobao_url=='') {
+        				echo "获取淘宝宝贝地址失败<br>".$item_url."<br>";
+        				continue;
+        				//$finished = true;
+        				//break;
+        			}
 
         			echo "准备从".$taobao_url."采集商品数据<br/>";
         			$this->collect_one_taobao_item($category_name, $taobao_url, /*collect_inactive*/true, /*collect_higher_price*/true);
@@ -721,14 +755,17 @@ class ItemsAction extends BaseAction{
 		} // foreach category
 	}	// collect_jiukuaiyou_items
 
-
+	// 采集指定时间内的九块邮商品
+	//		如果未指定时间，则采集当天商品
 	public function collect_jiukuaiyou_between_specific_times() {
+
 		if (!isset($_POST['submit']))
 			return;
 
 		// 这个函数的执行可能需要很长时间 :)
 		set_time_limit(0);
 
+		// 用户选择采集哪些类别？
 		$fushi=trim($_POST['fushi']);
 		$shishang = trim($_POST['shishang']);
 		$xiebao = trim($_POST['xiebao']);
@@ -736,9 +773,11 @@ class ItemsAction extends BaseAction{
 		$jujia = trim($_POST['jujia']);
 		$qita = trim($_POST['qita']);
 
+		// 用户至少选择一种采集类别
 		if ($fushi == false && $shishang==false && $xiebao ==false && $meishi==false && $jujia==false && $qita==false)
 			$this->error("没有选中任何类别");
 
+		// 把等待采集类别放到一个array里面
 		$collect_categories = array("fushi" => $fushi,
 			"shishang" => $shishang,
 			"xiebao" => $xiebao,
@@ -762,6 +801,7 @@ class ItemsAction extends BaseAction{
 		// var_dump($time_start_int);
 		// var_dump($time_end_int);
 
+		// 开始采集
 		 $this->collect_jiukuaiyou_items($collect_categories, array("start_time"=>$time_start_int,
    			"end_time" => $time_end_int));
 
