@@ -136,7 +136,7 @@ function addfavorite()
 				 	<input id="a" name="a" type="hidden" value="index">
 					<input name="m" type="hidden" value="Search">
 					<input name="g" type="hidden" value="Home">
-					<input type="text" name="keywords" class="text" id="keywd" value="" data-keyword="<present name='keywords'>{$keywords}<else/>{:C('default_kw')}</present>" placeholder="{:C('default_kw')}" autoComplete= "Off"/>
+					<input type="text" name="keywords" class="text" id="keywd" value="" data-keyword="<present name='keywords'>{$keywords}<else/>{:C('default_kw')}</present>" <if condition="$keywords eq ''">placeholder="{:C('default_kw')}"<else/>placeholder="{$keywords}"</if> autoComplete= "Off"/>
 					<input type="submit" class="btn" value=""/>
 				 	</form>
 				</div>
