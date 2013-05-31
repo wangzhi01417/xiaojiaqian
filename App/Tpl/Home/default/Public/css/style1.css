@@ -56,7 +56,7 @@
 .buy_out .buy_content a:hover{background:url("../img/goods_tag_status.png") no-repeat scroll 0px -146px transparent;}
 .end .new_price{ color:#fff; font:800 25px "微软雅黑","arial"; letter-spacing: -2px; line-height: 35px;}
 .end .price_sign{color:#fff; font-size:18px;}
-
+.end .old_price{ color:#fff;}
 /*add by motor end*/
 
 .buy_mask{ background: #000; opacity: 0.3; height: 28px; width: 200px; position: absolute; top: 172px; filter:alpha(opacity=00); -moz-opacity:0.00; opacity:0.00; z-index:0;
