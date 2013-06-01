@@ -196,6 +196,18 @@ class ItemsAction extends BaseAction{
 
 		if ($active) {
 
+			//如果商品之前被下架了，此时应将status=1
+            if($item_status == 2){
+
+				$where['id']=$item_id;
+				$data['status']=1;
+				$items->where($where)->save($data);
+				$updated = true;
+				$log .= "Item with id=".$item_id." 该商品已经重新上架！<br>";
+
+			}
+
+
 			//$firephp->log($item_price, "our price=");
 
 			// $new_price maybe like '8.91-9.90'.
@@ -215,7 +227,7 @@ class ItemsAction extends BaseAction{
 			//$firephp->log($item_price, "our price=");
 
 			if ($new_price != $item_price) {
-				// 如果商品的最新价格>9.9，下架！
+				// 如果商品的最新价格>9.9，活动结束！
 				if ($new_price > 10) {
 					if($item_status != 3){
 						$data['status']=3;
@@ -229,6 +241,17 @@ class ItemsAction extends BaseAction{
 
 				}
 				else{
+
+                        //若果商品价格重新调为10以内，商品活动重新开始，status=1
+					    if($item_status == 3){
+
+							$where['id']=$item_id;
+							$data['status']=1;
+							$items->where($where)->save($data);
+							$updated = true;
+							$log .= "Item with id=".$item_id." 该商品已经重新参加活动！<br>";
+
+			            }
 
 				    // 更新商品价格
 					$data['price']=$new_price;

@@ -20,6 +20,9 @@
 
 
 <script>
+	$(document).ready(function(){
+             //$(#keywd).focus()
+		});
 
 $(function(){
 		var nav_top = $('.nav_offsetTop').offset().top; 
@@ -138,7 +141,8 @@ function addfavorite()
 				 	<input id="a" name="a" type="hidden" value="index">
 					<input name="m" type="hidden" value="Search">
 					<input name="g" type="hidden" value="Home">
-					<input type="text" name="keywords" class="text" id="keywd" value="" data-keyword="<present name='keywords'>{$keywords}<else/>{:C('default_kw')}</present>" placeholder="{:C('default_kw')}" autoComplete= "Off"/>
+					<input type="text" name="keywords" class="text" id="keywd" value="<present name='keywords'>{$keywords}</present>"
+					 data-keyword="<present name='keywords'>{$keywords}<else/>{:C('default_kw')}</present>" placeholder="{:C('default_kw')}" autoComplete= "Off" onblur = "this.placeholder='{:C('default_kw')}';"onfocus="<present name='keywords'><else/>this.placeholder='';</present>" />
 					<input type="submit" class="btn" value=""/>
 				 	</form>
 				</div>
