@@ -479,6 +479,12 @@ class ItemsAction extends BaseAction{
 			$data['title']  = $matches[1];
 		}
 
+		$title_temp = $data['title'];
+		if (preg_match('/【天天特价】(.*)/si', $title_temp, $matches) && isset($matches)) {
+			$data['title']  = $matches[1];
+		}
+
+
 		// 添加时间
 		$data['add_time']=time();
 
