@@ -18,7 +18,8 @@
     	</div>
 	</div> -->
 <div class="boxA">	
-
+<div class="search_keword">您搜索的内容是：<span>{$keywords}</span></div>
+<present name="nokey">
 <div class="error_box">
 	<div class="error_sign">
 
@@ -27,8 +28,9 @@
 		<div>暂无搜索结果！</div>
 	</div>
 </div>
+<else/>
 <include file="Public:itemsList"/>
-
+</present>
 </div>
 
 <div id='url' style="display:none;">{:C('web_path')}index.php?a=search&m=Public&g=Home&keywords={$Think.get.keywords|htmlspecialchars}&sortby={$Think.request.sortby}</div>

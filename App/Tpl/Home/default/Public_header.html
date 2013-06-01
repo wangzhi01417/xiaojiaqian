@@ -1,3 +1,104 @@
+<<<<<<< HEAD
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"	>
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+<title>{$seo.title}</title>
+<meta http-equiv="x-ua-compatible" content="ie=7" />
+<meta name="keywords" content="{$seo.keys}" />
+<meta name="description" content="{$seo.desc}" />
+<volist name="sty" id="styshow">
+	<link href="__TMPL__Public/css/{$styshow}.css" type="text/css" rel="stylesheet" />
+</volist>
+
+<script src="__PUBLIC__/statics/js/jquery/jquery-1.7.2.min.js"></script>
+<script src="__PUBLIC__/statics/js/ThinkAjax.js"></script>
+<script src="__TMPL__Public/js/index.js?1"></script>
+<style type="text/css">
+.op .in{display:none}
+.op .out{display:none}
+</style>
+
+<script>
+function addfavorite()
+{
+	var sURL = "http://www.xiaojiaqian.com";
+	var sTitle = "小价钱";
+	try
+	{
+		window.external.addFavorite(sURL,sTitle);
+	}
+	catch(e)
+	{
+		try
+		{
+			window.sidebar.addPanel(sTitle,sURL,"");
+		}
+		catch(e)
+		{
+			alert("加入收藏失败，请使用Ctrl+D进行添加");
+		}
+	}
+} 
+</script>
+
+</head>
+<body>
+<div id="web_path" style="display:none;">
+	{:C('web_path')}
+</div>
+ 
+<div class="toolbar">
+	<div class="toolbar_content">
+		<ul class="toolbar_menu">
+			<li class="menu collect">
+				<div class="menu_hd collect_to">
+					<a href="#"  onclick='addfavorite()' class="white_link">收藏小价钱</a>
+				</div>
+			</li>
+			<li class="share">
+				<a class="sinaIcon" href="http://e.weibo.com/xiaojiaqiancom" target="_blank"></a>
+				<a class="qqwbIcon" href="http://t.qq.com/xiaojiaqiancom" target="_blank"></a>
+			</li>
+		</ul>
+	</div>
+</div>
+<div class="head">
+	<div class="logo">
+		<h1><a href="http://www.xiaojiaqian.com" title="小价钱，大实惠">小价钱</a></h1>
+
+		<div class="bdshare">
+			<a class="bussiness" href="#" target="_blank"></a>
+			<a class="personal" href="#" target="_blank"></a>
+			
+		</div>
+	</div>
+    <div class="nav nav_offsetTop">
+    	<div class="mask"></div>
+		<ul class="navigation">
+			<li class=<if condition="'index' eq $curpage"> cur</if>><a href="{:C('site_domain')}">首页</a></li>
+			<!--<li class=<if condition="'album' eq $curpage"> cur</if>><a href="{:get_url('index','','album')}">专辑</a></li>-->
+			<volist name="p_cate_list" id="vop">
+			<li class=<if condition="$vop['id'] eq $id"> cur</if>><a href="{:get_url('index',$vop['id'],'cate')}">{$vop.name}</a></li>
+			</volist>
+
+			<li class="search_box">
+				<div>
+					<form action="{:get_url('index','','search')}" method="get">
+				 	<input id="a" name="a" type="hidden" value="index">
+					<input name="m" type="hidden" value="Search">
+					<input name="g" type="hidden" value="Home">
+					<input type="text" name="keywords" class="text" id="keywd" value="" data-keyword="<present name='keywords'>{$keywords}<else/>{:C('default_kw')}</present>" placeholder="{:C('default_kw')}" autoComplete= "Off"/>
+					<input type="submit" class="btn" value=""/>
+				 	</form>
+				</div>
+			</li>
+
+		</ul>
+    </div>
+    <div class="clear"></div>
+</div>
+=======
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"	>
 <head>
@@ -20,6 +121,9 @@
 
 
 <script>
+	$(document).ready(function(){
+             //$(#keywd).focus()
+		});
 
 $(function(){
 		var nav_top = $('.nav_offsetTop').offset().top; 
@@ -138,7 +242,8 @@ function addfavorite()
 				 	<input id="a" name="a" type="hidden" value="index">
 					<input name="m" type="hidden" value="Search">
 					<input name="g" type="hidden" value="Home">
-					<input type="text" name="keywords" class="text" id="keywd" value="" data-keyword="<present name='keywords'>{$keywords}<else/>{:C('default_kw')}</present>" placeholder="{:C('default_kw')}" autoComplete= "Off"/>
+					<input type="text" name="keywords" class="text" id="keywd" value="<present name='keywords'>{$keywords}</present>"
+					 data-keyword="<present name='keywords'>{$keywords}<else/>{:C('default_kw')}</present>" placeholder="{:C('default_kw')}" autoComplete= "Off" onblur = "this.placeholder='{:C('default_kw')}';"onfocus="<present name='keywords'><else/>this.placeholder='';</present>" />
 					<input type="submit" class="btn" value=""/>
 				 	</form>
 				</div>
@@ -148,3 +253,4 @@ function addfavorite()
     </div>
     <div class="clear"></div>
 </div>
+>>>>>>> 9ad4d40c1ccb33a9f259264644e3ca648a9d9271

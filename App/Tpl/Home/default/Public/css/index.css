@@ -261,7 +261,7 @@ body{font-family:"微软雅黑","宋体",Arial, Helvetica, sans-serif;font-size:
 .nav_main .op .t_tb{background:url(../img/t_tb.png) no-repeat;padding-left:18px}
 .nav_main .op a i{color:#fff}
 .nav_main .op a.sj{color:#fff;background:url(../img/ico_trag.gif) no-repeat right center;padding-right:6px}
-.wrap{width:970px;margin:0 auto 20px;clear:both}
+.wrap{width:970px; height:auto; margin:0 auto 20px;clear:both}
 .wrap_bt{background:#fff;border-radius:5px;padding:0 0 20px;overflow:hidden;zoom:1;border:1px solid #dfdfdf}
 .tit_share{font-family:'Microsoft YaHei';position:relative;height:40px}
 .tit_share h3{font-family:'Microsoft YaHei';font-size:16px}
@@ -470,3 +470,74 @@ div.au i,span.au i{background:url(../img/index_img_au_bg.png) no-repeat right to
 .list_groups dl{float:left;width:50px;padding:0 20px 0 0}
 .list_groups dt img{width:50px;border-radius:3px 3px 3px 3px}
 .list_groups dd em{display:block;text-align:center;color:#5FAA92}
+
+.white_bg{
+	background: url("../img/left_cur.jpg") repeat-y scroll 0 0 transparent;
+    height: auto;
+    margin-top: 10px;
+    overflow: hidden;
+    padding-bottom: 15px;
+    width: 970px;
+
+    background-color: red;
+}
+
+.about_menu{
+	min-height: 400px;
+    overflow: hidden;
+    padding: 5px 15px 20px 18px;
+    width: 167px !important;
+}
+
+.about_menu ul li{
+	margin: 23px 0;
+    width: 169px;
+}
+
+.about_menu ul li a{
+	color: #727272;
+    display: block;
+    font-family: "微软雅黑","宋体";
+    font-size: 16px;
+    height: 35px;
+    line-height: 35px;
+    text-align: center;
+    width: 169px;
+}
+
+.about_menu ul li a:hover{
+	background: url("../img/hover_bg.png") no-repeat scroll 0 0 transparent;
+    color: #FFFFFF;
+    text-decoration: none;
+}
+
+.about_menu ul li .cur{
+	background: url("../img/cur_bg.png") no-repeat scroll 0 0 transparent;
+    color: #FFFFFF;
+}
+
+.about_menu ul li .cur:hover{
+	background: url("../img/cur_bg.png") no-repeat scroll 0 0 transparent;
+    color: #FFFFFF;
+}
+
+.about_tit{
+	color: #FF892B;
+    font-family: "微软雅黑","宋体";
+    font-size: 20px;
+}
+.about_contain{
+    min-height: 400px;
+    overflow: hidden;
+    padding-right: 20px;
+    padding-top: 30px;
+    width: 720px;
+}
+
+.about_content{
+	height: auto;
+    margin-top: 10px;
+    overflow: hidden;
+    padding-bottom: 20px;
+    width: 700px;
+}

@@ -589,9 +589,10 @@ span.likeit em.hc{color:#CB383B;font-weight:100}
     padding: 30px 0 30px;
     text-align: center;
 }
+
 .footer_Link {
     height: 15px;
-    padding: 10px;
+    padding: 10px 0;
     width: 970px;
 	white-space:nowrap;
 }
@@ -599,30 +600,36 @@ span.likeit em.hc{color:#CB383B;font-weight:100}
 .footer_Link span{
 	float:left;
 }
-.footer_Link  ul {
+
+.links_list {
 	float:left;
-	width: 865px;
+	width: 500px;
 }
-.footer_Link  ul li{
+.links_list li{
 	float:left;
 }
 
-.links_list  a {
-	padding:0 10px;
+.links_menu{
+	float: right;
 }
 
-.links_list_box{
+.links_menu li{
 	float: left;
-    height: 15px;
-    overflow: hidden;
-    position: relative;
-    width: 500px;
+	padding-left: 10px;
 }
 .sitemap{width:970px; height:150px;margin:0 auto; padding:20px 0; text-align:center;}
 .sitemap dl{float:left;display:inline; width:194px;}
 .sitemap dt{font-size:14px;font-weight:bold;margin-bottom:5px}
 .sitemap a{color:#5FAA92}
+.search_keword{
 
+	font-size: 15px;
+	margin-top:10px;
+	font-weight: bold;
+}
+.search_keword span{
+	color: red;
+}
 .error_box{
 	display: block;
 	font-size: 14px;
@@ -631,6 +638,7 @@ span.likeit em.hc{color:#CB383B;font-weight:100}
 	text-align: center;
 	vertical-align: middle;
 	width: 250px;
+	overflow: hidden;
 }
 
 .error_sign{
