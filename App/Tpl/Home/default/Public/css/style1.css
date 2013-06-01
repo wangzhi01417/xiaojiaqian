@@ -622,7 +622,15 @@ span.likeit em.hc{color:#CB383B;font-weight:100}
 .sitemap dl{float:left;display:inline; width:194px;}
 .sitemap dt{font-size:14px;font-weight:bold;margin-bottom:5px}
 .sitemap a{color:#5FAA92}
+.search_keword{
 
+	font-size: 15px;
+	margin-top:10px;
+	font-weight: bold;
+}
+.search_keword span{
+	color: red;
+}
 .error_box{
 	display: block;
 	font-size: 14px;
@@ -631,6 +639,7 @@ span.likeit em.hc{color:#CB383B;font-weight:100}
 	text-align: center;
 	vertical-align: middle;
 	width: 250px;
+	overflow: hidden;
 }
 
 .error_sign{
