@@ -6,6 +6,7 @@
 <meta http-equiv="x-ua-compatible" content="ie=7" />
 <meta name="keywords" content="{$seo.keys}" />
 <meta name="description" content="{$seo.desc}" />
+<meta property="wb:webmaster" content="64a26197a1fe05a4" />
 <volist name="sty" id="styshow">
 	<link href="__TMPL__Public/css/{$styshow}.css" type="text/css" rel="stylesheet" />
 </volist>
@@ -14,11 +15,26 @@
 <script src="__PUBLIC__/statics/js/ThinkAjax.js"></script>
 <script src="__TMPL__Public/js/index.js?1"></script>
 <style type="text/css">
+.login {display: none;}
 .op .in{display:none}
 .op .out{display:none}
 </style>
 
 <script>
+$(document).ready(function(){
+	//登录
+	var id = $.cookie('id');
+	var username =$.cookie('name');
+	if(id > 0){
+		$(".op .in").show();
+		if(username != ''){
+			$('#username').text(username);
+		}
+	}else{
+		$(".op .out").show();
+	}
+
+});
 function addfavorite()
 {
 	var sURL = "http://www.xiaojiaqian.com";
@@ -71,6 +87,19 @@ function addfavorite()
 			<a class="personal" href="#" target="_blank"></a>
 			
 		</div>
+       <div class="login">
+		<ul class="op">
+			<li class="out"><a href="{:get_url('register','','user')}"><b>注册</b></a>|<a href="{:get_url('login','','user')}"><b>登录</b></a></li>
+			<li class="out"><a class="t_sina" href="{:get_url('sinalogin','','user')}" target="_blank"><i>微博登录</i></a></li>
+			<li class="out"><a class="t_qz" href="{:get_url('qqlogin','','user')}" target="_blank"><i>QQ登录</i></a></li>
+			<li class="out"><a class="t_tb" href="{:get_url('taobaologin','','user')}" target="_blank"><i>淘宝登录</i></a></li>
+
+			<li class="in">欢迎您<a href="{:get_url('index','','user')}"><b id="username">{$nav_user_info.name}</b></a></li>
+			<li class="in"><a href="{:get_url('release','','user')}"><i>发布分享</i></a></li>
+	        <li class="in"><a href="{:get_url('account','','user')}">个人设置</a></li>
+			<li class="in" ><a href="{:get_url('logout','','user')}">退出</a></li>		
+      </ul>
+      </div>
 	</div>
     <div class="nav nav_offsetTop">
     	<div class="mask"></div>
