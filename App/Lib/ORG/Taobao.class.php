@@ -52,6 +52,8 @@ class Taobao extends BaseAction{
 
 		$active = $this->match_status( $item );
 
+		$salecnt = $this->match_item_salecount($item);
+
 		//获得商品价格
 		$price_origin=$this->match_price_origin( $item );
 		if (substr($price_origin, "-")) {
@@ -85,6 +87,7 @@ class Taobao extends BaseAction{
 		$data['cid']='';
 		$data['img']=$img;
 		$data['active'] = $active;
+		$data['salecnt'] = $salecnt;
 		return $data;
 	}
 
@@ -235,6 +238,7 @@ class Taobao extends BaseAction{
 		return true;
 	}
 
+
 	//正则获取商品ID
 	public function match_item_mid( $url ) {
 		preg_match( '/\/i(\d+)/si', $url, $result );
@@ -272,6 +276,12 @@ class Taobao extends BaseAction{
 	public function match_status($content) {
 		$inactive = preg_match('/<span style=\"color:red;\">(.*?)商品当前不可购买(.*?)<\/span>/si', $content, $result);
 		return $inactive ? FALSE : TRUE;
+	}
+
+	// 获得商品近一个月销量
+	public function match_item_salecount($content) {
+		preg_match('/月&nbsp; 销&nbsp; 量：(.*?)<\/p>/si', $content, $result);
+		return (int)$result[1];
 	}
 
 	//正则获取商品名称
