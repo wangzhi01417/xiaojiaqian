@@ -189,6 +189,8 @@ class ItemsAction extends BaseAction{
 		// 获取宝贝状态：在售？下架？
 		$active = $taobao->match_status( $item_html );
 
+		$salecnt = $taobao->match_item_salecount($item_html);
+
 		//if (!$active)
 			//$firephp->log($active ? "##ACTIVE##" : "##INACTIVE##", "item with id='$item_id' status=");
 			//echo "Item with id=$item_id status=INACTIVE<br>";
@@ -255,6 +257,7 @@ class ItemsAction extends BaseAction{
 
 				    // 更新商品价格
 					$data['price']=$new_price;
+					$data['remark2'] = $salecnt;
 					$where['id']=$item_id;
 					$items->where($where)->save($data);
 					$updated = true;
@@ -264,7 +267,7 @@ class ItemsAction extends BaseAction{
 			}
 
            if ($old_price != $item_oldprice) {
-				    //更新商品原价
+				//更新商品原价
 		        $where['id']=$item_id;
 				$data['remark1']=$old_price;
 				$items->where($where)->save($data);
@@ -507,6 +510,15 @@ class ItemsAction extends BaseAction{
 			$data['title']  = $matches[1];
 		}
 
+		$title_temp = $data['title'];
+		if (preg_match('/【九块屋独享】(.*)/si', $title_temp, $matches) && isset($matches)) {
+			$data['title']  = $matches[1];
+		}
+
+		$title_temp = $data['title'];
+		if (preg_match('/【米折网专享】(.*)/si', $title_temp, $matches) && isset($matches)) {
+			$data['title']  = $matches[1];
+		}
 
 		// 添加时间
 		$data['add_time']=time();
@@ -528,6 +540,7 @@ class ItemsAction extends BaseAction{
 		$data['sid'] = $item['sid'];
 
 		$data['price'] = $item['price'];
+		$data['remark2'] = $item['salecnt'];
 
 		switch ($category_name) {
 			case 'fushi':
@@ -545,6 +558,9 @@ class ItemsAction extends BaseAction{
 			case 'jujia':
 				$data['cid'] = 32;
 			case 'qita':
+				$data['cid'] = 34;
+				break;
+			default:
 				$data['cid'] = 34;
 				break;
 		}
@@ -683,6 +699,96 @@ class ItemsAction extends BaseAction{
         } else { return FALSE;}
     }
 
+    // 采集九块邮不分类别数据
+    //	
+    public function collect_jiukuaiyou_all_items($start_end_date) {
+		if ($start_end_date && isset($start_end_date)) {
+			$start_time = $start_end_date['start_time'];
+			$end_time = $start_end_date['end_time'];
+		}
+		else {
+			$start_time = time();
+			$end_time = time();
+		}
+
+		$url_template= "http://ju.jiukuaiyou.com/jiu/all/whole/new/all/";
+
+		$finished = false;
+
+		for ($page_index = 1; $page_index < 10; $page_index ++) {
+
+			echo "<br>采集第".$page_index."页...";
+
+			if ($finished)
+				break;
+
+			$url = $url_template.$page_index;
+
+			//var_dump($url);
+
+			// 网页不存在，完成！
+			if (!$this->url_exists($url)){
+				echo "网页".$url."不存在<br>";
+				break;
+			}
+
+			//var_dump($url);
+
+			$html = file_get_contents($url);
+
+			$pattern = "/<span class=\"begin_time\">开始：(.*?)<\/span>.*?<div class=\"buy_content\".*?<a target=\"_blank\" href=\"(.*?)\" class=\"buy_action clearfix\">/si";
+
+			preg_match_all($pattern, $html, $matches);
+
+			//var_dump($matches);
+
+			for ($index = 0; $index < count($matches[2]) && !$finished; $index++) {
+				$item_url = $matches[2][$index];
+				$time_stamp = $matches[1][$index];
+
+				$date = $this->get_jiukuaiyou_time($time_stamp);
+
+				// var_dump("<br>date=".$date);
+				// var_dump("<br>start_time=".$start_time);
+				// var_dump("<br>end_time=".$end_time);
+
+				if ($this->day_less_than($date, $start_time)) {
+					var_dump("date less than start_time, finishing...");
+					$finished = true;
+
+					var_dump("<br>date=".$date);
+					var_dump("<br>start_time=".$start_time);
+					var_dump("<br>end_time=".$end_time);
+					break;
+				}
+
+				if ($this->day_greater_than($date, $end_time)) {
+					var_dump("date greater than end_time");
+					var_dump("<br>date=".$date);
+					var_dump("<br>start_time=".$start_time);
+					var_dump("<br>end_time=".$end_time);
+					continue;
+				}
+
+				
+				// 采集此商品
+
+				$taobao_url = $this->get_jiukuaiyou_item_taobao_url($item_url);
+
+				if ($taobao_url=='') {
+					echo "获取淘宝宝贝地址失败<br>".$item_url."<br>";
+					continue;
+					//$finished = true;
+					//break;
+				}
+
+				echo "准备从".$taobao_url."采集商品数据<br/>";
+				$this->collect_one_taobao_item($category_name, $taobao_url, /*collect_inactive*/true, /*collect_higher_price*/true);
+				//$finished = true;
+			} 
+		}
+    }	// collect_jiukuaiyou_all_items
+
 	// 采集九块邮数据
 	// $collect_categories - 需要采集的类别
 	// $ start_end_date - 采集的开始结束时间
@@ -788,6 +894,193 @@ class ItemsAction extends BaseAction{
 		} // foreach category
 	}	// collect_jiukuaiyou_items
 
+
+	public function collect_between_specific_times() {
+
+		if (!isset($_POST['submit']))
+			return;
+
+		set_time_limit(0);
+
+		// 用户需要从哪些源采集？九块邮？九块屋？或者十块？
+		$jiukuaiyou = trim($_POST['jiukuaiyou']);
+		$jiukuaiwu = trim($_POST['jiukuaiwu']);
+		$shikuai = trim($_POST['shikuai']);
+
+		if ($jiukuaiyou) {
+			echo "<br>正在从九块邮网站采集商品数据...<br>";
+			$this->collect_jiukuaiyou_between_specific_times();
+		}
+
+		if ($jiukuaiwu) {
+			echo "<br>正在从九块屋网站采集商品数据...<br>";
+			$this->collect_jiukuaiwu_between_specific_times();
+		}
+	}
+
+	public function get_jiukuaiwu_item_taobaoke_url($url) {
+
+		if (!$this->url_exists($url)) {
+			echo "网址".$url."不存在";
+			return '';
+		}
+
+		$html = file_get_contents($url);
+
+		$pattern = "/<a id=\"pte_buy\" href=\"(.*?)\" target=\"_blank\">/si";
+
+		if (!preg_match($pattern, $html, $matches) || !isset($matches)) {
+			echo "无法匹配";
+			return '';
+		}
+
+		$jiukuaiwu_url = "http://www.jiukuaiwu.com".$matches[1];
+
+		//echo "jiukuaiwu_url=".$jiukuaiwu_url."<br>";
+
+		$ch = curl_init(); 
+
+	    //set url 
+	    curl_setopt($ch, CURLOPT_URL, $jiukuaiwu_url); 
+
+	    curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+	    //return the transfer as a string 
+	    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
+
+	    $result = curl_exec($ch); 
+	    //var_dump($result);
+
+	    $info = curl_getinfo($ch);
+	    //var_dump($info);
+	    //$pattern = "/<a href=\'(.*?)\' display=\'none\'/si";
+	    //preg_match($pattern, $result, $matches);
+
+	    //var_dump($matches[1]);
+
+	    $taobaoke_url = $info['url'];
+	    //echo "taobaoke_url=".$taobaoke_url."<br>";
+
+	    curl_close($ch);  
+	    return $taobaoke_url;
+	}	// get_jiukuaiwu_item_taobaoke_url
+
+	public function get_jiukuaiwu_item_taobal_url($item_url) {
+		//echo "item_url=$item_url <br>";
+		$taobaoke_url = $this->get_jiukuaiwu_item_taobaoke_url($item_url);
+
+		// taobaoke_url可能已经是taobao/tmall宝贝地址
+	    if (preg_match('/.*item.taobao.com.*/si', $taobaoke_url) ||
+	    	preg_match('/.*detail.tmall.com.*/si', $taobaoke_url)) {
+	    	//var_dump("<br>taobaoke_url可能已经是taobao/tmall宝贝地址".$taobaoke_url);
+	        return $taobaoke_url;
+		}
+	    //$taobaoke_tu_url = $this->get_redirect_url($taobaoke_url);
+	    //var_dump("<br>taobaoke_tu_url=".$taobaoke_tu_url);
+
+	    $taobao_item_url = $this->get_taobao_item_url($taobaoke_url);
+	    //var_dump("<br>taobao_item_url=".$taobao_item_url);
+	    return $taobao_item_url;
+	}
+
+	// 采集指定时间内的九块屋商品
+	//		如果未指定时间，则采集当天商品
+	public function collect_jiukuaiwu_between_specific_times() {
+		if (!isset($_POST['submit']))
+			return;
+
+		set_time_limit(0);
+
+		$time_start = isset($_POST['time_start']) && trim($_POST['time_start']) ? trim($_POST['time_start']) : '';
+		$time_end = isset($_POST['time_end']) && trim($_POST['time_end']) ? trim($_POST['time_end']) : '';
+
+		if ($time_start =='' || $time_end =='') {
+			$time_start_int = time();
+			$time_end_int = time();
+		}
+		else {
+			$time_start_int = strtotime($time_start);
+			$time_end_int = strtotime($time_end);
+		}
+
+		// http://www.jiukuaiwu.com/index-topic-1-page-1.html
+		$url_template = 'http://www.jiukuaiwu.com/index-topic-1-page-';
+
+		$finished = false;
+
+		// 我们最多找10页
+		for ($page_index = 1; $page_index < 2; $page_index ++) {
+			if ($finished)
+			break;
+
+			$url = $url_template.$page_index.'.html';
+
+			//var_dump($url);
+
+			// 网页不存在，完成！
+			if (!$this->url_exists($url)){
+				echo "网页".$url."不存在<br>";
+				break;
+			}
+
+			//var_dump($url);
+
+			$html = file_get_contents($url);
+
+			$pattern = "/<div class=\"buy_cen\">.*?<a href=\"(.*?)\">/si";
+
+			preg_match_all($pattern, $html, $matches);
+
+			//var_dump($matches);
+
+			for ($index = 0; $index < count($matches[1]) && !$finished; $index++) {
+    			$item_url = $matches[1][$index];
+
+    			$item_url = 'http://www.jiukuaiwu.com/'.$item_url;
+    			//$time_stamp = $matches[1][$index];
+
+    			//$date = $this->get_jiukuaiyou_time($time_stamp);
+
+    			// var_dump("<br>date=".$date);
+    			// var_dump("<br>start_time=".$start_time);
+    			// var_dump("<br>end_time=".$end_time);
+
+    			// if ($this->day_less_than($date, $start_time)) {
+    			// 	var_dump("date less than start_time, finishing...");
+    			// 	$finished = true;
+
+    			// 	var_dump("<br>date=".$date);
+    			// 	var_dump("<br>start_time=".$start_time);
+    			// 	var_dump("<br>end_time=".$end_time);
+    			// 	break;
+    			// }
+
+    			// if ($this->day_greater_than($date, $end_time)) {
+    			// 	var_dump("date greater than end_time");
+    			// 	var_dump("<br>date=".$date);
+    			// 	var_dump("<br>start_time=".$start_time);
+    			// 	var_dump("<br>end_time=".$end_time);
+    			// 	continue;
+    			// }
+
+    			
+    			// 采集此商品
+
+    			$taobao_url = $this->get_jiukuaiwu_item_taobal_url($item_url);
+
+    			if ($taobao_url=='') {
+    				echo "<br>获取淘宝宝贝地址失败<br>".$item_url."<br>";
+    				continue;
+    				//$finished = true;
+    				//break;
+    			}
+
+    			echo "准备从".$taobao_url."采集商品数据<br/>";
+    			$this->collect_one_taobao_item($category_name, $taobao_url, /*collect_inactive*/true, /*collect_higher_price*/true);
+    			//$finished = true;
+			} 
+		}
+	}	// collect_jiukuaiwu_between_specific_times
+
 	// 采集指定时间内的九块邮商品
 	//		如果未指定时间，则采集当天商品
 	public function collect_jiukuaiyou_between_specific_times() {
@@ -806,9 +1099,13 @@ class ItemsAction extends BaseAction{
 		$jujia = trim($_POST['jujia']);
 		$qita = trim($_POST['qita']);
 
-		// 用户至少选择一种采集类别
-		if ($fushi == false && $shishang==false && $xiebao ==false && $meishi==false && $jujia==false && $qita==false)
-			$this->error("没有选中任何类别");
+		// 判断用户是否选择了至少一种采集类别
+		//	如果没有选中任何类别，则无视类别采集
+		if ($fushi == false && $shishang==false && $xiebao ==false && $meishi==false && $jujia==false && $qita==false) {
+			//$this->error("没有选中任何类别");
+			return $this->collect_jiukuaiyou_all_items();
+		}
+			
 
 		// 把等待采集类别放到一个array里面
 		$collect_categories = array("fushi" => $fushi,

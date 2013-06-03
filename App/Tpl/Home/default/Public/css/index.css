@@ -232,6 +232,18 @@ body{font-family:"微软雅黑","宋体",Arial, Helvetica, sans-serif;font-size:
 	outline: 0 none;
 }
 
+/*add by motor*/
+.login{
+	float: right;
+}
+.login li{
+	float: left;
+}
+.login .op .t_sina{background:url(../img/t_sina.png) no-repeat;padding-left:18px}
+.login .op .t_qz{background:url(../img/t_qz.png) no-repeat;padding-left:18px}
+.login .op .t_tb{background:url(../img/t_tb.png) no-repeat;padding-left:18px}
+/*add by motor end*/
+
 
 .nav_main .fl{float:left;font-size:14px;font-weight:bold}
 .nav_main .fl li{float:left;background:url(../img/vline.gif) no-repeat right center;padding:0 17px; }
