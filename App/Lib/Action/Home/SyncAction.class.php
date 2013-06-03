@@ -14,6 +14,13 @@ public function sync_item_data($item) {
 	$item_id = $item['id'];
 	$item_key = $item['item_key'];		// such as : taobao_16554250670
 	$item_price = $item['price'];
+	$item_status = $item['status'];
+
+	// 如果商品已经下架或者活动结束，不更新商品信息
+	if ($item_status != 1) {
+		echo "Item with id=$item_id is not ACTIVE, skip updating its info...<br>";
+		return false;
+	}
 
 	echo "Sync data for item with id=$item_id<br>";
 

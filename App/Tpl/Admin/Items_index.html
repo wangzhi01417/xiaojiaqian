@@ -88,11 +88,14 @@
         <thead>
             <tr>
                 <th width="5%">序号</th>
-                <th width="1%"><input type="checkbox" value="" id="check_box" onclick="selectall('id[]');"></th>
+                <th width="1%">
+                    <input type="checkbox" value="" id="check_box" onclick="selectall('id[]');">
+                </th>
                 <th width=80>商品图片</th>
                 <th width=200 align="left">商品名称</th>
                 <th width=60>分类</th>
                 <th width=40>来源</th>
+                <th width=30>销量</th>
                 <th width=90><a href="{:U('Items/index')}&time_start={$time_start}&time_end={$time_end}&cate_id={$cate_id}&is_index={$is_index}&status={$status}&keyword={$keyword}&order=add_time&sort={$sort}" class="blue <if condition="$order eq 'add_time'">order_sort_<if condition="$sort eq 'desc'">1<else/>0</if></if>">发布时间</a></th>
                 <th width=60><a href="{:U('Items/index')}&time_start={$time_start}&time_end={$time_end}&cate_id={$cate_id}&is_index={$is_index}&status={$status}&keyword={$keyword}&order=price&sort={$sort}" class="blue <if condition="$order eq 'price'">order_sort_<if condition="$sort eq 'desc'">1<else/>0</if></if>">价格</a></th>
                 <th width=40><a href="{:U('Items/index')}&time_start={$time_start}&time_end={$time_end}&cate_id={$cate_id}&is_index={$is_index}&status={$status}&keyword={$keyword}&order=likes&sort={$sort}" class="blue <if condition="$order eq 'likes'">order_sort_<if condition="$sort eq 'desc'">1<else/>0</if></if>">喜欢</a></th>
@@ -111,7 +114,12 @@
             <td align="center"><img src="{$val.img|get_img=###,100}" width="40px" height="40px" class="preview" bimg="{$val.img|get_img=###,210}" title="<php>if(strpos($val['img'],'http') === false){echo '本地图片';}else{echo '远程图片';}</php>" /></td>
             <td align="left"><a href="{:u('Items/edit', array('id'=>$val['id']))}">{$val.title}</a></td>
             <td align="center"><b>{$val.cname}</b></td>
-            <td align="center"><img src="__PUBLIC__/statics/images/author/{$val.site_logo}" width="16" height="16" style="margin-right:5px;" /></td>
+            <td align="center">
+                <a href="{$val['url']}" target="_blank">
+                    <img src="__PUBLIC__/statics/images/author/{$val.site_logo}" width="16" height="16" style="margin-right:5px;" />
+                </a>
+            </td>
+            <td align="center">{$val['remark2']}</td>
             <td align="center">{$val.add_time|date="Y-m-d H:i:s",###}</td>
             <td align="center"><em style="color:red;">￥{$val.price}</em></td>
             <td align="center"><em style="color:red;">{$val.likes}</em></td>
