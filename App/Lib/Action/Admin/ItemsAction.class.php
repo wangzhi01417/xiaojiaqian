@@ -593,6 +593,13 @@ class ItemsAction extends BaseAction{
 		//商品存在则将分类中item_nums减1，不存在则添加，新的分类item_nums加1
 		if ($existed_item){
 			$items_cate->where("id='".$existed_item['cid']."'")->setDec('item_nums');
+
+			// 注意：如果商品已经采集过了，我们需要保存它的status.
+			$data['status'] = $existed_item['status'];
+			$data['ord'] = $existed_item['ord'];
+			$data['img'] = $existed_item['img'];
+			$data['title'] = $existed_item['title'];
+
 			$result1 = $items->where($where)->save($data);
 			$new_item_id=$existed_item['id'];
 		}else {
