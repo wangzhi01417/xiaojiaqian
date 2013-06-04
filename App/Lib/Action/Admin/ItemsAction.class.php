@@ -736,40 +736,41 @@ class ItemsAction extends BaseAction{
 
 			$html = file_get_contents($url);
 
-			$pattern = "/<span class=\"begin_time\">开始：(.*?)<\/span>.*?<div class=\"buy_content\".*?<a target=\"_blank\" href=\"(.*?)\" class=\"buy_action clearfix\">/si";
+			//$pattern = "/<span class=\"begin_time\">开始：(.*?)<\/span>.*?<div class=\"buy_content\".*?<a target=\"_blank\" href=\"(.*?)\" class=\"buy_action clearfix\">/si";
+			$pattern = "/<a class=\"btn\" target=\"_blank\" href=\"(.*?)\">去抢购<\/a>/";
 
 			preg_match_all($pattern, $html, $matches);
 
 			//var_dump($matches);
 
-			for ($index = 0; $index < count($matches[2]) && !$finished; $index++) {
-				$item_url = $matches[2][$index];
-				$time_stamp = $matches[1][$index];
 
-				$date = $this->get_jiukuaiyou_time($time_stamp);
+			for ($index = 0; $index < count($matches[1]) && !$finished; $index++) {
+				$item_url = $matches[1][$index];
+				//$time_stamp = $matches[1][$index];
+
+				//$date = $this->get_jiukuaiyou_time($time_stamp);
 
 				// var_dump("<br>date=".$date);
 				// var_dump("<br>start_time=".$start_time);
 				// var_dump("<br>end_time=".$end_time);
 
-				if ($this->day_less_than($date, $start_time)) {
-					var_dump("date less than start_time, finishing...");
-					$finished = true;
+				// if ($this->day_less_than($date, $start_time)) {
+				// 	var_dump("date less than start_time, finishing...");
+				// 	$finished = true;
 
-					var_dump("<br>date=".$date);
-					var_dump("<br>start_time=".$start_time);
-					var_dump("<br>end_time=".$end_time);
-					break;
-				}
+				// 	var_dump("<br>date=".$date);
+				// 	var_dump("<br>start_time=".$start_time);
+				// 	var_dump("<br>end_time=".$end_time);
+				// 	break;
+				// }
 
-				if ($this->day_greater_than($date, $end_time)) {
-					var_dump("date greater than end_time");
-					var_dump("<br>date=".$date);
-					var_dump("<br>start_time=".$start_time);
-					var_dump("<br>end_time=".$end_time);
-					continue;
-				}
-
+				// if ($this->day_greater_than($date, $end_time)) {
+				// 	var_dump("date greater than end_time");
+				// 	var_dump("<br>date=".$date);
+				// 	var_dump("<br>start_time=".$start_time);
+				// 	var_dump("<br>end_time=".$end_time);
+				// 	continue;
+				// }
 				
 				// 采集此商品
 
