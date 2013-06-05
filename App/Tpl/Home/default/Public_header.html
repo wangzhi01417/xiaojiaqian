@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"	>
+<html xmlns="http://www.w3.org/1999/xhtml"	xmlns:wb="http://open.weibo.com/wb">
 <head>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
 <title>{$seo.title}</title>
@@ -11,11 +11,12 @@
 	<link href="__TMPL__Public/css/{$styshow}.css" type="text/css" rel="stylesheet" />
 </volist>
 
+<script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js?appkey=2601595431" type="text/javascript" charset="utf-8"></script>
+
 <script src="__PUBLIC__/statics/js/jquery/jquery-1.7.2.min.js"></script>
 <script src="__PUBLIC__/statics/js/ThinkAjax.js"></script>
 <script src="__TMPL__Public/js/index.js?1"></script>
 <style type="text/css">
-.login {display: none;}
 .op .in{display:none}
 .op .out{display:none}
 </style>
@@ -88,10 +89,10 @@ function addfavorite()
 		</div>
        <div class="login">
 		<ul class="op">
-			<li class="out"><a href="{:get_url('register','','user')}"><b>注册</b></a>|<a href="{:get_url('login','','user')}"><b>登录</b></a></li>
-			<li class="out"><a class="t_sina" href="{:get_url('sinalogin','','user')}" target="_blank"><i>微博登录</i></a></li>
-			<li class="out"><a class="t_qz" href="{:get_url('qqlogin','','user')}" target="_blank"><i>QQ登录</i></a></li>
-			<li class="out"><a class="t_tb" href="{:get_url('taobaologin','','user')}" target="_blank"><i>淘宝登录</i></a></li>
+			<!-- <li class="out"><a href="{:get_url('register','','user')}"><b>注册</b></a>|<a href="{:get_url('login','','user')}"><b>登录</b></a></li> -->
+			<li class="out">
+              <wb:login-button type="6,2" onlogin="login" onlogout="logout"><i>微博登录</i></wb:login-button></li>
+			
 
 			<li class="in">欢迎您<a href="{:get_url('index','','user')}"><b id="username">{$nav_user_info.name}</b></a></li>
 			<li class="in"><a href="{:get_url('release','','user')}"><i>发布分享</i></a></li>

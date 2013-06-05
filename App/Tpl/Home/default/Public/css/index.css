@@ -235,11 +235,12 @@ body{font-family:"微软雅黑","宋体",Arial, Helvetica, sans-serif;font-size:
 /*add by motor*/
 .login{
 	float: right;
+	margin-top: 40px;
 }
 .login li{
 	float: left;
+	margin-right: 10px;
 }
-.login .op .t_sina{background:url(../img/t_sina.png) no-repeat;padding-left:18px}
 .login .op .t_qz{background:url(../img/t_qz.png) no-repeat;padding-left:18px}
 .login .op .t_tb{background:url(../img/t_tb.png) no-repeat;padding-left:18px}
 /*add by motor end*/
