@@ -39,7 +39,7 @@ class ItemsAction extends BaseAction{
 
 		$is_index >= 0 && $where .= " AND is_index=" . $is_index;
 		$status >= 0 && $where .= " AND status=" . $status;
-		$status < 0 && $where .= " AND status !=2";
+		$status < 0 && $where .= " AND status !=12";
 		$this->assign('is_index', $is_index);
 		$this->assign('status', $status);
 		
@@ -520,6 +520,17 @@ class ItemsAction extends BaseAction{
 			$data['title']  = $matches[1];
 		}
 
+		$title_temp = $data['title'];
+		if (preg_match('/【一分宝独家】(.*)/si', $title_temp, $matches) && isset($matches)) {
+			$data['title']  = $matches[1];
+		}
+
+		$title_temp = $data['title'];
+		if (preg_match('/【特价疯抢独家】(.*)/si', $title_temp, $matches) && isset($matches)) {
+			$data['title']  = $matches[1];
+		}
+		
+
 		// 添加时间
 		$data['add_time']=time();
 
@@ -718,11 +729,14 @@ class ItemsAction extends BaseAction{
 			$end_time = time();
 		}
 
+		$collect_page_cnt = (int)$_POST['collect_page_cnt'];
+		//var_dump($collect_page_cnt);
+
 		$url_template= "http://ju.jiukuaiyou.com/jiu/all/whole/new/all/";
 
 		$finished = false;
 
-		for ($page_index = 1; $page_index < 10; $page_index ++) {
+		for ($page_index = 1; $page_index < $collect_page_cnt+1; $page_index ++) {
 
 			echo "<br>采集第".$page_index."页...";
 
@@ -1352,6 +1366,8 @@ class ItemsAction extends BaseAction{
 			}
 
 			$where['is_del']  = array('eq',0);
+
+			$data['ord'] = 10000;
 
 			//如果添加的商品存在，获得商品的id、cid
 			//	id -商品id
