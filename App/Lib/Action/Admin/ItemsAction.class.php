@@ -104,17 +104,35 @@ class ItemsAction extends BaseAction{
 		//$this->display();
 		header("Content-type: text/xml; charset=utf-8");
 
+		//$item_counter = 0;
+
 		$items_mod=M("Items");
 		$items_list = $items_mod->where('status = 1')->order("add_time desc")->select();
         $cnt = 0;
         $loginfo = "";
 		foreach($items_list as $item) {
+			// if ($item_counter > 10)
+			// 	break;
+
+			$item_status = $item['status'];
+
+			// 如果商品已经下架或者活动结束，不更新商品信息
+			if ($item_status != 1) {
+				//echo "Item with id=".$item['id']." is not ACTIVE, skip updating its info...<br>";
+				$loginfo .= "Item with id=".$item['id']." is not ACTIVE, skip updating its info...<br>";
+				continue;
+			}
 
 			$result = $this->sync_item_data($item);
-			if($result!=""){
+			if($result){
 				$cnt++;
 				$loginfo .= $result;
 			}
+			else {
+				$loginfo .= "Nothing updated for item with id=". $item['id']."<br>";
+			}
+
+			//$item_counter++;
 		}
 		//Ajax返回数据
         $data['count'] = $cnt;
@@ -137,6 +155,9 @@ class ItemsAction extends BaseAction{
 		$item_price = $item['price'];
 		$item_oldprice = $item['remark1'];
 		$item_status = $item['status'];
+
+		if ($item_status != 1)
+			return false;
 
 		$updated = false;
 		$log = "";
@@ -202,8 +223,8 @@ class ItemsAction extends BaseAction{
             if($item_status == 2){
 
 				$where['id']=$item_id;
-				$data['status']=1;
-				$items->where($where)->save($data);
+				//$data['status']=1;
+				$items->where($where)->setField('status', 1);
 				$updated = true;
 				$log .= "Item with id=".$item_id." 该商品已经重新上架！<br>";
 
@@ -232,9 +253,9 @@ class ItemsAction extends BaseAction{
 				// 如果商品的最新价格>9.9，活动结束！
 				if ($new_price > 10) {
 					if($item_status != 3){
-						$data['status']=3;
+						//$data['status']=3;
 						$where['id']=$item_id;
-						$items->where($where)->save($data);
+						$items->where($where)->setField('status', 3);
 						//$firephp->log("Item with id='$item_id' price is too high (cur=$new_price, prev=$item_price), make it as inactive", "");
 						//echo "Item with id='$item_id' price is too high (cur=$new_price, prev=$item_price), change its status to 3<br>";
 						$updated = true;
@@ -248,18 +269,21 @@ class ItemsAction extends BaseAction{
 					    if($item_status == 3){
 
 							$where['id']=$item_id;
-							$data['status']=1;
-							$items->where($where)->save($data);
+							//$data['status']=1;
+							//$items->where($where)->save($data);
+							$items->where($where)->setField('status', 1);
 							$updated = true;
 							$log .= "Item with id=".$item_id." 该商品已经重新参加活动！<br>";
 
 			            }
 
 				    // 更新商品价格
-					$data['price']=$new_price;
-					$data['remark2'] = $salecnt;
+					//$data['price']=$new_price;
+					//$data['remark2'] = $salecnt;
 					$where['id']=$item_id;
-					$items->where($where)->save($data);
+					//$items->where($where)->save($data);
+					$items->where($where)->setField('price', $new_price);
+					$items->where($where)->setField('remark2', $salecnt);
 					$updated = true;
 					$log .= "Item with id=".$item_id." 价格调为".$new_price."<br>";
 				}
@@ -269,8 +293,9 @@ class ItemsAction extends BaseAction{
            if ($old_price != $item_oldprice) {
 				//更新商品原价
 		        $where['id']=$item_id;
-				$data['remark1']=$old_price;
-				$items->where($where)->save($data);
+				//$data['remark1']=$old_price;
+				//$items->where($where)->save($data);
+				$items->where($where)->setField('remark1', $old_price);
 				$updated = true;
 				$log .= "Item with id=".$item_id." 原价格调为".$old_price."<br>";
 
@@ -283,8 +308,9 @@ class ItemsAction extends BaseAction{
 			if($item_status != 2){
 
 				$where['id']=$item_id;
-				$data['status']=2;
-				$items->where($where)->save($data);
+				//$data['status']=2;
+				//$items->where($where)->save($data);
+				$items->where($where)->setField('status', 2);
 				$updated = true;
 				$log .= "Item with id=".$item_id." 该商品已经下架<br>";
 
