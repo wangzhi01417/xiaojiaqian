@@ -104,7 +104,7 @@
 .sortr dd a:hover {border:solid 1px #5FAA92;background-color:#7FE2C2;color:white;text-decoration:none;white-space:nowrap}
 .sortr dd .cur{color:#5FAA92;font-weight:bolder}
 
-.ihome{background:#fff url(../img/bg_home_960x10.png) repeat-y 30px top;padding:0 0 20px;border-radius:5px;overflow:hidden;zoom:1;border:1px solid #DBDCDA}
+.ihome{background:#fff url(../img/bg_home_960x10.png) repeat-y 30px top;padding:10px 0 20px; margin-top:20px; border-radius:5px;overflow:hidden;zoom:1;border:1px solid #DBDCDA}
 .ihome_main{width:680px;float:left;padding:15px 0 0;overflow:hidden}
 .ihome_sub{width:288px;float:right;padding:15px 0}
 .ihome_sub .box{padding:0 15px 0 25px}
@@ -116,7 +116,7 @@
 .iuser dd .aur span{font-size:12px;font-weight:bold;color:#5FAA92}
 .iuser dd p{margin:3px 0 0}
 .iuser dd  span{color:#999}
-.sp_detail{overflow:hidden;zoom:1;border-bottom:solid 1px #ddd}
+.sp_detail{overflow:hidden;zoom:1;}
 .sp_detail .pic_show{width:320px;float:left;position:relative}
 .sp_detail .pic_show .play_pre{position:absolute;left:0;top:140px;cursor:pointer}
 .sp_detail .pic_show .play_next{position:absolute;right:0;top:140px;cursor:pointer}
@@ -137,9 +137,8 @@
 .demol_sc li a.qd{background:url(../img/btn_tj.gif) no-repeat;color:#fff;display:block;cursor:pointer;padding:0px 0px 0px 24px;line-height:27px;width:96px}
 .demol_sc li a:hover{color:#dbdcda;text-decoration:none}
 .demol_sc li span{display:block;color:#999}
-.demol_sc .tit{background:url(../img/bg_tit1.gif) no-repeat left top;height:26px;overflow:hidden;line-height:24px;color:#fff;position:absolute;left:-2px;top:8px;padding:0px 0 0 10px;font-size:12px}
-.demol_sc .tit h3{float:left;font-weight:normal;font-size:14px;color:#fff}
-.demol_sc .tit i{background:url(../img/bg_tit1.gif) no-repeat right top;height:26px;width:20px;display:inline-block}
+.demol_sc .tit{background:url(../img/goods_tag_status.png) no-repeat -142px -9px;width:52px; height:29px;overflow:hidden;line-height:24px;color:#fff;position:absolute;left:-2px;top:8px;padding:0px 0 0 10px;font-size:12px}
+
 .op{font-size:12px;padding:2px 0;margin:0 0 10px}
 .op a{text-decoration:underline;color:#5FAA92;font-weight:100}
 .op .like em{font-size:12px;background:#F9F9F6 url(../img/ico_like.png) no-repeat 2px center;padding:4px 4px 4px 19px;line-height:22px;margin:0 6px 6px 0;border:solid 1px #DBDCDA;-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px;-webkit-box-shadow:0 1px 1px white;-moz-box-shadow:0 1px 1px white;box-shadow:0 1px 1px white;color:#999}
