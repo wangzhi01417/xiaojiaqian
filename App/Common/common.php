@@ -1,11 +1,4 @@
 <?php
-
-function get_fire_php() {
-	require_once("C:/xampp/htdocs/xiaojiaqian/FirePHPCore-0.3.2/lib/FirePHPCore/FirePHP.class.php");
-	$firephp = FirePHP::getInstance(true);
-	return $firephp;
-}
-
 // 获取相对目录
 function get_base_path($filename){
 	$base_path = $_SERVER['PHP_SELF'];
@@ -72,7 +65,6 @@ function gain_domain($url){
 	$host = isset($rs['host']) ? $rs['host'] : "none";
 	$host = explode('.',$host);
 	$host = array_slice($host,-2);
-
 	return $domain = implode('.',$host);
 }
 

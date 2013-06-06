@@ -26,10 +26,10 @@ return array (
   'url_dir_item' => 'items',
   'url_dir_articleCate' => 'articleCate',
   'url_dir_article' => 'article',
-  'html_cache_on' => 0,
-  'html_cache_index' => 0,
-  'html_cache_cate' => 0,
-  'html_cache_album' => 0,
+  'html_cache_on' => '0',
+  'html_cache_index' => 1,
+  'html_cache_cate' => 1,
+  'html_cache_album' => 1,
   'html_cache_rules' => 
   array (
     'index:' => 
