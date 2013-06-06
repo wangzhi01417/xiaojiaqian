@@ -509,6 +509,8 @@ class ItemsAction extends BaseAction{
 
 		if (!$item['active'])
 			$data['status'] = 2;
+		else
+			$data['status'] = 0;
 
 		if ($item['price'] > 10)
 			$data['status'] = 3;
@@ -604,7 +606,6 @@ class ItemsAction extends BaseAction{
 
 		//var_dump($data);
 
-
 		if ($item['title']=='') {
 			//var_dump($item);
 			echo "商品为空，不用惊慌。<br>";
@@ -625,7 +626,7 @@ class ItemsAction extends BaseAction{
 		//如果添加的商品存在，获得商品的id、cid
 		//	id -商品id
 		//	cid - 商品类别id
-		$existed_item = $items->field('id,cid')->where($where)->find();
+		$existed_item = $items->field('id,cid,status,ord,img,title')->where($where)->find();
 
 		//商品存在则将分类中item_nums减1，不存在则添加，新的分类item_nums加1
 		if ($existed_item){
@@ -633,9 +634,18 @@ class ItemsAction extends BaseAction{
 
 			// 注意：如果商品已经采集过了，我们需要保存它的status.
 			$data['status'] = $existed_item['status'];
-			$data['ord'] = $existed_item['ord'];
-			$data['img'] = $existed_item['img'];
-			$data['title'] = $existed_item['title'];
+
+			if ($existed_item['title']!='')
+				$data['title'] = $existed_item['title'];
+
+			if ($existed_item['img']!='')
+				$data['img'] = $existed_item['img'];
+
+			if ($existed_item['ord']!='')
+				$data['ord'] = $existed_item['ord'];
+
+			if (!$existed_item['ord'])
+				$data['ord'] = 0;
 
 			$result1 = $items->where($where)->save($data);
 			$new_item_id=$existed_item['id'];
