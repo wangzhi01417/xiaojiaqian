@@ -60,6 +60,8 @@ class Taobao extends BaseAction{
 			$price_strs = explode('-', $price_origin);
 			$price_origin = trim($price_strs[0]);
 		}
+		//获取商品评价数
+		$commentCnt = $this->match_comment_cnt( $item );
 
 		//获得标签
 		$tags=$this->get_tags( $title );
@@ -81,6 +83,7 @@ class Taobao extends BaseAction{
 		//$data['price']=$price;
 		$data['price']=$price;
 		$data['remark1']=$price_origin;
+		$data['comments']=$commentCnt;
 		$data['item_key']=$item_key;
 		$data['sid']=$site['id'];
 		$data['alias']=$site['alias'];
@@ -341,6 +344,26 @@ class Taobao extends BaseAction{
 		preg_match( '/<del class=\"gray\">(.*?)<\/del>/si', $content, $result );
 		isset( $result ) ? $price = $result[1] : $price = '';
 		return $price;
+	}
+
+	//正则获取商品评价数
+	public function match_comment_cnt( $content ) {
+		//preg_match( '/<span class=\"gray\">(.*?)<\/span>/si', $content, $result );
+		preg_match( '/<span class=\"gray\">(.*?)<\/span>/si', $content, $result );
+		isset( $result ) ? $cmmentCnt = $result[1] : $cmmentCnt = '';
+		$cmmentCnt2 = trim($cmmentCnt);
+		if($cmmentCnt2 != '')
+		{
+
+			$commentCnt3 = substr($cmmentCnt2, 0, -1);
+            $commentCnt4 = substr($cmmentCnt3, 1, strlen($commentCnt3)-1);
+            return $commentCnt4;
+		}
+		else
+			return $cmmentCnt2;
+		
+            //return trim($cmmentCnt);
+		
 	}
 
 	//获得跳转链接

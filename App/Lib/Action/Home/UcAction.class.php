@@ -50,6 +50,12 @@ class UcAction extends BaseAction {
 		$user_mod = M ( "User" );
 		$this->items_paiHang ();
 		$id = $this->others ();
+
+        $now = time();
+		//判断是否已经签到
+		if($now - $user_info['remark2'] <= 24*60*60)
+			$this->assign ( "signIn", 1);
+
 		
 		// 替换seo的值
 		$uname = $user_mod->where ( "id=$id" )->getField ( 'name' );
@@ -120,7 +126,7 @@ class UcAction extends BaseAction {
 		}
 		$this->assign ( "sty", array (
 				'index',
-				'sign' 
+				'sign','style1'
 		) );
 		$seo ['title'] = "用户注册 - " . C ( "site_name" );
 		$seo ['keys'] = C ( "site_name" ) . "注册，" . C ( "site_keyword" );
@@ -159,7 +165,7 @@ class UcAction extends BaseAction {
 		}
 		$this->assign ( "sty", array (
 				'index',
-				'sign' 
+				'sign','style1'
 		) );
 		$pattern = '/' . $_SERVER ['SERVER_NAME'] . '/';
 		preg_match ( $pattern, $_SERVER ['HTTP_REFERER'], $result );
@@ -333,6 +339,36 @@ class UcAction extends BaseAction {
 		/*
 		 * else{ }
 		 */
+	}
+	public function signIn(){
+
+        $user_mod = M ( "User" );
+
+        $id = $_POST ["id"];
+		$user_info = $user_mod->where ( "id=$id and is_del=0" )->find ();
+
+        $now = time();
+		//判断是否已经签到
+		if($now - $user_info['remark2'] <= 24*60*60)
+            echo "signAgain";
+        else{
+
+			if($user_info["remark1"])
+			   $score = $user_info["remark1"] += 5;
+			else
+			   $score = 5;
+			//积分累加
+			if($user_mod->where ( "id=$id and is_del=0" )->setField("remark1",$score))
+			{
+			   //设置签到时间
+			   if($user_mod->where ( "id=$id and is_del=0" )->setField("remark2",time()))
+			   	echo "success";
+
+			}
+        }
+
+
+
 	}
 	public function pwd() {
 		$this->assign ( "sty", array (
@@ -1295,7 +1331,7 @@ class UcAction extends BaseAction {
 	public function release() {
 		$this->assign ( "sty", array (
 				'index',
-				'usercenter' 
+				'usercenter','style1'
 		) );
 		$this->check_login ();
 		// 替换seo的值

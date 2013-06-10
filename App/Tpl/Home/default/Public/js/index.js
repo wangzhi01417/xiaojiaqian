@@ -67,11 +67,13 @@ $(function(){
 					if(data.status==-2){
 						location.href=logurl;			
 					}else if(data.status==1){
-						tt.html("已喜欢");
-						td.html(data.data+'喜欢');
+						//tt.html("已喜欢");
+						//td.html(data.data+'喜欢');
+						td.html(data.data);
 					}else if(data.status==-1){
-						tt.html("喜欢一下");
-						td.html(data.data+'喜欢');
+						//tt.html("喜欢一下");
+						//td.html(data.data+'喜欢');
+						td.html(data.data);
 					}else{
 						alert(data.info);
 					}
@@ -385,6 +387,24 @@ $(function(){
 			}
 		});
 	});
+
+	//登陆后，签到获取积分
+	$("#signIn_btn").click(function(){
+
+		var id=$("#hiddenId").val();
+		var signIn_post_action = $("#signIn_post_action").val();
+		$.post(signIn_post_action,{id:id},function(data){
+          if(data=="success"){
+
+             $("#signIn_btn").html("今天已签到");
+          }
+          else if(data=="signAgain")
+          {
+          	 alert("今天已经签过了，明天再来");
+          }
+		});
+	});
+
 	//账户设置之基本信息
 	$("#btn_up").click(function(){
 		var btn_up_post_action=$(this).attr("btn_up_post_action");
@@ -414,7 +434,7 @@ $(function(){
 		}
 		
 	});
-	
+
 	//账户设置之密码修改
 	$("#pwdBtn").click(function(){
 		var pwdBtn_post_action=$("#pwdBtn").attr("pwdBtn_post_action");
