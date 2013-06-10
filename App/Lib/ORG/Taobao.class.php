@@ -284,7 +284,8 @@ class Taobao extends BaseAction{
 	// 获得商品近一个月销量
 	public function match_item_salecount($content) {
 		preg_match('/月&nbsp; 销&nbsp; 量：(.*?)<\/p>/si', $content, $result);
-		return (int)$result[1];
+		isset( $result ) ? $saleCnt = trim($result[1]) : $saleCnt = '';
+		return (int)$saleCnt;
 	}
 
 	//正则获取商品名称
@@ -351,16 +352,16 @@ class Taobao extends BaseAction{
 		//preg_match( '/<span class=\"gray\">(.*?)<\/span>/si', $content, $result );
 		preg_match( '/<span class=\"gray\">(.*?)<\/span>/si', $content, $result );
 		isset( $result ) ? $cmmentCnt = $result[1] : $cmmentCnt = '';
-		$cmmentCnt2 = trim($cmmentCnt);
-		if($cmmentCnt2 != '')
+		$cmmentCnt = trim($cmmentCnt);
+		if($cmmentCnt != '')
 		{
 
-			$commentCnt3 = substr($cmmentCnt2, 0, -1);
-            $commentCnt4 = substr($cmmentCnt3, 1, strlen($commentCnt3)-1);
-            return $commentCnt4;
+			$commentCnt = substr($cmmentCnt, 0, -1);
+            $commentCnt = substr($cmmentCnt, 1, strlen($commentCnt)-1);
+            return (int)$commentCnt;
 		}
 		else
-			return $cmmentCnt2;
+			return 0;
 		
             //return trim($cmmentCnt);
 		

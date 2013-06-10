@@ -80,7 +80,7 @@ class CateAction extends BaseAction{
 		$count=$items_mod->where($where)->count(); // 查询满足要求的总记录数
 		$Page= new Page($count,20); // 实例化分页类传入总记录数和每页显示的记录数
 		$show =$Page->show(); // 分页显示输出
-		$field = "id,cid,title,price,img,url,uid,sid,likes,comments,add_time,remark1,status";
+		$field = "id,cid,title,price,img,url,uid,sid,likes,comments,add_time,remark1,remark2,status";
 		//$items_list = $items_mod->where($where)->field($field)->order($sql_order)->limit(($Page->firstRow*5).','.$Page->listRows)->select();
           $items_list = $items_mod->where($where)->field($field)->order($sql_order)->limit(($Page->firstRow*1).','.$Page->listRows)->select();
 		//用户相关信息包括共享，评论
