@@ -91,10 +91,9 @@ function addfavorite()
        <div class="login">
 		<ul class="op">
 			<li class="out"><a href="{:get_url('register','','user')}"><b>注册</b></a>|<a href="{:get_url('login','','user')}"><b>登录</b></a></li>
-			<li class="out">
-              <wb:login-button type="6,2" onlogin="login" onlogout="logout"><i>微博登录</i></wb:login-button></li>
+		<!-- 	<li class="out">
+              <wb:login-button type="6,2" onlogin="login" onlogout="logout"><i>微博登录</i></wb:login-button></li> -->
 			
-
 			<li class="in">欢迎您<a href="{:get_url('index','','user')}"><b id="username">{$nav_user_info.name}</b></a></li>
 			<li class="in"><a href="{:get_url('release','','user')}"><i>发布分享</i></a></li>
 	        <li class="in"><a href="{:get_url('account','','user')}">个人设置</a></li>

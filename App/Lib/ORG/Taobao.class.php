@@ -72,7 +72,7 @@ class Taobao extends BaseAction{
 		//获得淘宝客跳转链接
 		//$url = $this->gain_url( $site['alias'], $item_id );
 		//if ( !$url ) {
-			//$url='http://detail.tmall.com/item.htm?id='.$item_id;
+			$url='http://detail.tmall.com/item.htm?id='.$item_id;
 		//}
 
 		//Ajax返回数据
@@ -83,7 +83,7 @@ class Taobao extends BaseAction{
 		//$data['price']=$price;
 		$data['price']=$price;
 		$data['remark1']=$price_origin;
-		$data['remark2']=$commentCnt;
+		$data['comments']=$commentCnt;
 		$data['item_key']=$item_key;
 		$data['sid']=$site['id'];
 		$data['alias']=$site['alias'];
@@ -348,9 +348,22 @@ class Taobao extends BaseAction{
 
 	//正则获取商品评价数
 	public function match_comment_cnt( $content ) {
+		//preg_match( '/<span class=\"gray\">(.*?)<\/span>/si', $content, $result );
 		preg_match( '/<span class=\"gray\">(.*?)<\/span>/si', $content, $result );
-		isset( $result ) ? $cmmentCnt = $result[1] : $price = '';
-		return $cmmentCnt;
+		isset( $result ) ? $cmmentCnt = $result[1] : $cmmentCnt = '';
+		$cmmentCnt2 = trim($cmmentCnt);
+		if($cmmentCnt2 != '')
+		{
+
+			$commentCnt3 = substr($cmmentCnt2, 0, -1);
+            $commentCnt4 = substr($cmmentCnt3, 1, strlen($commentCnt3)-1);
+            return $commentCnt4;
+		}
+		else
+			return $cmmentCnt2;
+		
+            //return trim($cmmentCnt);
+		
 	}
 
 	//获得跳转链接

@@ -107,7 +107,7 @@ class ItemsAction extends BaseAction{
 		//$item_counter = 0;
 
 		$items_mod=M("Items");
-		$items_list = $items_mod->where('status = 1')->order("add_time desc")->select();
+		$items_list = $items_mod->where('status = 1 and is_del = 0')->order("add_time desc")->select();
         $cnt = 0;
         $loginfo = "";
 		foreach($items_list as $item) {
@@ -302,6 +302,24 @@ class ItemsAction extends BaseAction{
 				$updated = true;
 				$log .= "Item with id=".$item_id." 原价格调为".$old_price."<br>";
 
+		    }
+
+            if($commentCnt=='') $commentCnt = 0;
+		    if($commentCnt != $item['comments'])
+		    {
+                
+		    	$where['id']=$item_id;
+		    	$items->where($where)->setField('comments', $commentCnt);
+				$updated = true;
+				$log .= "Item with id=".$item_id." 评价数调整为".$commentCnt."<br>";
+		    }
+
+		    if($salecnt != $item['remark2'])
+		    {
+		    	$where['id']=$item_id;
+		    	$items->where($where)->setField('remark2', $salecnt);
+				$updated = true;
+				$log .= "Item with id=".$item_id." 商品月销量调整为".$salecnt."<br>";
 		    }
 
 		}
