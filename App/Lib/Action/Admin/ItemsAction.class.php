@@ -1066,11 +1066,13 @@ class ItemsAction extends BaseAction{
 		$finished = false;
 
 		// 我们最多找10页
-		for ($page_index = 1; $page_index < 2; $page_index ++) {
+		for ($page_index = 1; $page_index < 6; $page_index ++) {
 			if ($finished)
-			break;
+				break;
 
 			$url = $url_template.$page_index.'.html';
+
+			echo "正在采集页面".$url."<br>";
 
 			//var_dump($url);
 
@@ -1088,7 +1090,7 @@ class ItemsAction extends BaseAction{
 
 			preg_match_all($pattern, $html, $matches);
 
-			//var_dump($matches);
+			var_dump($matches);
 
 			for ($index = 0; $index < count($matches[1]) && !$finished; $index++) {
     			$item_url = $matches[1][$index];
