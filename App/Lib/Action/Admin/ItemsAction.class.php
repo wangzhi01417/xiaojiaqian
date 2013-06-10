@@ -184,6 +184,9 @@ class ItemsAction extends BaseAction{
 		if(strpos($old_price, '-'))
 			$old_price = end(explode('-', $old_price));
 
+		//获取商品评价数
+		$commentCnt = $taobao->match_comment_cnt( $item_html );
+
 		//$firephp->log($new_price, "latest price=");
 
 		// 获取宝贝状态：在售？下架？

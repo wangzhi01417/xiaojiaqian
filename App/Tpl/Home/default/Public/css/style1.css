@@ -657,3 +657,72 @@ span.likeit em.hc{color:#CB383B;font-weight:100}
 	line-height: 90px;
 }
 
+/*add by motor start*/
+.ihome_sub .xjq_btn {
+    height: auto;
+    overflow: hidden;
+    width: 210px;
+    margin-left: 20px;
+}
+.ihome_sub .xjq_btn a {
+    width: 75px !important;
+    text-align: center;
+    line-height: 28px;
+    padding-left: 25px;
+    color: rgb(255, 118, 0);
+    display: block;
+    float: left;
+    height: 30px;
+    background: url("../img/newjky_total.gif") no-repeat scroll 0px -206px transparent;
+}
+
+.ihome_sub .xjq_btn .visit_btn {
+    color: rgb(147, 189, 47);
+    background-position: 0px -240px;
+    margin-left: 10px;
+}
+.goods_box .op{
+	overflow: hidden;
+	border-top: 1px dashed rgb(238, 238, 238);
+}
+.goods_box .op .like {
+    float: right;
+    color: rgb(51, 51, 51);
+    cursor: pointer;
+    margin: 0px 5px 0px 0px;
+    border-radius: 3px 3px 3px 3px;
+    background: url("../img/t_like.gif") no-repeat scroll 2px center;
+    padding: 0px 4px 0px 19px;
+    line-height: 22px;
+}
+
+.goods_box .op .comment {
+    float: right;
+    color: rgb(51, 51, 51);
+    cursor: pointer;
+    margin: 0px 5px 0px 0px;
+    border-radius: 3px 3px 3px 3px;
+    background: url("../img/t_share.gif") no-repeat scroll 2px center;
+    padding: 0px 4px 0px 19px;
+    line-height: 22px;
+}
+
+.goods_box .op span{
+	color: rgb(255, 118, 0);
+
+}
+.goods_box .op li{
+	border: 1px solid #fff;
+
+}
+.goods_box .op li:hover{
+
+	border: 1px solid rgb(255, 118, 0);
+	background-color: rgb(249, 249, 246);
+}
+
+.goods_box .op b{
+	color: rgb(171, 171, 171);
+	margin-top: 10px;
+}
+/*add by motor end*/
