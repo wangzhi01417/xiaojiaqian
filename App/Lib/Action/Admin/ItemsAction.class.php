@@ -39,7 +39,7 @@ class ItemsAction extends BaseAction{
 
 		$is_index >= 0 && $where .= " AND is_index=" . $is_index;
 		$status >= 0 && $where .= " AND status=" . $status;
-		$status < 0 && $where .= " AND status !=2";
+		$status < 0 && $where .= " AND status !=12";
 		$this->assign('is_index', $is_index);
 		$this->assign('status', $status);
 		
@@ -104,17 +104,35 @@ class ItemsAction extends BaseAction{
 		//$this->display();
 		header("Content-type: text/xml; charset=utf-8");
 
+		//$item_counter = 0;
+
 		$items_mod=M("Items");
 		$items_list = $items_mod->where('status = 1')->order("add_time desc")->select();
         $cnt = 0;
         $loginfo = "";
 		foreach($items_list as $item) {
+			// if ($item_counter > 10)
+			// 	break;
+
+			$item_status = $item['status'];
+
+			// 如果商品已经下架或者活动结束，不更新商品信息
+			if ($item_status != 1) {
+				//echo "Item with id=".$item['id']." is not ACTIVE, skip updating its info...<br>";
+				$loginfo .= "Item with id=".$item['id']." is not ACTIVE, skip updating its info...<br>";
+				continue;
+			}
 
 			$result = $this->sync_item_data($item);
-			if($result!=""){
+			if($result){
 				$cnt++;
 				$loginfo .= $result;
 			}
+			else {
+				$loginfo .= "Nothing updated for item with id=". $item['id']."<br>";
+			}
+
+			//$item_counter++;
 		}
 		//Ajax返回数据
         $data['count'] = $cnt;
@@ -137,6 +155,9 @@ class ItemsAction extends BaseAction{
 		$item_price = $item['price'];
 		$item_oldprice = $item['remark1'];
 		$item_status = $item['status'];
+
+		if ($item_status != 1)
+			return false;
 
 		$updated = false;
 		$log = "";
@@ -205,8 +226,8 @@ class ItemsAction extends BaseAction{
             if($item_status == 2){
 
 				$where['id']=$item_id;
-				$data['status']=1;
-				$items->where($where)->save($data);
+				//$data['status']=1;
+				$items->where($where)->setField('status', 1);
 				$updated = true;
 				$log .= "Item with id=".$item_id." 该商品已经重新上架！<br>";
 
@@ -235,9 +256,9 @@ class ItemsAction extends BaseAction{
 				// 如果商品的最新价格>9.9，活动结束！
 				if ($new_price > 10) {
 					if($item_status != 3){
-						$data['status']=3;
+						//$data['status']=3;
 						$where['id']=$item_id;
-						$items->where($where)->save($data);
+						$items->where($where)->setField('status', 3);
 						//$firephp->log("Item with id='$item_id' price is too high (cur=$new_price, prev=$item_price), make it as inactive", "");
 						//echo "Item with id='$item_id' price is too high (cur=$new_price, prev=$item_price), change its status to 3<br>";
 						$updated = true;
@@ -251,18 +272,21 @@ class ItemsAction extends BaseAction{
 					    if($item_status == 3){
 
 							$where['id']=$item_id;
-							$data['status']=1;
-							$items->where($where)->save($data);
+							//$data['status']=1;
+							//$items->where($where)->save($data);
+							$items->where($where)->setField('status', 1);
 							$updated = true;
 							$log .= "Item with id=".$item_id." 该商品已经重新参加活动！<br>";
 
 			            }
 
 				    // 更新商品价格
-					$data['price']=$new_price;
-					$data['remark2'] = $salecnt;
+					//$data['price']=$new_price;
+					//$data['remark2'] = $salecnt;
 					$where['id']=$item_id;
-					$items->where($where)->save($data);
+					//$items->where($where)->save($data);
+					$items->where($where)->setField('price', $new_price);
+					$items->where($where)->setField('remark2', $salecnt);
 					$updated = true;
 					$log .= "Item with id=".$item_id." 价格调为".$new_price."<br>";
 				}
@@ -272,8 +296,9 @@ class ItemsAction extends BaseAction{
            if ($old_price != $item_oldprice) {
 				//更新商品原价
 		        $where['id']=$item_id;
-				$data['remark1']=$old_price;
-				$items->where($where)->save($data);
+				//$data['remark1']=$old_price;
+				//$items->where($where)->save($data);
+				$items->where($where)->setField('remark1', $old_price);
 				$updated = true;
 				$log .= "Item with id=".$item_id." 原价格调为".$old_price."<br>";
 
@@ -286,8 +311,9 @@ class ItemsAction extends BaseAction{
 			if($item_status != 2){
 
 				$where['id']=$item_id;
-				$data['status']=2;
-				$items->where($where)->save($data);
+				//$data['status']=2;
+				//$items->where($where)->save($data);
+				$items->where($where)->setField('status', 2);
 				$updated = true;
 				$log .= "Item with id=".$item_id." 该商品已经下架<br>";
 
@@ -486,6 +512,8 @@ class ItemsAction extends BaseAction{
 
 		if (!$item['active'])
 			$data['status'] = 2;
+		else
+			$data['status'] = 0;
 
 		if ($item['price'] > 10)
 			$data['status'] = 3;
@@ -522,6 +550,17 @@ class ItemsAction extends BaseAction{
 		if (preg_match('/【米折网专享】(.*)/si', $title_temp, $matches) && isset($matches)) {
 			$data['title']  = $matches[1];
 		}
+
+		$title_temp = $data['title'];
+		if (preg_match('/【一分宝独家】(.*)/si', $title_temp, $matches) && isset($matches)) {
+			$data['title']  = $matches[1];
+		}
+
+		$title_temp = $data['title'];
+		if (preg_match('/【特价疯抢独家】(.*)/si', $title_temp, $matches) && isset($matches)) {
+			$data['title']  = $matches[1];
+		}
+		
 
 		// 添加时间
 		$data['add_time']=time();
@@ -570,7 +609,6 @@ class ItemsAction extends BaseAction{
 
 		//var_dump($data);
 
-
 		if ($item['title']=='') {
 			//var_dump($item);
 			echo "商品为空，不用惊慌。<br>";
@@ -591,7 +629,7 @@ class ItemsAction extends BaseAction{
 		//如果添加的商品存在，获得商品的id、cid
 		//	id -商品id
 		//	cid - 商品类别id
-		$existed_item = $items->field('id,cid')->where($where)->find();
+		$existed_item = $items->field('id,cid,status,ord,img,title')->where($where)->find();
 
 		//商品存在则将分类中item_nums减1，不存在则添加，新的分类item_nums加1
 		if ($existed_item){
@@ -599,9 +637,18 @@ class ItemsAction extends BaseAction{
 
 			// 注意：如果商品已经采集过了，我们需要保存它的status.
 			$data['status'] = $existed_item['status'];
-			$data['ord'] = $existed_item['ord'];
-			$data['img'] = $existed_item['img'];
-			$data['title'] = $existed_item['title'];
+
+			if ($existed_item['title']!='')
+				$data['title'] = $existed_item['title'];
+
+			if ($existed_item['img']!='')
+				$data['img'] = $existed_item['img'];
+
+			if ($existed_item['ord']!='')
+				$data['ord'] = $existed_item['ord'];
+
+			if (!$existed_item['ord'])
+				$data['ord'] = 0;
 
 			$result1 = $items->where($where)->save($data);
 			$new_item_id=$existed_item['id'];
@@ -721,11 +768,14 @@ class ItemsAction extends BaseAction{
 			$end_time = time();
 		}
 
+		$collect_page_cnt = (int)$_POST['collect_page_cnt'];
+		//var_dump($collect_page_cnt);
+
 		$url_template= "http://ju.jiukuaiyou.com/jiu/all/whole/new/all/";
 
 		$finished = false;
 
-		for ($page_index = 1; $page_index < 10; $page_index ++) {
+		for ($page_index = 1; $page_index < $collect_page_cnt+1; $page_index ++) {
 
 			echo "<br>采集第".$page_index."页...";
 
@@ -1355,6 +1405,8 @@ class ItemsAction extends BaseAction{
 			}
 
 			$where['is_del']  = array('eq',0);
+
+			$data['ord'] = 10000;
 
 			//如果添加的商品存在，获得商品的id、cid
 			//	id -商品id

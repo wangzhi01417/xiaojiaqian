@@ -24,9 +24,14 @@ border: 1px solid rgb(0, 102, 153);
 	$(document).ready(function(){
 
 		$("#collect_item").click(function(){
+
 			var url = $("#collect_url").val();
-		    $.post("{:u('Items/collect')}", { url: url }, function(data){
+
+		  $.post("{:u('Items/collect')}", { url: url }, function(data){
+
+          // 首先隐藏错误信息
 		    	$("#error_msg").val('该商品不存在').hide();
+
 		    	if(data.data == false){
 		    		$("#error_msg").val('该商品不存在').show();
 		    	}else{
