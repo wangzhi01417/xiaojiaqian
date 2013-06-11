@@ -371,13 +371,15 @@ class UcAction extends BaseAction {
 			{
 			   //设置签到时间
 			   if($user_mod->where ( "id=$id and is_del=0" )->setField("remark2",$now))
-			   	echo "success";
+			   	//echo "success";
+			   	$this->ajaxReturn ($user_info["remark1"], "签到成功", 1);
 
 			}
 
         }
         else{
-               echo "signAgain";
+               //echo "signAgain";
+        		$this->ajaxReturn ($user_info["remark1"], "一天内不能重复签到，明天再来", -1);
         }
 
 	}

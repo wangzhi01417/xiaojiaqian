@@ -658,13 +658,13 @@ span.likeit em.hc{color:#CB383B;font-weight:100}
 }
 
 /*add by motor start*/
-.ihome_sub .xjq_btn {
+.xjq_btn {
     height: auto;
     overflow: hidden;
     width: 210px;
     margin-left: 20px;
 }
-.ihome_sub .xjq_btn a {
+.xjq_btn a {
     width: 75px !important;
     text-align: center;
     line-height: 28px;
@@ -676,7 +676,7 @@ span.likeit em.hc{color:#CB383B;font-weight:100}
     background: url("../img/newjky_total.gif") no-repeat scroll 0px -206px transparent;
 }
 
-.ihome_sub .xjq_btn .visit_btn {
+.xjq_btn .visit_btn {
     color: rgb(147, 189, 47);
     background-position: 0px -240px;
     margin-left: 10px;

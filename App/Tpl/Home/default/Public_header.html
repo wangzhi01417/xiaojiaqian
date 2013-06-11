@@ -95,6 +95,15 @@ function addfavorite()
               <wb:login-button type="6,2" onlogin="login" onlogout="logout"><i>微博登录</i></wb:login-button></li> -->
 			
 			<li class="in">欢迎您<a href="{:get_url('index','','user')}"><b id="username">{$nav_user_info.name}</b></a></li>
+			<li class="in">我的金币:<span id="mycoins" style="color:red">{$nav_user_info.remark1}</sapn>
+				<!-- <img width="18" height="18" src="__PUBLIC__/statics/images/jinbi.jpg"/> --></li>
+			<li>
+			  <input type="hidden" id="header_hiddenId" value="{$nav_user_info.id}">
+              <input type="hidden" id="header_signIn_post_action" value="{:get_url('signIn','','user')}">
+			  <present name="header_signIn">
+	                <a class="header_signIn_btn" id="header_signIn_btn" href="javascript:;">打卡</a>
+	          </present>
+			</li>
 			<li class="in"><a href="{:get_url('release','','user')}"><i>发布分享</i></a></li>
 	        <li class="in"><a href="{:get_url('account','','user')}">个人设置</a></li>
 			<li class="in" ><a href="{:get_url('logout','','user')}">退出</a></li>		
