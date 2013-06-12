@@ -394,15 +394,28 @@ $(function(){
 		var id=$("#hiddenId").val();
 		var signIn_post_action = $("#signIn_post_action").val();
 		$.post(signIn_post_action,{id:id},function(data){
-          if(data=="success"){
+          if(data.status==1){
 
              $("#signIn_btn").html("今天已签到");
           }
-          else if(data=="signAgain")
+          else if(data.status==-1)
           {
           	 alert("今天已经签过了，明天再来");
           }
-		});
+		},"json"); 
+	});
+
+	$("#header_signIn_btn").click(function(){
+
+		var id=$("#header_hiddenId").val();
+		var signIn_post_action = $("#header_signIn_post_action").val();
+		$.post(signIn_post_action,{id:id},function(data){
+          if(data.status==1){
+
+             $("#header_signIn_btn").hide();
+             $("#mycoins").html(data.data);
+          }
+		},"json"); 
 	});
 
 	//账户设置之基本信息

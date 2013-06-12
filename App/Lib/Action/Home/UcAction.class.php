@@ -51,12 +51,20 @@ class UcAction extends BaseAction {
 		$this->items_paiHang ();
 		$id = $this->others ();
 
+		$user_info = $user_mod->where ( "id=$id and is_del=0" )->find ();
+
         $now = time();
-		//判断是否已经签到
-		if($now - $user_info['remark2'] <= 24*60*60)
+        $last = $user_info['remark2'];
+
+        $neverSignIn = false;
+        
+        if($last != 0) $timespan = $now - $last;
+        else $neverSignIn = true;
+
+        if($neverSignIn || $timespan > 24*60*60)
 			$this->assign ( "signIn", 1);
 
-		
+  	
 		// 替换seo的值
 		$uname = $user_mod->where ( "id=$id" )->getField ( 'name' );
 		$seo ['title'] = $uname . "的首页_" . C ( "site_name" );
@@ -348,26 +356,31 @@ class UcAction extends BaseAction {
 		$user_info = $user_mod->where ( "id=$id and is_del=0" )->find ();
 
         $now = time();
-		//判断是否已经签到
-		if($now - $user_info['remark2'] <= 24*60*60)
-            echo "signAgain";
-        else{
+        $last = $user_info['remark2'];
 
-			if($user_info["remark1"])
-			   $score = $user_info["remark1"] += 5;
-			else
-			   $score = 5;
-			//积分累加
+        $neverSignIn = false;
+        
+        if($last != 0) $timespan = $now - $last;
+        else $neverSignIn = true;
+
+        if($neverSignIn || $timespan > 24*60*60){
+
+			$score = $user_info["remark1"] += 5;
+
 			if($user_mod->where ( "id=$id and is_del=0" )->setField("remark1",$score))
 			{
 			   //设置签到时间
-			   if($user_mod->where ( "id=$id and is_del=0" )->setField("remark2",time()))
-			   	echo "success";
+			   if($user_mod->where ( "id=$id and is_del=0" )->setField("remark2",$now))
+			   	//echo "success";
+			   	$this->ajaxReturn ($user_info["remark1"], "签到成功", 1);
 
 			}
+
         }
-
-
+        else{
+               //echo "signAgain";
+        		$this->ajaxReturn ($user_info["remark1"], "一天内不能重复签到，明天再来", -1);
+        }
 
 	}
 	public function pwd() {

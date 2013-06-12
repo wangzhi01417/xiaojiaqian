@@ -29,7 +29,18 @@ class BaseAction extends Action {
 				header('location:'.$url);
 			}
  			$this->assign("uid",$uid);
-			$this->assign("nav_user_info",$nav_user_info);		
+			$this->assign("nav_user_info",$nav_user_info);	
+			//判断是否打卡
+			$now = time();
+		    $last = $nav_user_info['remark2'];
+
+		    $neverSignIn = false;
+		    
+		    if($last != 0) $timespan = $now - $last;
+		    else $neverSignIn = true;
+
+		    if($neverSignIn || $timespan > 24*60*60)
+				$this->assign ( "header_signIn", 1);	
 		}
 		//导航
 		$items_cate_mod=M("Items_cate");

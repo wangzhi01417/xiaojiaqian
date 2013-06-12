@@ -304,7 +304,7 @@ class ItemsAction extends BaseAction{
 
 		    }
 
-            if($commentCnt=='') $commentCnt = 0;
+            //if($commentCnt=='') $commentCnt = 0;
 		    if($commentCnt != $item['comments'])
 		    {
                 
