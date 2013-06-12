@@ -579,6 +579,7 @@ class ItemsAction extends BaseAction{
 			$data['title']  = $matches[1];
 		}
 		
+		$data['title'] = '小价钱特惠包邮 - '.$data['title'];
 
 		// 添加时间
 		$data['add_time']=time();
@@ -1427,6 +1428,8 @@ class ItemsAction extends BaseAction{
 			$where['is_del']  = array('eq',0);
 
 			$data['ord'] = 10000;
+
+			$data['title'] = '小价钱特惠包邮 - '.$data['title'];
 
 			//如果添加的商品存在，获得商品的id、cid
 			//	id -商品id
