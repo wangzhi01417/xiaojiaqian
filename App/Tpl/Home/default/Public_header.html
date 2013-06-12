@@ -101,10 +101,10 @@ function addfavorite()
 			  <input type="hidden" id="header_hiddenId" value="{$nav_user_info.id}">
               <input type="hidden" id="header_signIn_post_action" value="{:get_url('signIn','','user')}">
 			  <present name="header_signIn">
-	                <a class="header_signIn_btn" id="header_signIn_btn" href="javascript:;">打卡</a>
+	                <a class="header_signIn_btn" id="header_signIn_btn" alt="打开获得金币兑换商品" href="javascript:;">打卡</a>
 	          </present>
 			</li>
-			<li class="in"><a href="{:get_url('release','','user')}"><i>发布分享</i></a></li>
+			<!-- <li class="in"><a href="{:get_url('release','','user')}"><i>发布分享</i></a></li> -->
 	        <li class="in"><a href="{:get_url('account','','user')}">个人设置</a></li>
 			<li class="in" ><a href="{:get_url('logout','','user')}">退出</a></li>		
       </ul>

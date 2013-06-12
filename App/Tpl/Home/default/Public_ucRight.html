@@ -34,13 +34,13 @@
         <ul>
 		<present name="oUid">
           <li <if condition='$curPage eq uc_index'>class='cur'</if>><a class="s1" href="{:get_url('index',$oUid,'user')}">他的首页</a></li>
-          <li <if condition='$curPage eq uc_share'>class='cur'</if>><a class="s2" href="{:get_url('share',$oUid,'user')}">他的分享</a></li>
+<!--           <li <if condition='$curPage eq uc_share'>class='cur'</if>><a class="s2" href="{:get_url('share',$oUid,'user')}">他的分享</a></li> -->
           <li <if condition='$curPage eq uc_like'>class='cur'</if>><a class="s5" href="{:get_url('like',$oUid,'user')}">他的喜欢</a></li>
 <!--           <li <if condition='$curPage eq uc_album'>class='cur'</if>><a class="s6" href="{:get_url('album',$oUid,'user')}">他的专辑</a></li> -->
 		 <else/>
 
 		 <li <if condition='$curPage eq uc_index'>class='cur'</if>><a class="s1" href="{:get_url('index','','user')}">我的首页</a></li>
-          <li <if condition='$curPage eq uc_share'>class='cur'</if>><a class="s2" href="{:get_url('share','','user')}">我的分享</a></li>
+<!--           <li <if condition='$curPage eq uc_share'>class='cur'</if>><a class="s2" href="{:get_url('share','','user')}">我的分享</a></li> -->
           <li <if condition='$curPage eq uc_like'>class='cur'</if>><a class="s5" href="{:get_url('like','','user')}">我的喜欢</a></li>
 <!--           <li <if condition='$curPage eq uc_album'>class='cur'</if>><a class="s6" href="{:get_url('album','','user')}">我的专辑</a></li> -->
 		 </present>
