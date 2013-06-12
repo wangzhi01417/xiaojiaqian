@@ -579,6 +579,7 @@ class ItemsAction extends BaseAction{
 			$data['title']  = $matches[1];
 		}
 		
+		$data['title'] = '小价钱特惠包邮 - '.$data['title'];
 
 		// 添加时间
 		$data['add_time']=time();
@@ -1087,11 +1088,13 @@ class ItemsAction extends BaseAction{
 		$finished = false;
 
 		// 我们最多找10页
-		for ($page_index = 1; $page_index < 2; $page_index ++) {
+		for ($page_index = 1; $page_index < 6; $page_index ++) {
 			if ($finished)
-			break;
+				break;
 
 			$url = $url_template.$page_index.'.html';
+
+			echo "正在采集页面".$url."<br>";
 
 			//var_dump($url);
 
@@ -1109,7 +1112,7 @@ class ItemsAction extends BaseAction{
 
 			preg_match_all($pattern, $html, $matches);
 
-			//var_dump($matches);
+			var_dump($matches);
 
 			for ($index = 0; $index < count($matches[1]) && !$finished; $index++) {
     			$item_url = $matches[1][$index];
@@ -1425,6 +1428,8 @@ class ItemsAction extends BaseAction{
 			$where['is_del']  = array('eq',0);
 
 			$data['ord'] = 10000;
+
+			$data['title'] = '小价钱特惠包邮 - '.$data['title'];
 
 			//如果添加的商品存在，获得商品的id、cid
 			//	id -商品id
