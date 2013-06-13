@@ -275,7 +275,7 @@ class UcAction extends BaseAction {
 	public function account() {
 		$this->assign ( "sty", array (
 				'index',
-				'usercenter' 
+				'usercenter','style1'
 		) );
 		$this->check_login ();
 		$user_mod = M ( "User" );
@@ -386,7 +386,7 @@ class UcAction extends BaseAction {
 	public function pwd() {
 		$this->assign ( "sty", array (
 				'index',
-				'usercenter' 
+				'usercenter','style1'
 		) );
 		// 判断是否登录
 		$this->check_login ();
@@ -438,7 +438,7 @@ class UcAction extends BaseAction {
 		session_start ();
 		$this->assign ( "sty", array (
 				'index',
-				'usercenter' 
+				'usercenter','style1'
 		) );
 		// 判断是否登录
 		$user_mod = M ( "User" );
@@ -548,7 +548,7 @@ class UcAction extends BaseAction {
 	public function sns() {
 		$this->assign ( "sty", array (
 				'index',
-				'usercenter' 
+				'usercenter','style1'
 		) );
 		$this->check_login ();
 		// 替换seo的值
@@ -814,11 +814,11 @@ class UcAction extends BaseAction {
 						$item = $items_mod->field ( 'likes' )->where ( "id=$items_id" )->find ();
 						$this->ajaxReturn ( $item ['likes'], '', 1 );
 					}
-					$items_likes_mod->where ( "items_id=" . $items_id . " and uid=" . $uid )->delete ();
-					$items_mod->where ( "id=$items_id" )->setDec ( 'likes', 1 );
-					$user_mod->where ( "id=$uid" )->setDec ( 'likes_num', 1 );
-					$item = $items_mod->field ( 'likes' )->where ( "id=$items_id" )->find ();
-					$this->ajaxReturn ( $item ['likes'], '', - 1 );
+					//$items_likes_mod->where ( "items_id=" . $items_id . " and uid=" . $uid )->delete ();
+					//$items_mod->where ( "id=$items_id" )->setDec ( 'likes', 1 );
+					//$user_mod->where ( "id=$uid" )->setDec ( 'likes_num', 1 );
+					//$item = $items_mod->field ( 'likes' )->where ( "id=$items_id" )->find ();
+					//$this->ajaxReturn ( $item ['likes'], '', - 1 );
 				} else {
 					if ($items_likes_mod->add ( $data )) {
 						$items_mod->where ( "id=$items_id" )->setInc ( 'likes', 1 );
