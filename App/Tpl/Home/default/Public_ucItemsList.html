@@ -1,4 +1,16 @@
-<volist name="items_list" id="voItems">
+<div class="blockB" style="border:none; padding-top:0;">
+ <div class="list_tuijian">
+  <ul>
+  <volist name="items_list" id="voItems">
+    <li><div class='bgload'><a href="{:get_url('index',$voItems['id'],'item')}"><if condition="$voItems['img'] neq ''"><img src="{$voItems.img|get_img=###,100}" width="100"/><else/><img src="__TMPL__Public/img/undefined.jpg" width="100"/></if></a></div>
+      <p><span class="s2">{$voItems.likes}</span><span>￥{$voItems.price}</span><notpresent name="oUid"><a href="{:get_url('shareItemsDel',$voItems['id'],'user')}" class="delete" title="删除">删除</a></notpresent></p>
+    </li>
+  </volist>
+  </ul>
+</div>
+</div>
+
+<!-- <volist name="items_list" id="voItems">
         <dl>
           <dt><a href="{:get_url('index',$voItems['uid'],'user')}"><img onerror="this.src='__PUBLIC__/statics/images/avatar-60.png'" src=<if condition="$voItems['userimg'] neq ''">"{:C('web_path')}Uploads/avatar_small/{$voItems.userimg}"<else/>"__PUBLIC__/statics/images/avatar-60.png"</if> width="64"/> </a></dt>
           <dd>
@@ -25,7 +37,9 @@
             </div>
           </dd>
         </dl>
-	   </volist>
+</volist> -->
+
+
 <script>
 	$(function(){
 	

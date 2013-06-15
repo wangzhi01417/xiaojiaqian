@@ -24,6 +24,8 @@ $(document).ready(function(){
 				$("#tags").val(data.data.tags);
 				$("#price").val(data.data.price);
 				$("#item_key").val(data.data.item_key);
+				if(data.data.img.length>1)
+					data.data.img = data.data.img[0];
 				$("#img").val(data.data.img);
 				$("#author").val(data.data.alias);
 				$("#sid option[alias='"+data.data.alias+"']").attr('selected',true);
