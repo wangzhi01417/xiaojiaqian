@@ -669,6 +669,8 @@ class ItemsAction extends BaseAction{
 			if (!$existed_item['ord'])
 				$data['ord'] = 0;
 
+			$data['title'] = '小价钱特惠包邮 - '.$data['title'];
+
 			$result1 = $items->where($where)->save($data);
 			$new_item_id=$existed_item['id'];
 		}else {
