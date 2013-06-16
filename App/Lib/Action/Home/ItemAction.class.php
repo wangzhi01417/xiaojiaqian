@@ -114,7 +114,7 @@ class ItemAction extends BaseAction {
 				break;
 			}
 		}
-		$this->assign("likes_list",$likes_list);
+		//$this->assign("likes_list",$likes_list);
 		
 		//分页显示评论
 		import("ORG.Util.Page");
