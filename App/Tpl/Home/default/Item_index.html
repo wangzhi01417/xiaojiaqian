@@ -29,11 +29,11 @@
 						    </if>
 						</div>
 
-						  <div class="tag">标签：
+			<!-- 			  <div class="tag">标签：
 						  <volist name="tags" id="val">
 							<a href="{:get_url('tag',$val['id'],'cate')}" title="{$val.name}">{$val.name}</a>
 				          </volist>
-						  </div>
+						  </div> -->
 							<div class="demol_sc">
 								<div>
 								<a 
@@ -68,6 +68,13 @@
 						</volist>
 				   
 				  </div>
+				  <else/>
+				         <if condition="$items_list">
+					         <h3>看看其他相关宝贝</h3>
+					    	  <volist name="items_list" id="voItem"  offset="0" length="5">
+							            <if condition="$voItem['item_id'] neq ''"><li><div class="bgload"><a href="{:get_url('index',$voItem['item_id'],'item')}" ><if condition="$voItem['img'] neq ''"><img src="{$voItem.img|get_img=###,100}" title="{$voItem.title}"/><else/><img src="__TMPL__Public/img/undefined.jpg" title="{$voItem.title}" width="100"/></if></a></div></li></if>
+							  </volist>
+						  </if>
 				  </if>
 		    </div>
 		</div>
