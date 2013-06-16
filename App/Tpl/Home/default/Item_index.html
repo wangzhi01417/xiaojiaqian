@@ -24,11 +24,16 @@
 					<h2>{$item.title}</h2>
 						<div class="meta">
 							<span class="new_price"><span class="price_sign">￥</span>{$item.price}</span>&nbsp;
-							<if condition="$voItems['remark1'] neq ''">
+							<if condition="$item['remark1'] neq ''">
 							<span class="old_price">￥{$item.remark1}</span>
 						    </if>
 						</div>
 
+						  <div class="tag">标签：
+						  <volist name="tags" id="val">
+							<a href="{:get_url('tag',$val['id'],'cate')}" title="{$val.name}">{$val.name}</a>
+				          </volist>
+						  </div>
 							<div class="demol_sc">
 								<div>
 								<a 
@@ -38,10 +43,34 @@
 								</div>
 							</div>
 
+
 						</div>
 					</div>
 				</div>
-			</div>
+
+		    <div class="ihome_sub">	
+				 <if condition="$likes_list">
+				  <div class="blockA">
+				    <div class="tit_share">
+				      <h3>猜你喜欢</h3>
+				    </div>
+						<volist name="likes_list" id="voItems">
+						        <div class="demol_shop"> <a class="more" href="{:get_url('tag',$voItems['tagid'],'cate')}">查看全部</a>
+						          <div class="title">
+						            <h3><a href="{:get_url('tag',$voItems['tagid'],'cate')}">{$voItems.tagname}</a></h3>
+						            <i></i></div>
+						          <ul class="list_pic">
+								  <volist name="voItems['tagitem']" id="voItem"  offset="0" length="5">
+						            <if condition="$voItem['item_id'] neq ''"><li><div class="bgload"><a href="{:get_url('index',$voItem['item_id'],'item')}" ><if condition="$voItem['img'] neq ''"><img src="{$voItem.img|get_img=###,100}" title="{$voItem.title}"/><else/><img src="__TMPL__Public/img/undefined.jpg" title="{$voItem.title}" width="100"/></if></a></div></li></if>
+								  </volist>
+						          </ul>
+						        </div>
+						</volist>
+				   
+				  </div>
+				  </if>
+		    </div>
+		</div>
 
 		</div>
 	</div>

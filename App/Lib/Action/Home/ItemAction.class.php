@@ -10,7 +10,7 @@ class ItemAction extends BaseAction {
 			get_404();
 		}
 		$items_mod= D('Items');		
-		$field_items="id,title,cid,price,img,comments,url,likes,add_time,seo_title,seo_keys,seo_desc,status,info,uid";
+		$field_items="id,title,cid,price,img,comments,url,likes,add_time,seo_title,seo_keys,seo_desc,status,info,uid,remark1,remark2";
 		$item=$items_mod->where("id=$id and is_del='0' ")->field($field_items)->find();
 		if(!$item){
 			get_404();
