@@ -69,11 +69,23 @@
 				   
 				  </div>
 				  <else/>
+
 				         <if condition="$items_list">
-					         <h3>看看其他相关宝贝</h3>
+				         	  <div class="blockA">
+							    <div class="tit_share">
+							      <h3>看看其他</h3>
+							    </div>
+					         <div class="demol_shop"> <a class="more" href="{:get_url('index',$cid,'cate')}">查看全部</a>
+					         	 <div class="title">
+						            <h3><a href="{:get_url('index',$cid,'cate')}">{$item_cate_name}</a></h3>
+						            <i></i></div>
+					         <ul class="list_pic">
 					    	  <volist name="items_list" id="voItem"  offset="0" length="5">
-							            <if condition="$voItem['item_id'] neq ''"><li><div class="bgload"><a href="{:get_url('index',$voItem['item_id'],'item')}" ><if condition="$voItem['img'] neq ''"><img src="{$voItem.img|get_img=###,100}" title="{$voItem.title}"/><else/><img src="__TMPL__Public/img/undefined.jpg" title="{$voItem.title}" width="100"/></if></a></div></li></if>
+							            <if condition="$voItem['id'] neq ''"><li><div class="bgload"><a href="{:get_url('index',$voItem['id'],'item')}" ><if condition="$voItem['img'] neq ''"><img src="{$voItem.img|get_img=###,100}" title="{$voItem.title}"/><else/><img src="__TMPL__Public/img/undefined.jpg" title="{$voItem.title}" width="100"/></if></a></div></li></if>
 							  </volist>
+							  </ul>
+							</div>
+							</div>
 						  </if>
 				  </if>
 		    </div>

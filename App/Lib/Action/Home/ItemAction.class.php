@@ -76,12 +76,13 @@ class ItemAction extends BaseAction {
 		$seo['desc']=$iteminfo;
 		$this->assign("seo",$seo);
 
+
 		//获取与该商品相同类别的其他商品
 		$cid=$item['cid'];
 		$daytime=time()-86400*7;
 		$items_cate_item=$items_mod->where("id!=$id and cid=$cid and is_del=0 and status=1 and add_time>$daytime")->field($field_items)->limit(10)->select();
-		//$this->items_list($items_cate_item);
-		$this->assign("items_list",$items_cate_item);
+		$this->items_list($items_cate_item);
+		//$this->assign("items_list",$items_cate_item);
 		
 		//获取商品对应的类别名称
 		$items_cate_mod=M("Items_cate");
