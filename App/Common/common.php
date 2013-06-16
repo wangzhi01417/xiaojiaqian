@@ -11,7 +11,11 @@ function get_img($img,$size){
 	if(strpos($img, 'http') === false){
 		return $img.'_'.$size.'x1000'.'.'.$type;
 	}elseif(strpos($img, 'taobao')!==false|| strpos($img, 'tmall') !==false){
+		if($size==210)
 		return $img.'_'.$size.'x1000'.'.'.$type;
+	    elseif ($size==310) {
+	    	return $img.'_'.$size.'x310'.'.'.$type;
+	    }
 	}elseif(strpos($img, 'paipaiimg')!==false){
 		$img_arr=explode( '.', $img);
 		unset($img_arr[count($img_arr)-1]);

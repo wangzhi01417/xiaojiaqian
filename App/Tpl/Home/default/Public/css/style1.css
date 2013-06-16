@@ -66,8 +66,8 @@
 
 
 .buy_content {padding:5px 0; border-top: solid 1px #e1e1e1; }
-.buy_content a{text-align:bottom; /*height:29px;*/ background:url("../img/goods_tag_status.png") no-repeat scroll 6px -9px transparent;}
-.buy_content a:hover{background:url("../img/goods_tag_status.png") no-repeat scroll 6px -56px transparent;}
+.buy_content a{text-align:bottom; /*height:29px;*/ background:url("../img/goods_tag_status.png") no-repeat scroll 6px -6px transparent;}
+.buy_content a:hover{background:url("../img/goods_tag_status.png") no-repeat scroll 6px -53px transparent;}
 .buy_content .buy_action{text-decoration: none; margin-bottom: 5px; margin-top: 5px; width:200px; display: block; }
 .buy_content .btn{float: right; width: 60px; height: 32px; right: 2px; }
 .new_price{ color:#ff7900; font:800 25px "微软雅黑","arial"; letter-spacing: -2px; line-height: 35px;}

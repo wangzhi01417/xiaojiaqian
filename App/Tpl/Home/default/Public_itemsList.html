@@ -46,26 +46,37 @@
 					<div class="buy_mask"></div>
 					<div class="buy_share">
 						<b>分享到:</b>
-						<!-- Baidu Button BEGIN -->
-						<div id="bdshare" class="bdshare_t bds_tools get-codes-bdshare" 
-						data=
-						"{
-						text:【小价钱 九块九包邮 www.xiaojiaqian.com 】 - {$voItems.title} - http://www.xiaojiaqian.com{:get_url('buy',$voItems['id'],'item')}, 
-						pic: {$voItems.img|get_img=###,210}
-						}"
-						>
-						<a class="bds_tsina"></a>
-						<a class="bds_qzone"></a>
+	                     <div data="{
+	                     text:'亲们，我在【小价钱】发现一个好东西,{$voItems.title},原价:￥{$voItems.remark1} 现价:￥{$voItems.price}',
+	                     url:'http://www.xiaojiaqian.com/index.php?a=index&m=Item&g=Home&id={$voItems['id']}',
+	                     pic:'{$voItems.img|get_img=###,350}'
+	                     }" id="bdshare" class="bdshare_t bds_tools get-codes-bdshare">
+						<a href="#" title="分享到新浪微博" class="bds_tsina"></a>
+						<a href="#" title="分享到QQ好友" class="bds_sqq"></a>
+						<a href="#" title="分享到QQ空间" class="bds_qzone"></a>
+	
 						<a class="bds_tqq"></a>
 						<a class="bds_renren"></a>
 						<a class="bds_t163"></a>
 						</div>
-						<script type="text/javascript" id="bdshare_js" data="type=tools&amp;mini=1&amp;uid=0" ></script>
-						<script type="text/javascript" id="bdshell_js"></script>
+
+						<script id="bdshare_js" data="type=tools&uid=642881" type="text/javascript"></script>
+						<script id="bdshell_js" type="text/javascript"></script>
+
 						<script type="text/javascript">
-						document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + Math.ceil(new Date()/3600000)
+
+						document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + Math.ceil(new Date()/3600000);
+						var title = $(".goods_detail .title a").html();
+						if(title.indexOf("原价") <= 0 ){
+						title = title +"原价："+$(".goods_detail .m-price").html().replace(/市场价：/,"")+"  现价："+$(".goods_detail .quan_title .price").html().replace(/<[^>]+>/g,"");
+						}
+						var url = $(".goods_con").find(".title a").attr("href");
+						var pic = $(".goods_con").find(".pic img").attr("src");
+						var comment = $(".goods_con").find(".pic").data("res");
+						var data = "{'text':'"+title+"','comment':'"+comment+"','desc':'一句话证明你在玩【九块邮】！我先来：全场九块九包邮，每天给你九块九的小幸福！','url':'"+url+"','pic':'"+pic+"'}";
+						$(".shareto #bdshare").attr("data",data);
+
 						</script>
-						<!-- Baidu Button END -->
 					</div>
 				</div>
 				
