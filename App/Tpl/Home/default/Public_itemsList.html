@@ -34,7 +34,7 @@
 					<if condition="$voItems['sid'] eq '2'">
 						<i class="tmao"></i>
 					</if>
-					<a  target="_blank" href="{:get_url('buy',$voItems['id'],'item')}" title="{$voItems.title}">
+					<a  target="_blank" href="{:get_url('index',$voItems['id'],'item')}" title="{$voItems.title}">
 						{$voItems.title}
 					</a>
 				</h3>
@@ -90,7 +90,6 @@
 				</div>
 
 				  <ul class="op">
-
 				  	<div style="color:rgb(171, 171, 171);margin-top:3px;float:left;">月销量:<span>{$voItems.remark2}</span></div>
 				  	<input type="hidden" name="" id="like_post_action" value="{:get_url('createlike','','user')}">
 				  	<input type="hidden" name="" id="like_post_location" value="{:get_url('login','','user')}">

@@ -45,7 +45,7 @@ class ItemAction extends BaseAction {
 			$tag_id_arr[]=$valD['tag_id'];
 		}
 		$sql_tid=implode(",",$tag_id_arr);
-		$tags=$items_tags_mod->field('id,name,pid,sid,item_nums')->where("id IN ($sql_tid) and is_del=0")->order('ord desc')->select();
+		$tags=$items_tags_mod->field('id,name,pid,sid,item_nums')->where("id IN ($sql_tid) and is_del=0")->order('ord desc')->limit(3)->select();
 		$this->assign("tags",$tags);
 		if(is_array($tags)){
 			$likei = 1;
