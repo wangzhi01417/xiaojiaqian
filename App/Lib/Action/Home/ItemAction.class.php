@@ -163,11 +163,23 @@ class ItemAction extends BaseAction {
 		$this->display();
     }
 	public function buy(){
+
 		$id=isset($_GET['id'])?intval($_GET['id']):'';
 		if(!$id){
 			header("Location: ".C('site_domain')."");
 		}
-	    $items_mod= D('Items');	
+
+        $items_mod= D('Items');	
+		//商品的点击量
+		$hitCookie_var="hits_".$id;
+		$old_hits=$items_mod->where("id=$id")->getField("hits");
+		$hitsCookie_val=$_COOKIE[$hitCookie_var];
+		if(!isset($hitsCookie_val)){
+			if($items_mod->where("id=$id")->setField('hits',$old_hits+1)){
+				setCookie($hitCookie_var,'true',time()+3600*10);
+			}
+		}
+
     	$res=$items_mod->where("id=$id and is_del=0 and status >= 1")->getfield('url');
     	if($res){
         	header("Location: $res");

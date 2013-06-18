@@ -798,43 +798,44 @@ class UcAction extends BaseAction {
 		$this->display ();
 	}
 	public function createlike() {
-		$uid = $_COOKIE ['id'];
+		//$uid = $_COOKIE ['id'];
 		$items_id = isset ( $_POST ['items_id'] ) ? intval ( $_POST ['items_id'] ) : 0;
 		$val = $_POST ['val'];
-		if ($uid) {
+		//if ($uid) {
 			if ($items_id) {
-				$data ['items_id'] = $items_id;
-				$data ['uid'] = $uid;
+				//$data ['items_id'] = $items_id;
+				//$data ['uid'] = $uid;
 				$items_likes_mod = M ( "Items_likes" );
 				$items_mod = M ( "Items" );
 				$user_mod = M ( 'User' );
-				$result = $items_likes_mod->where ( "items_id=" . $items_id . " and uid=" . $uid )->find ();
-				if ($result) {
-					if ($val == '喜欢一下' || $val == '喜欢') {
-						$item = $items_mod->field ( 'likes' )->where ( "id=$items_id" )->find ();
-						$this->ajaxReturn ( $item ['likes'], '', 1 );
-					}
+				//$result = $items_likes_mod->where ( "items_id=" . $items_id . " and uid=" . $uid )->find ();
+				//if ($result) {
+					//if ($val == '喜欢一下' || $val == '喜欢') {
+						//$item = $items_mod->field ( 'likes' )->where ( "id=$items_id" )->find ();
+						//$this->ajaxReturn ( $item ['likes'], '', 1 );
+					//}
 					//$items_likes_mod->where ( "items_id=" . $items_id . " and uid=" . $uid )->delete ();
 					//$items_mod->where ( "id=$items_id" )->setDec ( 'likes', 1 );
 					//$user_mod->where ( "id=$uid" )->setDec ( 'likes_num', 1 );
 					//$item = $items_mod->field ( 'likes' )->where ( "id=$items_id" )->find ();
 					//$this->ajaxReturn ( $item ['likes'], '', - 1 );
-				} else {
-					if ($items_likes_mod->add ( $data )) {
+				//} else {
+					//if ($items_likes_mod->add ( $data )) {
 						$items_mod->where ( "id=$items_id" )->setInc ( 'likes', 1 );
-						$user_mod->where ( "id=$uid" )->setInc ( 'likes_num', 1 );
-						$item = $items_mod->field ( 'likes' )->where ( "id=$items_id" )->find ();
-						$this->ajaxReturn ( $item ['likes'], '', 1 );
-					} else {
-						$this->ajaxReturn ( 0, "添加喜欢有误，请重试", 0 );
-					}
-				}
+						$items_mod->where ( "id=$items_id" )->setInc ( 'hits', 1 );
+						//$user_mod->where ( "id=$uid" )->setInc ( 'likes_num', 1 );
+						$item = $items_mod->field ( 'hits' )->where ( "id=$items_id" )->find ();
+						$this->ajaxReturn ( $item ['hits'], '', 1 );
+					//} else {
+						//$this->ajaxReturn ( 0, "添加喜欢有误，请重试", 0 );
+					//}
+				//}
 			} else {
 				$this->ajaxReturn ( 0, "单品有误", 0 );
 			}
-		} else {
-			$this->ajaxReturn ( - 2, "未登录", - 2 );
-		}
+		//} else {
+			//$this->ajaxReturn ( - 2, "未登录", - 2 );
+		//}
 	}
 	public function albumItemsDel() {
 		C ( 'TOKEN_ON', false );

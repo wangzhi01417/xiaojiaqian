@@ -61,7 +61,7 @@ $(function(){
 	   var tt = $(this);
 	   var td = $("#"+item_id);
 	   var val = $(this).html();
-	   if(uid){
+	   //if(uid){
 		   if(item_id!=0){ 
 			    $.post(like_post_action, { items_id: item_id, val: val}, function(data){
 					if(data.status==-2){
@@ -79,9 +79,9 @@ $(function(){
 					}
 				},"json"); 
 		   }
-	   }else{
-			location.href=logurl;	   
-	   }
+	   //}else{
+			//location.href=logurl;	   
+	   //}
 	 });
    
 	//商品页面添加评论

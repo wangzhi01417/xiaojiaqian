@@ -29,16 +29,51 @@
 						    </if>
 						</div>
 
-						  <div class="tag">标签：
+					<!-- 	  <div class="tag">标签：
 						  <volist name="tags" id="val">
 							<a href="{:get_url('tag',$val['id'],'cate')}" title="{$val.name}">{$val.name}</a>
 				          </volist>
-						  </div>
+						  </div> -->
+
+						 <div class="shareto">
+						  <b>分享到:</b>
+		                     <div data="{
+		                     text:'亲们，我在【小价钱-十元店】发现一个好东西,{$voItems.title},原价:￥{$voItems.remark1} 现价:￥{$voItems.price}',
+		                     url:'http://www.xiaojiaqian.com/index.php?a=index&m=Item&g=Home&id={$voItems['id']}',
+		                     pic:'{$voItems.img|get_img=###,350}'
+		                     }" id="bdshare" class="bdshare_t bds_tools get-codes-bdshare">
+							<a href="#" title="分享到新浪微博" class="bds_tsina"></a>
+							<a href="#" title="分享到QQ好友" class="bds_sqq"></a>
+							<a href="#" title="分享到QQ空间" class="bds_qzone"></a>
+		
+							<a class="bds_tqq"></a>
+							<a class="bds_renren"></a>
+							<a class="bds_t163"></a>
+							</div>
+
+							<script id="bdshare_js" data="type=tools&uid=642881" type="text/javascript"></script>
+							<script id="bdshell_js" type="text/javascript"></script>
+
+							<script type="text/javascript">
+
+							document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + Math.ceil(new Date()/3600000);
+							var title = $(".goods_detail .title a").html();
+							if(title.indexOf("原价") <= 0 ){
+							title = title +"原价："+$(".goods_detail .m-price").html().replace(/市场价：/,"")+"  现价："+$(".goods_detail .quan_title .price").html().replace(/<[^>]+>/g,"");
+							}
+							var url = $(".goods_con").find(".title a").attr("href");
+							var pic = $(".goods_con").find(".pic img").attr("src");
+							var comment = $(".goods_con").find(".pic").data("res");
+							var data = "{'text':'"+title+"','comment':'"+comment+"','desc':'','url':'"+url+"','pic':'"+pic+"'}";
+							$(".shareto #bdshare").attr("data",data);
+
+							</script>
+					    </div>
 							<div class="demol_sc">
 								<div>
 								<a 
 								href="{:get_url('buy',$item['id'],'item')}" 
-								target="_blank" style="color:#FFF;font-weight:bold;font-size:16px;" <if condition="$item['status'] eq 2">class="tit"<elseif condition="$item['status'] eq 3"/>class="tit"<else/>class="tit"</if>>
+								target="_blank" style="color:#FFF;font-weight:bold;font-size:16px;" <if condition="$item['status'] eq 2">class="buy_out"<elseif condition="$item['status'] eq 3"/>class="buy_close"<else/>class="tit"</if>>
 								</a>
 								</div>
 							</div>
@@ -89,6 +124,7 @@
 						  </if>
 				  </if>
 		    </div>
+
 		</div>
 
 		</div>

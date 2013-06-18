@@ -47,7 +47,7 @@
 					<div class="buy_share">
 						<b>分享到:</b>
 	                     <div data="{
-	                     text:'亲们，我在【小价钱】发现一个好东西,{$voItems.title},原价:￥{$voItems.remark1} 现价:￥{$voItems.price}',
+	                     text:'亲们，我在【小价钱-十元店】发现一个好东西,{$voItems.title},原价:￥{$voItems.remark1} 现价:￥{$voItems.price}',
 	                     url:'http://www.xiaojiaqian.com/index.php?a=index&m=Item&g=Home&id={$voItems['id']}',
 	                     pic:'{$voItems.img|get_img=###,350}'
 	                     }" id="bdshare" class="bdshare_t bds_tools get-codes-bdshare">
@@ -73,7 +73,7 @@
 						var url = $(".goods_con").find(".title a").attr("href");
 						var pic = $(".goods_con").find(".pic img").attr("src");
 						var comment = $(".goods_con").find(".pic").data("res");
-						var data = "{'text':'"+title+"','comment':'"+comment+"','desc':'一句话证明你在玩【九块邮】！我先来：全场九块九包邮，每天给你九块九的小幸福！','url':'"+url+"','pic':'"+pic+"'}";
+						var data = "{'text':'"+title+"','comment':'"+comment+"','desc':'','url':'"+url+"','pic':'"+pic+"'}";
 						$(".shareto #bdshare").attr("data",data);
 
 						</script>
@@ -97,9 +97,10 @@
 	                     <a target="_blank" href="{:get_url('buy',$voItems['id'],'item')}"><li class="comment">
 	                     	<span>{$voItems.comments}</span></li></a>
 
-	                    <li class="s1 like" item_id="{$voItems['id']}">
+					
+	                    <a href="javascript:;" title="喜欢"><li class="s1 like" item_id="{$voItems['id']}">
 					  		<!-- <if condition="$likes[$voItems['id']] eq 1">已喜欢<else/>喜欢一下</if> -->
-	                     <span id="{$voItems['id']}">{$voItems.likes}</span></li>
+	                     <span id="{$voItems['id']}">{$voItems.hits} </span></li></a>
 
 		            <!-- <li class="s2"><a class="add" href="{:get_url('addAlbum',$voItems['id'],'album')}" target="_blank" style="color:#333333;text-decoration:none">加入专辑</a></li> -->
 		          </ul>

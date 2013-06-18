@@ -64,6 +64,8 @@
 .buy_share{height:28px; width:200px; position: absolute; top: 174px;filter:alpha(opacity=00); -moz-opacity:0.00; opacity:0.00; color: #fff; }
 .buy_share b{float: left; padding-left: 20px; color: #fff; line-height: 28px; font-weight: normal;}
 
+.shareto{height:28px; width:200px;color: #fff; margin: 10px 0px 10px 80px;}
+.shareto b{float: left; padding-left: 20px; line-height: 28px; font-weight: normal;}
 
 .buy_content {padding:5px 0; border-top: solid 1px #e1e1e1; }
 .buy_content a{text-align:bottom; /*height:29px;*/ background:url("../img/goods_tag_status.png") no-repeat scroll 6px -6px transparent;}
@@ -138,6 +140,10 @@
 .demol_sc li a:hover{color:#dbdcda;text-decoration:none}
 .demol_sc li span{display:block;color:#999}
 .demol_sc .tit{background:url(../img/goods_tag_status.png) no-repeat -142px -9px;width:52px; height:29px;overflow:hidden;line-height:24px;color:#fff;position:absolute;left:-2px;top:8px;padding:0px 0 0 10px;font-size:12px}
+.demol_sc .buy_out{background:url(../img/goods_tag_status.png) no-repeat -122px -150px;width:100px; height:29px;overflow:hidden;line-height:24px;color:#fff;position:absolute;left:-2px;top:8px;padding:0px 0 0 10px;font-size:12px}
+.demol_sc .buy_close{background:url(../img/goods_tag_status.png) no-repeat -122px -197px;width:100px; height:29px;overflow:hidden;line-height:24px;color:#fff;position:absolute;left:-2px;top:8px;padding:0px 0 0 10px;font-size:12px}
+
+
 
 .op{font-size:12px;padding:2px 0;margin:0 0 10px}
 .op a{text-decoration:underline;color:#5FAA92;font-weight:100}
