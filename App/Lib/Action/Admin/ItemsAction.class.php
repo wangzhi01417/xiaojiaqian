@@ -579,7 +579,7 @@ class ItemsAction extends BaseAction{
 			$data['title']  = $matches[1];
 		}
 		
-		$data['title'] = '小价钱特惠包邮 - '.$data['title'];
+		//$data['title'] = '小价钱特惠包邮 - '.$data['title'];
 
 		// 添加时间
 		$data['add_time']=time();
@@ -669,7 +669,7 @@ class ItemsAction extends BaseAction{
 			if (!$existed_item['ord'])
 				$data['ord'] = 0;
 
-			$data['title'] = '小价钱特惠包邮 - '.$data['title'];
+			//$data['title'] = '小价钱特惠包邮 - '.$data['title'];
 
 			$result1 = $items->where($where)->save($data);
 			$new_item_id=$existed_item['id'];
@@ -1431,7 +1431,7 @@ class ItemsAction extends BaseAction{
 
 			$data['ord'] = 10000;
 
-			$data['title'] = '小价钱特惠包邮 - '.$data['title'];
+			//$data['title'] = '小价钱特惠包邮 - '.$data['title'];
 
 			//如果添加的商品存在，获得商品的id、cid
 			//	id -商品id
