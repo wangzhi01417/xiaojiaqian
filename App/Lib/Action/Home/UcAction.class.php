@@ -803,6 +803,7 @@ class UcAction extends BaseAction {
 		$val = $_POST ['val'];
 		//if ($uid) {
 			if ($items_id) {
+
 				//$data ['items_id'] = $items_id;
 				//$data ['uid'] = $uid;
 				$items_likes_mod = M ( "Items_likes" );
@@ -821,8 +822,19 @@ class UcAction extends BaseAction {
 					//$this->ajaxReturn ( $item ['likes'], '', - 1 );
 				//} else {
 					//if ($items_likes_mod->add ( $data )) {
-						$items_mod->where ( "id=$items_id" )->setInc ( 'likes', 1 );
-						$items_mod->where ( "id=$items_id" )->setInc ( 'hits', 1 );
+
+				        //商品喜欢点击
+						$likeCookie_var="likes_".$items_id;
+						$likesCookie_var=$_COOKIE[$likeCookie_var];
+						if(!isset($likesCookie_var)){
+                           
+							if($items_mod->where ( "id=$items_id" )->setInc ( 'hits', 1 )){
+								setCookie($likeCookie_var,'true',time()+3600*10);
+							}
+						}
+
+						//$items_mod->where ( "id=$items_id" )->setInc ( 'likes', 1 );
+						//$items_mod->where ( "id=$items_id" )->setInc ( 'hits', 1 );
 						//$user_mod->where ( "id=$uid" )->setInc ( 'likes_num', 1 );
 						$item = $items_mod->field ( 'hits' )->where ( "id=$items_id" )->find ();
 						$this->ajaxReturn ( $item ['hits'], '', 1 );

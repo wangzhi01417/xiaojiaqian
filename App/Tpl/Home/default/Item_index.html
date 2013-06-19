@@ -34,13 +34,17 @@
 							<a href="{:get_url('tag',$val['id'],'cate')}" title="{$val.name}">{$val.name}</a>
 				          </volist>
 						  </div> -->
+ 
 
 						 <div class="shareto">
+
+						 	<b><span style="color:red;">{$item.hits}</span>人喜欢</b>
+
 						  <b>分享到:</b>
 		                     <div data="{
-		                     text:'亲们，我在【小价钱-十元店】发现一个好东西,{$voItems.title},原价:￥{$voItems.remark1} 现价:￥{$voItems.price}',
-		                     url:'http://www.xiaojiaqian.com/index.php?a=index&m=Item&g=Home&id={$voItems['id']}',
-		                     pic:'{$voItems.img|get_img=###,350}'
+		                     text:'亲们，我在【小价钱-十元店】发现一个好东西,{$item.title},原价:￥{$item.remark1} 现价:￥{$item.price}',
+		                     url:'http://www.xiaojiaqian.com/index.php?a=index&m=Item&g=Home&id={$item['id']}',
+		                     pic:'{$item.img|get_img=###,350}'
 		                     }" id="bdshare" class="bdshare_t bds_tools get-codes-bdshare">
 							<a href="#" title="分享到新浪微博" class="bds_tsina"></a>
 							<a href="#" title="分享到QQ好友" class="bds_sqq"></a>

@@ -1,6 +1,4 @@
-<style type="text/css">
 
-</style>
 <div id="spread_status" style="display:none;">{:C('spread_status')}</div>
 <div id="spread_position" style="display:none;">{:C('spread_position')}</div>
 <div id="spread_info" style="display:none;">{$spread_info}</div>
@@ -94,13 +92,13 @@
 				  	<input type="hidden" name="" id="like_post_action" value="{:get_url('createlike','','user')}">
 				  	<input type="hidden" name="" id="like_post_location" value="{:get_url('login','','user')}">
 			
-	                     <a target="_blank" href="{:get_url('buy',$voItems['id'],'item')}"><li class="comment">
+	                     <a target="_blank" title="查看评论" href="{:get_url('buy',$voItems['id'],'item')}"><li class="comment">
 	                     	<span>{$voItems.comments}</span></li></a>
 
 					
-	                    <a href="javascript:;" title="喜欢"><li class="s1 like" item_id="{$voItems['id']}">
+	                    <a href="javascript:;" title="喜欢一下"><li class="s1 like" item_id="{$voItems['id']}">
 					  		<!-- <if condition="$likes[$voItems['id']] eq 1">已喜欢<else/>喜欢一下</if> -->
-	                     <span id="{$voItems['id']}">{$voItems.hits} </span></li></a>
+	                     <span id="{$voItems['id']}">{$voItems.hits}</span></li></a>
 
 		            <!-- <li class="s2"><a class="add" href="{:get_url('addAlbum',$voItems['id'],'album')}" target="_blank" style="color:#333333;text-decoration:none">加入专辑</a></li> -->
 		          </ul>

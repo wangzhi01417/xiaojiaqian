@@ -64,8 +64,8 @@
 .buy_share{height:28px; width:200px; position: absolute; top: 174px;filter:alpha(opacity=00); -moz-opacity:0.00; opacity:0.00; color: #fff; }
 .buy_share b{float: left; padding-left: 20px; color: #fff; line-height: 28px; font-weight: normal;}
 
-.shareto{height:28px; width:200px;color: #fff; margin: 10px 0px 10px 80px;}
-.shareto b{float: left; padding-left: 20px; line-height: 28px; font-weight: normal;}
+.shareto{height:28px; width:250px;color: #fff; margin: 10px 0px 10px 30px;}
+.shareto b{float: left; padding-left: 10px; line-height: 28px; font-weight: normal;}
 
 .buy_content {padding:5px 0; border-top: solid 1px #e1e1e1; }
 .buy_content a{text-align:bottom; /*height:29px;*/ background:url("../img/goods_tag_status.png") no-repeat scroll 6px -6px transparent;}
@@ -185,7 +185,7 @@
 .demol_shop .more{position:absolute;right:10px;top:10px;color:#666}
 .demol_shop .list_pic{padding:55px 0 10px 5px}
 .list_pic{overflow:hidden;zoom:1}
-.list_pic li{float:left;border:1px solid #DBDCDA;margin:0 8px;padding:3px;height:100px;width:100px}
+.list_pic li{float:left;border:1px solid #DBDCDA;margin:0 8px;padding:3px;height:100px;width:100px;margin-bottom:5px;}
 .note_comment{padding:15px 20px}
 .pub_box{background:#F5F5F1;overflow:hidden;zoom:1;padding:10px 20px;border:1px solid #dbdcda}
 .pub_box .fw_count{text-align:right;padding:0 5px 5px 0}
