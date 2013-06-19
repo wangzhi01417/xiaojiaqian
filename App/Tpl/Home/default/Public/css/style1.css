@@ -731,4 +731,8 @@ span.likeit em.hc{color:#CB383B;font-weight:100}
 	color: rgb(171, 171, 171);
 	margin-top: 10px;
 }
+
+ .txt_show h2 i{display: inline-block; background: url("../img/total_alert.gif") no-repeat scroll 0 -66px transparent;}
+ .txt_show h2 .tbao{width: 16px; height: 16px; margin-right: 3px; vertical-align: -4px; background-position: 0 -66px}
+ .txt_show h2 .tmao{width: 14px; height: 14px; margin-right: 3px; vertical-align: -2px; background-position: -197px -66px;}
 /*add by motor end*/

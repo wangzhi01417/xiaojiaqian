@@ -21,7 +21,21 @@
 				      </div>
 				    </div>
 					<div class="txt_show">
-					<h2>{$item.title}</h2>
+					<h2>
+
+					<if condition="$item['sid'] eq '1'">
+						<i class="tbao"></i>
+					</if>
+					
+					<if condition="$item['sid'] eq '2'">
+						<i class="tmao"></i>
+					</if>
+					<a  target="_blank" href="{:get_url('index',$voItems['id'],'item')}" title="{$voItems.title}">
+						{$item.title}
+					</a>
+
+
+					</h2>
 						<div class="meta">
 							<span class="new_price"><span class="price_sign">￥</span>{$item.price}</span>&nbsp;
 							<if condition="$item['remark1'] neq ''">
