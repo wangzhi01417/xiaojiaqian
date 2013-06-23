@@ -1,0 +1,206 @@
+
+
+<style type="text/css">
+* {
+    margin: 0px;
+    padding: 0px;
+    list-style: none outside none;
+    color: rgb(102, 102, 102);
+}
+
+h1,h2,h3,h4{font-size:12px}
+img{border:0;vertical-align:top}
+a{text-decoration:none;color:#999}
+a:hover{text-decoration:underline}
+a,img {star:expression(this.onFocus=this.blur());outline:none}
+em,i{font-style:normal;color:#5FAA92}
+
+.page {
+    text-align: center;
+    clear: both;
+    padding: 10px 0px;
+}
+
+.page .current {
+    background: none repeat scroll 0% 0% rgb(68, 68, 68);
+    border-radius: 3px 3px 3px 3px;
+    color: rgb(255, 255, 255);
+}
+.page a {
+    height: 22px;
+    line-height: 22px;
+    padding: 0px 5px;
+    display: inline-block;
+    font-weight: bold;
+    margin: 0px 3px;
+    font-size: 12px;
+    color: rgb(102, 102, 102);
+}
+
+body {
+    font-family: "微软雅黑","宋体",Arial,Helvetica,sans-serif;
+    font-size: 12px;
+    line-height: 160%;
+}
+.head{
+	margin-top: 10px;
+	height: 114px;
+	position: relative;
+	width: 100%;
+}
+.logo{
+	height: 74px;
+	margin: 0 auto;
+	position: relative;
+	width: 970px;
+}
+.logo h1{
+	height: 55px;
+	position: absolute;
+	top: 13px;
+}
+.logo h1 a{
+	background: url(http://www.xiaojiaqian.com/App/Tpl/Home/default/Public/img/logo.jpg);
+	display: block;
+	height: 55px;
+	width: 600px;
+	text-indent: -999px;
+}
+.nav {
+    position: relative;
+    height: 36px;
+    margin: 0px auto;
+    background: none repeat scroll 0% 0% rgb(41, 171, 83);
+}
+.navigation {
+    height: 36px;
+    left: 50%;
+    margin-left: -485px;
+    position: absolute;
+    top: 0;
+    width: 970px;
+}
+.navigation .cur{
+    background: url(http://www.xiaojiaqian.com/App/Tpl/Home/default/Public/img/nav_cur.png) repeat-x scroll right center transparent;
+}
+
+.navigation li{
+    background: url(http://www.xiaojiaqian.com/App/Tpl/Home/default/Public/img/nav_normal.png) no-repeat scroll right center transparent;
+    float: left;
+    height: 100%;
+    position: relative;
+}
+
+.navigation li a{
+	float: left;
+	color: #fff;
+	height: 36px;
+	line-height: 36px;
+	text-align: center;
+	font-size: 14px;
+	font-weight: bold;
+	padding: 0 24px;
+}
+.navigation li a:hover{
+	background: url(http://www.xiaojiaqian.com/App/Tpl/Home/default/Public/img/nav_over.png) repeat-x scroll;
+	height: 36px;
+	text-decoration: none;
+}
+
+.wrap {
+    width: 970px;
+    height: auto;
+    margin: 0px auto 20px;
+    clear: both;
+}
+.container {
+    padding-top: 10px;
+}
+.goods_box {float:left; width:200px; border:solid 1px #e1e1e1; padding:5px 10px 0; margin: 10px 10px; }
+.goods_box .inner_box h3{height: 40px; line-height: 20px; overflow: hidden; margin: 5px 0; cursor: pointer; font-weight: normal; }
+.goods_box .inner_box h3 i{display: inline-block; background: url("../img/total_alert.gif") no-repeat scroll 0 -66px transparent;}
+.goods_box .inner_box h3 .tbao{width: 16px; height: 16px; margin-right: 3px; vertical-align: -4px; background-position: 0 -66px}
+.goods_box .inner_box h3 .tmao{width: 14px; height: 14px; margin-right: 3px; vertical-align: -2px; background-position: -197px -66px;}
+.goods_box .inner_box .pic{width:200px;height: 200px;position: relative;}
+.goods_box .inner_box .pic:hover .buy_mask, .goods_box .inner_box .pic.hover .buy_mask{filter:alpha(opacity=40); -moz-opacity:0.40; opacity:0.40;
+    -moz-transition: all 0.5s ease 0.000001s; -webkit-transition: all 0.5s ease 0.000001s; -o-transition: all 0.5s ease 0.000001s; transition: all 0.5s ease 0.000001s;}
+.goods_box .inner_box .pic .item_url{height: 200px; overflow: hidden; margin: 5px 0 0 0;}
+
+.goods_box .inner_box .pic:hover .buy_share, .goods_box .inner_box .pic.hover .buy_share{filter:alpha(opacity=100); -moz-opacity:1.00; opacity:1.00; filter:alpha(opacity=70)\9; *filter:alpha(opacity=70); background:#4b8400\9; *background:#4b8400;
+    -moz-transition: all 0.5s ease 0.000001s; -webkit-transition: all 0.5s ease 0.000001s; -o-transition: all 0.5s ease 0.000001s; transition: all 0.5s ease 0.000001s;}
+
+.buy_content {padding:5px 0; border-top: solid 1px #e1e1e1; }
+.buy_content a{text-align:bottom; /*height:29px;*/ background:url("http://www.xiaojiaqian.com/App/Tpl/Home/default/Public/img/goods_tag_status.png") no-repeat scroll 6px -6px transparent;}
+.buy_content a:hover{background:url("http://www.xiaojiaqian.com/App/Tpl/Home/default/Public/img/goods_tag_status.png") no-repeat scroll 6px -53px transparent;}
+.buy_content .buy_action{text-decoration: none; margin-bottom: 5px; margin-top: 5px; width:200px; display: block; }
+.buy_content .btn{float: right; width: 60px; height: 32px; right: 2px; }
+.new_price{ color:#ff7900; font:800 25px "微软雅黑","arial"; letter-spacing: -2px; line-height: 35px;}
+.old_price{ color:#c1c1c1; font:200 16px ; font-size:15px;padding-left:5px;  text-decoration:line-through;}
+.price_sign{color:#ff7900; font-size:18px;}
+
+
+.footer{ padding-top:10px;}
+.footer_Con{width:970px;margin:0 auto;}
+.footer_Nums {
+    background: url(http://www.xiaojiaqian.com/App/Tpl/Home/default/Public/img/footer_banner.jpg) no-repeat scroll center center transparent;
+    border-color: #E1E1E1;
+    border-style: solid;
+    border-width: 1px 0;
+    height: 27px;
+    padding: 20px 0;
+}
+.footer_Copy {
+    background-color: #FAFAFA;
+    color: #999999;
+    padding: 30px 0 30px;
+    text-align: center;
+}
+
+.footer_Link {
+    height: 15px;
+    padding: 10px 0;
+    width: 970px;
+	white-space:nowrap;
+}
+
+.footer_Link span{
+	float:left;
+}
+
+.links_list {
+	float:left;
+	width: 500px;
+}
+.links_list li{
+	float:left;
+}
+
+.links_menu{
+	float: right;
+}
+
+.links_menu li{
+	float: left;
+	padding-left: 10px;
+}
+</style>
+ 
+<div class="head">
+	<div class="logo">
+		<h1><a href="http://www.xiaojiaqian.com" title="小价钱，大实惠">小价钱</a></h1>
+	</div>
+    <div class="nav nav_offsetTop">
+    	<div class="mask"></div>
+		<ul class="navigation">
+			<li class=<if condition="'index' eq $curpage"> cur</if>><a href="{:C('site_domain')}">首页</a></li>
+
+			<volist name="p_cate_list" id="vop">
+			<li class=<if condition="$vop['id'] eq $id"> cur</if>><a href="{:get_url('index',$vop['id'],'cate')}">{$vop.name}</a></li>
+			</volist>
+
+
+
+		</ul>
+    </div>
+    <div class="clear"></div>
+</div>

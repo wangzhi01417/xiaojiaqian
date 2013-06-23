@@ -1,0 +1,47 @@
+
+<div id="spread_status" style="display:none;">{:C('spread_status')}</div>
+<div id="spread_position" style="display:none;">{:C('spread_position')}</div>
+<div id="spread_info" style="display:none;">{$spread_info}</div>
+<div class="container">
+
+
+	<ul>
+		<volist name="items_list" id="voItems">
+		<li <if condition="$voItems['status'] eq 2"> class="goods_box end buy_out"<elseif condition="$voItems['status'] eq 3"/> class="goods_box end buy_close" <else/> class="goods_box" </if> >
+			<div class="inner_box">
+				<h3>
+					<if condition="$voItems['sid'] eq '1'">
+						<i class="tbao"></i>
+					</if>
+					
+					<if condition="$voItems['sid'] eq '2'">
+						<i class="tmao"></i>
+					</if>
+					<a  target="_blank" href="{:get_url('index',$voItems['id'],'item')}" title="{$voItems.title}">
+						{$voItems.title}
+					</a>
+				</h3>
+
+				<div class="pic">
+					<a class="item_url" target="_blank" href="{:get_url('buy',$voItems['id'],'item')}" title="{$voItems.title}">
+						<img class="item_img" alt="{$voItems.title}" <if condition="$voItems['img'] neq ''">src="{$voItems.img|get_img=###,210}"<else/>src="__TMPL__Public/img/undefined.jpg"</if> width="200"/>
+					</a>
+		
+			
+				</div>
+				
+				<div class="buy_content"> 
+					<a  target="_blank" class="buy_action" href="{:get_url('buy',$voItems['id'],'item')}" title="{$voItems.title}">
+					<span class="new_price"><span class="price_sign">￥</span>{$voItems.price}</span>&nbsp;
+					<if condition="$voItems['remark1'] neq ''">
+					<span class="old_price">￥{$voItems.remark1}</span>
+				    </if>
+					</a>
+				</div>
+
+			</div>
+		</li>
+		</volist>
+	</ul>
+</div>
+<div class="page">{$page}</div>

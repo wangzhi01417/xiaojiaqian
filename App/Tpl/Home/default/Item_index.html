@@ -22,19 +22,15 @@
 				    </div>
 					<div class="txt_show">
 					<h2>
-
 					<if condition="$item['sid'] eq '1'">
 						<i class="tbao"></i>
 					</if>
-					
 					<if condition="$item['sid'] eq '2'">
 						<i class="tmao"></i>
 					</if>
-					<a  target="_blank" href="{:get_url('index',$voItems['id'],'item')}" title="{$voItems.title}">
+					<a  target="_blank" href="{:get_url('buy',$item['id'],'item')}" title="{$item.title}">
 						{$item.title}
 					</a>
-
-
 					</h2>
 						<div class="meta">
 							<span class="new_price"><span class="price_sign">￥</span>{$item.price}</span>&nbsp;
@@ -133,7 +129,7 @@
 						            <h3><a href="{:get_url('index',$cid,'cate')}">{$item_cate_name}</a></h3>
 						            <i></i></div>
 					         <ul class="list_pic">
-					    	  <volist name="items_list" id="voItem"  offset="0" length="5">
+					    	  <volist name="items_list" id="voItem"  offset="0" length="10">
 							            <if condition="$voItem['id'] neq ''"><li><div class="bgload"><a href="{:get_url('index',$voItem['id'],'item')}" ><if condition="$voItem['img'] neq ''"><img src="{$voItem.img|get_img=###,100}" title="{$voItem.title}"/><else/><img src="__TMPL__Public/img/undefined.jpg" title="{$voItem.title}" width="100"/></if></a></div></li></if>
 							  </volist>
 							  </ul>
