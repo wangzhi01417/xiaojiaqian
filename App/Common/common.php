@@ -12,7 +12,8 @@ function get_img($img,$size){
 		return $img.'_'.$size.'x1000'.'.'.$type;
 	}elseif(strpos($img, 'taobao')!==false|| strpos($img, 'tmall') !==false){
 
-		return $img.'_'.$size.'x1000'.'.'.$type;
+		//return $img.'_'.$size.'x1000'.'.'.$type;
+		return $img.'_'.$size.'x310'.'.'.$type;
 
 	}elseif(strpos($img, 'paipaiimg')!==false){
 		$img_arr=explode( '.', $img);

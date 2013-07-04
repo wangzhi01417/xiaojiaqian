@@ -95,6 +95,28 @@
 
 						</div>
 					</div>
+
+					  <div class="note_comment">
+						
+						<div class="pub_box r5">
+						<a name="comm"></a>
+						<div id="commentsErrorNotice" style="color:red"></div>
+						  <form id="form1" method="post">
+							<input type="hidden" name="items_id" id="items_id" value="{$item.id}">
+							<textarea class="btn_txt fl rl5" id="info"></textarea>
+							<input type="button" id="commentbtn" class="pub_btn fl rr5" value="发表" commentbtn_post_action="{:get_url('add_comments','','item')}" commentbtn_post_locaction="{:get_url('login','','user')}"/>
+							<input type="hidden" name="" id="pager_post_action" value="{:get_url('index',$item['id'],'item',1)}">
+						  </form>
+						  <input type="hidden" name="" id="url_model" value="{:C('url_model')}">
+					      <div class="pub_ext">
+					      </div>
+						 <div id="comment_list">
+					    <include file="comments"/>
+						</div>
+					 </div>
+						
+					<div id="list"></div>
+					  </div>
 				</div>
 
 		    <div class="ihome_sub">	

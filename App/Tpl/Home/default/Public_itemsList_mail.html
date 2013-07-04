@@ -23,7 +23,7 @@
 				</h3>
 
 				<div class="pic">
-					<a class="item_url" target="_blank" href="{:get_url('buy',$voItems['id'],'item')}" title="{$voItems.title}">
+					<a class="item_url" target="_blank" href="{:get_url('index',$voItems['id'],'item')}" title="{$voItems.title}">
 						<img class="item_img" alt="{$voItems.title}" <if condition="$voItems['img'] neq ''">src="{$voItems.img|get_img=###,210}"<else/>src="__TMPL__Public/img/undefined.jpg"</if> width="200"/>
 					</a>
 		

@@ -189,6 +189,14 @@ class ItemsAction extends BaseAction{
 
 		// 获取宝贝标题
 		$new_title=$taobao->match_title( $item_html );
+		if(!$new_title) {
+			$where['id']=$item_id;
+			$items->where($where)->setField('status', 3);
+			$updated = true;
+			$log .= "Item with id=".$item_id."商品被删除，活动结束<br>";
+			return $log;
+		}
+
 
 		//$firephp->log($title, "title=");
 

@@ -6,6 +6,10 @@ class IndexAction extends BaseAction {
 		$id =intval($_GET['id']);
 		$sortby=$_GET['sortby'];
 		$price=isset($_GET['price'])?intval($_GET['price']):0;
+
+		$isToday=isset($_GET['isToday'])?intval($_GET['isToday']):0;
+		$isYesterday=isset($_GET['isYesterday'])?intval($_GET['isYesterday']):0;
+
 		
 		if(!$sortby){
 			$sql_order="ord desc,add_time desc";
@@ -47,6 +51,9 @@ class IndexAction extends BaseAction {
 		}
 		$this->assign("cate_name",$cate_info['name']);//获取相应分类名称
 		$this->assign("id",$id);
+
+		$this->assign("isToday",$isToday);
+		$this->assign("isYesterday",$isYesterday);
 		
 		//推广下一件
 		if (C('spread_status')){
@@ -61,7 +68,17 @@ class IndexAction extends BaseAction {
 		$items_mod=M("Items");//创建单品模型
 		import("@.ORG.FallPage"); // 导入分页类
 		if($id==0)
-		   $where = "is_del = 0 and status >= 1 ";
+		{
+            if($isToday)
+                $where = "is_del = 0 and status >= 1 and UNIX_TIMESTAMP(now()) - add_time <= 24*3600";
+            else if($isYesterday)
+            	$where = "is_del = 0 and status >= 1 and UNIX_TIMESTAMP(now()) - add_time <= 2*24*3600 and UNIX_TIMESTAMP(now()) - add_time > 24*3600";
+            else
+           	    $where = "is_del = 0 and status >= 1";
+
+
+		}
+		   
 		else
 		{
 			if($price=="0"){
@@ -84,7 +101,7 @@ class IndexAction extends BaseAction {
 		$this->assign("sortby",$sortby);
 		$this->assign("price",$price);
 		$count=$items_mod->where($where)->count(); // 查询满足要求的总记录数
-		$Page= new Page($count,20); // 实例化分页类传入总记录数和每页显示的记录数
+		$Page= new Page($count,30); // 实例化分页类传入总记录数和每页显示的记录数
 		$show =$Page->show(); // 分页显示输出
 		$field = "id,cid,title,price,img,url,uid,sid,likes,hits,comments,add_time,remark1,remark2,status";
 		//$items_list = $items_mod->where($where)->field($field)->order($sql_order)->limit(($Page->firstRow*5).','.$Page->listRows)->select();

@@ -273,7 +273,9 @@ body{font-family:"微软雅黑","宋体",Arial, Helvetica, sans-serif;font-size:
 .nav_main .op .t_tb{background:url(../img/t_tb.png) no-repeat;padding-left:18px}
 .nav_main .op a i{color:#fff}
 .nav_main .op a.sj{color:#fff;background:url(../img/ico_trag.gif) no-repeat right center;padding-right:6px}
-.wrap{width:970px; height:auto; margin:0 auto 20px;clear:both}
+.wrap{width:930px; height:auto; margin:0 auto 20px;clear:both;
+    background: url("../img/sider_left.png") repeat-y scroll -30px 0px transparent;
+}
 .wrap_bt{background:#fff;border-radius:5px;padding:0 0 20px;overflow:hidden;zoom:1;border:1px solid #dfdfdf}
 .tit_share{font-family:'Microsoft YaHei';position:relative;height:40px}
 .tit_share h3{font-family:'Microsoft YaHei';font-size:16px}

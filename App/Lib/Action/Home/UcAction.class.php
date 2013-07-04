@@ -832,6 +832,11 @@ class UcAction extends BaseAction {
 								setCookie($likeCookie_var,'true',time()+3600*10);
 							}
 						}
+						else{
+
+								$item = $items_mod->field ( 'hits' )->where ( "id=$items_id" )->find ();
+						        $this->ajaxReturn ( $item ['hits'], '', -1 );
+						}
 
 						//$items_mod->where ( "id=$items_id" )->setInc ( 'likes', 1 );
 						//$items_mod->where ( "id=$items_id" )->setInc ( 'hits', 1 );

@@ -70,6 +70,7 @@ $(function(){
 						//tt.html("已喜欢");
 						//td.html(data.data+'喜欢');
 						td.html(data.data);
+						tt.css({"background-position":"-70px -150px"});
 					}else if(data.status==-1){
 						//tt.html("喜欢一下");
 						//td.html(data.data+'喜欢');

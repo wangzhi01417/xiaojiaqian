@@ -55,4 +55,15 @@
 <div id='url' style="display:none;">{:C('web_path')}index.php?a={:ACTION_NAME}&m=Public&g=Home</div>
 <div id='id' style="display:none;">{$Think.get.id}</div>
   </div>
+
+<div class="side_nav">
+
+    <a <if condition="$isToday eq 1"> class="r-1_on" <else/>class="r-1"</if> href="/xiaojiaqian/index.php?a=index&m=index&g=Home&isToday=1">今日9.9 <span></span></a>
+
+    <a <if condition="$isYesterday eq 1"> class="r-2_on" <else/>class="r-2"</if> href="/xiaojiaqian/index.php?a=index&m=index&g=Home&isYesterday=1">昨日9.9 <span></span></a>
+
+
+    <a <if condition="$isToday neq 1 and $isYesterday neq 1">class="r-3_on"<else/>class="r-3"</if> href="{:C('site_domain')}">全部9.9<span></span></a>
+    <a class="clear go_top"> … </a>
+</div>
 <include file="Public:footer" />

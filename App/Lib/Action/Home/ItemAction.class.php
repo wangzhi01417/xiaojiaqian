@@ -194,11 +194,13 @@ class ItemAction extends BaseAction {
 		$items_comments_mod=M('Items_comments');
 		//评论审核状态
 		$comments_status=C("comments_status");
+		if(!$uid) $uid = 204;
 		if($uid){
 			$user_info=$user_mod->where("id=$uid")->find();
 			$data['items_id']=$_POST['items_id'];
 			$data['uname']=$user_info['name'];
-			$data['uid']=$_COOKIE['id'];
+			//$data['uid']=$_COOKIE['id'];
+			$data['uid']=$uid;
 			$data['info']=$this->filter($_POST['info']);
 			if($comments_status==0){
 				$data['status']=1;
