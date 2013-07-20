@@ -39,7 +39,7 @@
 
 				<div class="pic">
 					<a class="item_url" target="_blank" href="{:get_url('buy',$voItems['id'],'item')}" title="{$voItems.title}">
-						<img class="item_img" alt="{$voItems.title}" <if condition="$voItems['img'] neq ''">src="{$voItems.img|get_img=###,310}"<else/>src="__TMPL__Public/img/undefined.jpg"</if> />
+						<img class="item_img" alt="{$voItems.title}" <if condition="$voItems['img'] neq ''">src="{$voItems.img|get_img=###,210}"<else/>src="__TMPL__Public/img/undefined.jpg"</if> width="200"/>
 					</a>
 					<div class="buy_mask"></div>
 					<div class="buy_share">
@@ -87,25 +87,17 @@
 					</a>
 				</div>
 
-				  <div class="op">
-				  	<div style="color:rgb(171, 171, 171);float:left;">月销量:<span>{$voItems.remark2}</span></div>
+				  <ul class="op">
+				  	<div style="color:rgb(171, 171, 171);margin-top:3px;float:left;">月销量:<span>{$voItems.remark2}</span></div>
 				  	<input type="hidden" name="" id="like_post_action" value="{:get_url('createlike','','user')}">
 				  	<input type="hidden" name="" id="like_post_location" value="{:get_url('login','','user')}">
-			
-			             <div class="comment">
-	                     <a target="_blank" title="查看评论" href="{:get_url('buy',$voItems['id'],'item')}" ></a>
-	                     <span>{$voItems.comments}</span>
-                         </div>
-					 <div class="like">
-	                    <a href="javascript:;" title="喜欢一下" class="s1" item_id="{$voItems['id']}"></a> 
-	                    <span id="{$voItems['id']}">{$voItems.hits}</span>
-                     </div>
-		            
-		          </div>
+							
+	                    <a href="javascript:;" title="喜欢一下"><li class="s1 like" item_id="{$voItems['id']}">
+	                     <span id="{$voItems['id']}">{$voItems.hits}</span></li></a>
 
-              <!--        <div class="liked">
-		             	<span>已经喜欢过了^_^,分享给其他好友吧！</span>
-		             </div> -->
+		          </ul>
+
+
 			</div>
 		</li>
 		</volist>
