@@ -187,6 +187,8 @@ class ItemsAction extends BaseAction{
 
 		//$firephp->log($item_html, "item_html=");
 
+		 $items = M('items');
+		 
 		// 获取宝贝标题
 		$new_title=$taobao->match_title( $item_html );
 		if(!$new_title) {
@@ -226,7 +228,7 @@ class ItemsAction extends BaseAction{
 		//if (!$active)
 			//$firephp->log($active ? "##ACTIVE##" : "##INACTIVE##", "item with id='$item_id' status=");
 			//echo "Item with id=$item_id status=INACTIVE<br>";
-        $items = M('items');
+       
 
 		if ($active) {
 
