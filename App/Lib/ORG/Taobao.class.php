@@ -341,6 +341,13 @@ class Taobao extends BaseAction{
 		return $price;
 	}
 
+	// 正则获取商品运费
+	public function match_shippingfee($content) {
+		preg_match('/快递:(.*?)元/si', $content, $result);
+		//var_dump($result);
+		return (double)$result[1];
+	}
+
 	public function match_price_origin( $content ) {
 		preg_match( '/<del class=\"gray\">(.*?)<\/del>/si', $content, $result );
 		isset( $result ) ? $price = $result[1] : $price = '';

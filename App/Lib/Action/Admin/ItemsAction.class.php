@@ -188,7 +188,7 @@ class ItemsAction extends BaseAction{
 		//$firephp->log($item_html, "item_html=");
 
 		 $items = M('items');
-		 
+
 		// 获取宝贝标题
 		$new_title=$taobao->match_title( $item_html );
 		if(!$new_title) {
@@ -225,9 +225,13 @@ class ItemsAction extends BaseAction{
 
 		$salecnt = $taobao->match_item_salecount($item_html);
 
-		//if (!$active)
-			//$firephp->log($active ? "##ACTIVE##" : "##INACTIVE##", "item with id='$item_id' status=");
-			//echo "Item with id=$item_id status=INACTIVE<br>";
+		$shippingfee = $taobao->match_shippingfee($item_html);
+
+		// 如果运费>0.0， 则商品已经不是包邮了！
+		if ($active && $shippingfee > 0.0) {
+			$active = FALSE;
+			$log .= "Item with id=".$item_id." 运费调为".$shippingfee."<br>";
+		}
        
 
 		if ($active) {
