@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+<title>{$seo.title}</title>
+<meta name="keywords" content="{$seo.keys}" />
+<meta name="description" content="{$seo.desc}" />
+<link href="/App/Tpl/Home/default/Public/css/index.css" type="text/css" rel="stylesheet" />
+<link href="/App/Tpl/Home/default/Public/css/sign.css" type="text/css" rel="stylesheet" />
+<script src="/App/Tpl/Home/default/Public/js/base.js"></script>
+<script src="/App/Tpl/Home/default/Public/js/a.js"></script>
+<script src="/App/Tpl/Home/default/Public/js/loginregister.js"></script>
+</head>
+
+<body>
+<div class="sign_box r5">
+  <h1></h1>
+  <h2>嗨！完善以下信息后，即可使用第三方账号登录!</h2>
+
+  <div class="conn-cnt reg-com">
+    <div class="clr conn-info">
+        <span><img width="120" height="120" alt="" src="{$user_info.hd}"></span>
+        <div class="conn-form">
+              <form id="register-form" autocomplete="off" action="{:U('Home/Login/sign')}" method="post">
+              <input type="hidden" id="check_post_action" value="{:U('Home/Login/check_uname_email')}">
+              <input type="hidden" name="img" value="{$user_info.hd}">
+                <div class="reg-fcn reg-unam reg-fst clr">
+                  <label for="regunam">用户名</label>
+                  <input type="text" value="{$user_info.name}" data-check='{"name":"name", "url":"/checkname/"}' id="regunam" autocomplete="off" name="username">
+                  <p class="reg-tips"></p>
+                </div>
+
+                <div class="reg-fcn reg-eml clr">
+                <label for="regeml">邮箱</label>
+                <input type="text" placeholder="填写常用邮箱方便登录及密码找回" value="" data-check='{"name":"email", "url":"/checkname/"}' id="regeml" autocomplete="off" name="email">
+                <i>填写常用邮箱方便登录及密码找回</i>
+                <p class="reg-tips"></p>
+                </div>
+
+                <div class="reg-fcn reg-pswd clr">
+                <label for="regpswd">密码</label>
+                <input type="password" placeholder="密码" value="" id="regpswd" autocomplete="off" name="pswd">
+                <i>密码</i>
+                <p class="reg-tips"></p>
+                </div>
+
+                <div class="reg-fcnk reg-fw clr">
+                <input checked="" data-verified="true" name="fuwu" id="reg-fuwu" type="checkbox"><label for="reg-fuwu">接受小价钱的<a href="javascript:;" id="reg-fwtk">《服务条例》</a></label><p class="reg-tips dn">接受小价钱的服务条例</p>
+                </div>
+                                
+                <div class="reg-fcn reg-btn clr"><label for="regpswd">&nbsp;</label>
+                  <a class="abtn l" href="javascript:;"><button value="" id="regbtn" type="submit"><u>完成</u></button></a>
+                </div>  
+              </form>
+        </div>
+    </div>
+  </div>
+</div>
+</div>
+</body>
+</html>
