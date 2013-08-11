@@ -4,6 +4,7 @@ h1,h2,h3,h4{font-size:12px}
 img{border:0;vertical-align:top}
 a{text-decoration:none;color:#999}
 a:hover{text-decoration:underline}
+a:link, a:visited{text-decoration:none;}
 a,img {star:expression(this.onFocus=this.blur());outline:none}
 em,i{font-style:normal;color:#5FAA92}
 .clearfix{overflow:hidden;zoom:1}

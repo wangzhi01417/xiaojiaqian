@@ -87,6 +87,11 @@ function arr2file($filename, $arr=''){
 	return @file_put_contents($filename,$con); //写入./config.php中
 }
 
+function get_login_url($type=''){
+	$url = U('Home/Login/login?type='.$type);
+	return $url;
+}
+
 /**
  * 获取路径
  *
