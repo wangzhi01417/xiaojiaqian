@@ -37,21 +37,70 @@ class LoginAction extends Action{
 
 		//获取当前登录用户信息
 		if(is_array($token)){
-
 			$user_info = A('Home/Login');
-			// echo $user_info;
 			$user_info = $user_info->$type($token);
-			dump($user_info);
-			echo("<h1>恭喜！使用 {$type} 用户登录成功</h1><br>");
-			echo("授权信息为：<br>");
-			dump($token);
-			echo("当前登录用户信息为：<br>");
-			dump($user_info);
 
-			$_SESSION ['user_openid_info'] = $user_info;
+			// 存入session
+			
+			$_SESSION ['token'] = $token;
+			$_SESSION ['openid'] = $token ['openid'];
+			$_SESSION ['access_token'] = $token ['access_token'];
+
+			// 查找OpenId ，是否已经注册过
+			$user_openid_mod = M("user_openid");
+			$condition = array(
+				"openid" => $token['openid'] ,
+				"type" => $type
+			);
+			$user_openid = $user_openid_mod->where($condition)->find();
+
+			if ($user_openid) {
+				// 已绑定
+				$logined = false;
+				
+				$user_mod = M("User");
+
+				// 是否已经登录
+				$uid = $_COOKIE['id'];
+				if($uid){
+					$user_info = $user_mod->where("id=$uid")->find();
+					if($user_info){
+						$logined = true;
+					}
+				}
+
+
+				if ($logedin) {
+					if (! $user_openid ['uid'] == $uid) {
+						$this->error ( "该微博账号已经绑定其他站内账号，请绑定其他微博，或直接使用微博登陆。", get_url ( 'sns', '', 'user' ) );
+					}
+				} else {
+					
+					echo "id='" . $user_openid ['uid'] . "'" . " and is_del=0";
+
+					$user_info = $user_mod->where ( "id='" . $user_openid ['uid'] . "'" . " and is_del=0" )->find ();
+					setcookie ( 'login_type', 'sina', time () + 3600 * 24 * 7, '/' );
+					setcookie ( 'id', $user_openid ['uid'], time () + 3600 * 24 * 7, '/' );
+					setcookie ( 'name', $user_info ['name'], time () + 3600 * 24 * 7, '/' );
+					
+					// 更新用户最后登录时间和最后登录的ip
+					$user ['last_ip'] = getClientIp ();
+					$user ['last_time'] = time ();
+					$user_mod->where ( "id='" . $user_openid ['uid'] . "'" )->save ( $user );
+					header ( 'Location:' . get_url ( 'index', '', 'user' ) );
+				}
+			}
+			else{
+				// 未绑定
+				$_SESSION ['user_openid_info'] = $user_info;
+				header ( 'Location:' . U('Home/Login/sign') );
+			}
 		}
 
-		header ( 'Location:' . U('Home/Login/sign') );
+		if (! $token) {
+			$this->error ( '登录失败！', get_url('login','','user') );
+			exit ();
+		}
 	}
 
 	public function qq($token){
@@ -323,7 +372,7 @@ class LoginAction extends Action{
 			$data = array (
 					'type' => $_SESSION ['user_openid_info'] ['type'],
 					'uid' => $user_id,
-					'openid' => $_SESSION ['user_openid_info'] ['name']
+					'openid' => $_SESSION ['openid']
 			);
 			$user_openid_mod->add ( $data );
 			
